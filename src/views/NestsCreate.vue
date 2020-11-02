@@ -23,62 +23,62 @@
 
       <label for="location" class="block mt-3">
         <span class="text-gray-700">Location</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model="nest.location">
         <p class="text-sm font-light mt-1">
           General description of the survey area location and relevant landmarks
           (e.g. mountain range, rivers, landscape features).
         </p>
+        <input type="text" class="w-full form-input mt-1 block" v-model="nest.location">
       </label>
 
       <label for="Habitat Category" class="block mt-3">
         <span class="text-gray-700">Habitat Category</span>
-        <select name="habitat_category" class="w-full form-select mt-1 block" v-model="nest.habitat_category">
-          <option value="">Select One</option>
-          <option>Riparian - aspen</option>
-          <option>Riparian - other</option>
-          <option>Shoreline</option>
-          <option>Canyon</option>
-          <option>Dessert wash</option>
-          <option>Salt desert scrub</option>
-          <option>Creosote scrub</option>
-          <option>Sagebrush</option>
-          <option>Pinyon juniper</option>
-          <option>Joshua tree</option>
-          <option>Mixed conifer</option>
-          <option>Grassland</option>
-          <option>Agriculture</option>
-          <option>Developed - other</option>
-          <option>Other</option>
-        </select>
         <p class="text-sm font-light mt-1">
           Select the option that best describes the habitat type for the nesting ares.
         </p>
+        <select name="habitat_category" class="w-full form-select mt-1 block" v-model="nest.habitat_category">
+          <option value="">Select One</option>
+          <option>Agriculture</option>
+          <option>Canyon</option>
+          <option>Creosote scrub</option>
+          <option>Desert wash</option>
+          <option>Developed - other</option>
+          <option>Grassland</option>
+          <option>Joshua tree</option>
+          <option>Mixed conifer</option>
+          <option>Pinyon and/or Juniper</option>
+          <option>Riparian - aspen</option>
+          <option>Riparian - other</option>
+          <option>Salt desert scrub</option>
+          <option>Shoreline</option>
+          <option>Sagebrush</option>
+          <option>Other</option>
+        </select>
       </label>
 
       <label for="Habitat Description" class="block mt-3">
         <span class="text-gray-700">Habitat Description</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model="nest.habitat_description">
         <p class="text-sm font-light mt-1">
           General description of the habitat characteristics of the nest site location.
         </p>
+        <input type="text" class="w-full form-input mt-1 block" v-model="nest.habitat_description">
       </label>
 
       <label for="Nest Substrate" class="block mt-3">
         <span class="text-gray-700">Nest Substrate</span>
-        <select name="nest_substrate" class="w-full form-select mt-1 block" v-model="nest.nest_substrate">
-          <option value="">Select one</option>
-          <option>Artificial</option>
-          <option>Tree</option>
-          <option >Shrub</option>
-          <option>Ground - surface</option>
-          <option>Ground - subterranean</option>
-          <option>Outcrop</option>
-          <option>Cliff</option>
-        </select>
         <p class="text-sm font-light mt-1">
           The substrate upon which the nest is located. More specific details
           should be provided in the nest comments field.
         </p>
+        <select name="nest_substrate" class="w-full form-select mt-1 block" v-model="nest.nest_substrate">
+          <option value="">Select one</option>
+          <option>Artificial</option>
+          <option>Cliff</option>
+          <option>Ground - surface</option>
+          <option>Ground - subterranean</option>
+          <option>Outcrop</option>
+          <option >Shrub</option>
+          <option>Tree</option>
+        </select>
       </label>
 
       <label for="Nest Type" class="block mt-3">
@@ -94,34 +94,34 @@
 
       <label for="probable_origin" class="block mt-3">
         <span class="text-gray-700">Probable Origin</span>
-        <select name="probable_origin" class="w-full form-select mt-1 block" v-model="nest.probable_origin">
-          <option value="">Select one</option>
-          <option>Accipter</option>
-          <option>Buteo</option>
-          <option>Accipiter/Buteo</option>
-          <option>Buteo/Corvid</option>
-          <option>Eagle</option>
-          <option>Eagle/Buteo</option>
-          <option>Corvid</option>
-          <option>Falcon</option>
-          <option>Northern Goshawk</option>
-          <option>Ferruginous Hawk</option>
-          <option>Burrowing Owl</option>
-          <option>Osprey</option>
-          <option>Other</option>
-        </select>
         <p class="text-sm font-light mt-1">
           Select the species you believe initially constructed the nest.
         </p>
+        <select name="probable_origin" class="w-full form-select mt-1 block" v-model="nest.probable_origin">
+          <option value="">Select one</option>
+          <option>Accipter</option>
+          <option>Accipiter/Buteo</option>
+          <option>Burrowing Owl</option>
+          <option>Buteo</option>
+          <option>Buteo/Corvid</option>
+          <option>Corvid</option>
+          <option>Eagle</option>
+          <option>Eagle/Buteo</option>
+          <option>Falcon</option>
+          <option>Ferruginous Hawk</option>
+          <option>Northern Goshawk</option>
+          <option>Osprey</option>
+          <option>Other</option>
+        </select>
       </label>
 
       <label for="nest_comments" class="block mt-3">
         <span class="text-gray-700">Nest Comments</span>
-        <textarea class="w-full form-textarea mt-1 block w-full" rows="3" v-model="nest.nest_comments"></textarea>
         <p class="text-sm font-light mt-1">
           Description of the unchanging characteristics of the nest itself. Including,
           but not limited to tree or shrub species, height above ground, etc.
         </p>
+        <textarea class="w-full form-textarea mt-1 block w-full" rows="3" v-model="nest.nest_comments"></textarea>
       </label>
 
       <!-- form buttons -->
@@ -154,7 +154,7 @@ export default {
   methods: {
     async createNest () {
       // create nest
-      const res = await fetch('http://localhost:3000/nests', {
+      await fetch('http://localhost:3000/nests', {
         method: 'POST',
         body: JSON.stringify(this.nest),
         headers: {
@@ -162,8 +162,7 @@ export default {
         }
       })
 
-      console.log(res)
-
+      this.$router.push('/')
       this.resetForm()
     },
 
