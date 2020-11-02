@@ -34,6 +34,6 @@
 
 <script>
 export default {
-  name: 'MainNave'
+  name: 'MainNav'
 }
 </script>
