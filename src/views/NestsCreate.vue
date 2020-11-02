@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-16">
-    <form @submit.prevent="createNest" class="w-5/6 mx-auto">
+    <form @submit.prevent="createNest" class="w-5/6 mx-auto text-gray-700">
       <h1 class="text-2xl text-gray-700">Create a New Nest</h1>
       <p class="text-gray-700">
         Complete the form below to enter a new nest.
@@ -8,7 +8,12 @@
 
       <label for="nest_id" class="block mt-3">
         <span class="text-gray-700">Nest ID</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model="nest.id">
+        <input
+          type="text"
+          class="w-full form-input mt-1 block bg-gray-100 text-gray-700 cursor-not-allowed"
+          readonly="readonly"
+          v-model="nest.id"
+        >
       </label>
 
       <label for="lat" class="block mt-3">
@@ -133,6 +138,8 @@
 </template>
 
 <script>
+import generateId from '@/services/IdService.js'
+
 export default {
   data () {
     return {
@@ -166,6 +173,11 @@ export default {
       this.resetForm()
     },
 
+    async generateNestId () {
+      const id = await generateId()
+      this.nest.id = id
+    },
+
     resetForm () {
       this.nest.id = ''
       this.nest.lat = ''
@@ -178,6 +190,10 @@ export default {
       this.nest.probable_origin = ''
       this.nest.nest_comments = ''
     }
+  },
+
+  mounted () {
+    this.generateNestId()
   }
 }
 </script>
