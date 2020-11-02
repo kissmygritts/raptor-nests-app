@@ -20,6 +20,7 @@
         Each time a nest is visited an observation is logged. All the observations
         for this nest are included in the table below.
       </p>
+      <pre><code>{{ nest.observations }}</code></pre>
     </div>
   </div>
 </template>
@@ -35,7 +36,7 @@ export default {
   },
 
   async mounted () {
-    const response = await fetch(`http://localhost:3000/nests/${this.$route.params.id}`)
+    const response = await fetch(`http://localhost:3000/nests/${this.$route.params.id}?_embed=observations`)
     const nest = await response.json()
     this.nest = nest
   }
