@@ -1,17 +1,37 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Welcome to Raptor Nests!"/>
+  <div class="bg-blue-100 container mx-auto">
+    <!-- list of nests -->
+    <div class="mx-32">
+      <h1 class="text-3xl mt-8">All Nests</h1>
+      <ul>
+        <li
+          v-for="nest in nests"
+          :key="nest.id"
+        >
+          Nest: {{ nest.id }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+
+  data () {
+    return {
+      nests: ''
+    }
+  },
+
+  async mounted () {
+    const response = await fetch('http://localhost:3000/nests')
+    const nests = await response.json()
+
+    this.nests = nests
   }
 }
 </script>

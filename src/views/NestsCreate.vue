@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-16">
-    <form class="w-5/6 mx-auto">
+    <form @submit.prevent="createNest" class="w-5/6 mx-auto">
       <h1 class="text-2xl text-gray-700">Create a New Nest</h1>
       <p class="text-gray-700">
         Complete the form below to enter a new nest.
@@ -8,7 +8,7 @@
 
       <label for="nest_id" class="block mt-3">
         <span class="text-gray-700">Nest ID</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model="nest.nestid">
+        <input type="text" class="w-full form-input mt-1 block" v-model="nest.id">
       </label>
 
       <label for="lat" class="block mt-3">
@@ -126,7 +126,7 @@
 
       <!-- form buttons -->
       <div class="my-8 w-full flex justify-end">
-        <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit Nest</button>
+        <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit Nest</button>
       </div>
     </form>
   </div>
@@ -137,7 +137,7 @@ export default {
   data () {
     return {
       nest: {
-        nestid: '',
+        id: '',
         lat: '',
         long: '',
         location: '',
@@ -148,6 +148,36 @@ export default {
         probable_origin: '',
         nest_comments: ''
       }
+    }
+  },
+
+  methods: {
+    async createNest () {
+      // create nest
+      const res = await fetch('http://localhost:3000/nests', {
+        method: 'POST',
+        body: JSON.stringify(this.nest),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        }
+      })
+
+      console.log(res)
+
+      this.resetForm()
+    },
+
+    resetForm () {
+      this.nest.id = ''
+      this.nest.lat = ''
+      this.nest.long = ''
+      this.nest.location = ''
+      this.nest.habitat_category = ''
+      this.nest.habitat_description = ''
+      this.nest.nest_substrate = ''
+      this.nest.nest_type = ''
+      this.nest.probable_origin = ''
+      this.nest.nest_comments = ''
     }
   }
 }
