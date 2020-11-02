@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NestsCreate from '../views/NestsCreate.vue'
+import NestsShow from '@/views/NestsShow.vue'
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,10 @@ const routes = [
     path: '/nests/create',
     name: 'nests-create',
     component: NestsCreate
+  }, {
+    path: '/nests/:id',
+    name: 'nests-show',
+    component: NestsShow
   }
 // {
   // path: '/about',

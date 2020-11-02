@@ -8,7 +8,9 @@
           v-for="nest in nests"
           :key="nest.id"
         >
-          Nest: {{ nest.id }}
+          <router-link :to="{ name: 'nests-show', params: { id: nest.id} }">
+            Nest: {{ nest.id }}
+          </router-link>
         </li>
       </ul>
     </div>
