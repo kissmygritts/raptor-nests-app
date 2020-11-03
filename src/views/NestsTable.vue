@@ -5,7 +5,7 @@
       A table of all the raptor nest observations. Click view nests button to go to the nest page.
     </p>
 
-    <table class="min-w-full mt-4">
+    <table class="min-w-full mt-4 mb-12">
       <thead>
         <tr>
           <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
