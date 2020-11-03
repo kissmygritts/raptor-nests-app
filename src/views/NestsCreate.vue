@@ -130,7 +130,7 @@
       </label>
 
       <!-- observation data entry -->
-      <div class="bg-gray-200 mt-6">
+      <div class="mt-6">
         <h2 class="text-xl">Add nest observations</h2>
         <p>
           Use this portion of the form to enter any observations of this nest.
@@ -294,7 +294,7 @@
             Leave blank if no adults are observed during visit.
           </p>
           <input
-            name="observers"
+            name="adult_count"
             type="number"
             class="w-full form-input mt-1 block"
             v-model.number="observations.adult_count"

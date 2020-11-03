@@ -27,7 +27,7 @@
           <div class="ml-4 flex items-center md:ml-6">
             <router-link
               to="/nests/create"
-              class="bg-blue-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded-sm text-base"
+              class="bg-indigo-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded-sm text-base"
             >
               Add a Nest
             </router-link>

@@ -30,14 +30,14 @@
 
       <div class="mt-2 flex">
         <button
-          class="mt-2 mr-2 text-blue-600 border-0 py-1 px-4 focus:outline-none hover:text-blue-400 rounded-sm text-base"
+          class="mt-2 mr-2 text-indigo-600 border-0 py-1 px-4 focus:outline-none hover:text-indigo-400 rounded-sm text-base"
           @click="hidePopup()"
         >
           Close
         </button>
         <router-link
               :to="{name: 'nests-show', params: {id: activeNestId }}"
-              class="mt-2 bg-blue-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-blue-600 rounded-sm text-base"
+              class="mt-2 bg-indigo-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded-sm text-base"
             >
               View Nest
             </router-link>
