@@ -12,7 +12,13 @@
                 to="/"
                 class="cursor-pointer ml-4 px-3 py-2 rounded-sm text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
               >
-                Home
+                Map
+              </router-link>
+              <router-link
+                to="/table"
+                class="cursor-pointer ml-4 px-3 py-2 rounded-sm text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+              >
+                Table
               </router-link>
             </div>
           </div>

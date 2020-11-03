@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import NestsCreate from '../views/NestsCreate.vue'
+import Home from '@/views/Home.vue'
+import NestsCreate from '@/views/NestsCreate.vue'
 import NestsShow from '@/views/NestsShow.vue'
+import NestsTable from '@/views/NestsTable.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
     path: '/nests/:id',
     name: 'nests-show',
     component: NestsShow
+  }, {
+    path: '/table',
+    name: 'nests-table',
+    component: NestsTable
   }
 // {
   // path: '/about',
