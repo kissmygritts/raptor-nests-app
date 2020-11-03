@@ -16,14 +16,39 @@
         >
       </label>
 
+      <l-map
+        style="height: 350px;"
+        class="w-full my-4"
+        :zoom="map.zoom"
+        :center="map.center"
+      >
+        <l-tile-layer :url="map.url" />
+        <l-marker
+          ref="marker"
+          :lat-lng.sync="nestLocation"
+          :draggable="true"
+          :visible="map.markerVisible"
+        />
+      </l-map>
+
       <label for="lat" class="block mt-3">
         <span class="text-gray-700">Latitude</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model.number="nest.lat">
+        <input
+          type="text"
+          class="w-full form-input mt-1 block"
+          v-model.number="nestLocation.lat"
+          @input="updateNestLocation()"
+        >
       </label>
 
       <label for="long" class="block mt-3">
         <span class="text-gray-700">Longitude</span>
-        <input type="text" class="w-full form-input mt-1 block" v-model.number="nest.long">
+        <input
+          type="text"
+          class="w-full form-input mt-1 block"
+          v-model.number="nestLocation.lng"
+          @input="updateNestLocation()"
+        >
       </label>
 
       <label for="location" class="block mt-3">
@@ -365,15 +390,22 @@
 </template>
 
 <script>
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
 import generateId from '@/services/IdService.js'
 
 export default {
+  components: {
+    LMap, LTileLayer, LMarker
+  },
+
   data () {
     return {
+      nestLocation: {
+        lat: 38.8568,
+        lng: -115.7080
+      },
       nest: {
         id: '',
-        lat: '',
-        long: '',
         location: '',
         habitat_category: '',
         habitat_description: '',
@@ -402,11 +434,25 @@ export default {
         production_count_clafify: '',
         production_notes: '',
         comments: ''
+      },
+      map: {
+        center: [38.8568, -115.7080],
+        zoom: 7,
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        markerVisible: true
       }
     }
   },
 
   computed: {
+    nestData () {
+      return {
+        ...this.nest,
+        lat: this.nestLocation.lat,
+        long: this.nestLocation.lng
+      }
+    },
+
     nestObservations () {
       return {
         nestId: this.nest.id,
@@ -420,7 +466,7 @@ export default {
       // create nest
       await fetch('http://localhost:3000/nests', {
         method: 'POST',
-        body: JSON.stringify(this.nest),
+        body: JSON.stringify(this.nestData),
         headers: {
           'Content-type': 'application/json; charset=UTF-8'
         }
@@ -457,6 +503,10 @@ export default {
       this.nest.nest_type = ''
       this.nest.probable_origin = ''
       this.nest.nest_comments = ''
+    },
+
+    updateNestLocation () {
+      this.$refs.marker.mapObject.setLatLng(this.nestLocation)
     }
   },
 

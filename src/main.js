@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import VueGeolocation from 'vue-browser-geolocation'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -12,6 +13,8 @@ Icon.Default.mergeOptions({
 })
 
 Vue.config.productionTip = false
+
+Vue.use(VueGeolocation)
 
 new Vue({
   router,
