@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-800">
+  <nav class="bg-oxford-base">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
@@ -27,7 +27,7 @@
           <div class="ml-4 flex items-center md:ml-6">
             <router-link
               to="/nests/create"
-              class="bg-indigo-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded-sm text-base"
+              class="bg-olive-600 text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-700 rounded-sm text-base"
             >
               Add a Nest
             </router-link>

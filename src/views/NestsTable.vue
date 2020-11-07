@@ -8,28 +8,28 @@
     <table class="min-w-full mt-4 mb-12">
       <thead>
         <tr>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             ID
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Nest Category
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Nest Type
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Probable Origin
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Last Used
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Last Species
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Total Visits
           </th>
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-indigo-500">
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-800">
             Actions
           </th>
         </tr>
@@ -60,7 +60,7 @@
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
             <router-link
               :to="{name: 'nests-show', params: {id: nest.id}}"
-              class="px-5 py-2 border-indigo-500 border text-indigo-500 rounded transition duration-300 hover:bg-indigo-700 hover:text-white focus:outline-none"
+              class="px-5 py-2 border-olive border text-olive rounded transition duration-300 hover:bg-olive hover:text-white focus:outline-none"
             >
               View Nest
             </router-link>

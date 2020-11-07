@@ -383,7 +383,7 @@
 
       <!-- form buttons -->
       <div class="my-8 w-full flex justify-end">
-        <button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit Nest</button>
+        <button type="submit" class="text-white bg-olive border-0 py-2 px-6 focus:outline-none hover:bg-olive-darker rounded text-lg">Submit Nest</button>
       </div>
     </form>
   </div>

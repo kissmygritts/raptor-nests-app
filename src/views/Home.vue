@@ -24,20 +24,20 @@
         x
       </div> -->
       <h1><strong>NestID:</strong> {{ activeNest.id }}</h1>
-      <p><strong>Last Visited:</strong>Nov, 1st 2020</p>
-      <p><strong>Probable Origin</strong>{{ activeNest.probable_origin }}</p>
-      <p><strong>Nest Type</strong>{{ activeNest.nest_type }}</p>
+      <p><strong>Last Visited:</strong> Nov, 1st 2020</p>
+      <p><strong>Probable Origin:</strong> {{ activeNest.probable_origin }}</p>
+      <p><strong>Nest Type:</strong> {{ activeNest.nest_type }}</p>
 
       <div class="mt-2 flex">
         <button
-          class="mt-2 mr-2 text-indigo-600 border-0 py-1 px-4 focus:outline-none hover:text-indigo-400 rounded-sm text-base"
+          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker rounded-sm text-base"
           @click="hidePopup()"
         >
           Close
         </button>
         <router-link
               :to="{name: 'nests-show', params: {id: activeNestId }}"
-              class="mt-2 bg-indigo-500 text-white border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded-sm text-base"
+              class="mt-2 bg-olive text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
             >
               View Nest
             </router-link>
