@@ -68,9 +68,14 @@
       v-if="popupVisible"
     >
       <!-- close button -->
-      <!-- <div class="absolute top-0 right-0">
-        x
-      </div> -->
+      <button
+        class="absolute top-0 right-0 h-6 w-6 bg-white text-olive hover:bg-olive hover:text-white rounded-tr"
+        @click="hidePopup()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
       <h1><strong>NestID:</strong> {{ activeNest.id }}</h1>
       <p><strong>Last Visited:</strong> Nov, 1st 2020</p>
       <p><strong>Probable Origin:</strong> {{ activeNest.probable_origin }}</p>
@@ -78,10 +83,9 @@
 
       <div class="mt-2 flex">
         <button
-          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker rounded-sm text-base"
-          @click="hidePopup()"
+          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base"
         >
-          Close
+          Add Observation
         </button>
         <router-link
               :to="{name: 'nests-show', params: {id: activeNestId }}"
