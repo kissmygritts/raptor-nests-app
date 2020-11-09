@@ -2,6 +2,7 @@
   <div id="map-container">
     <!-- map -->
     <l-map
+      ref="map"
       class="w-full"
       :zoom="zoom"
       :center="center"
@@ -11,6 +12,53 @@
         :geojson="nestGeoJson"
         :options="options"
       />
+      <l-circle-marker
+        :visible="showInputLocation"
+        color="white"
+        :weight="1"
+        fill-color="#f29647"
+        :fill-opacity="1"
+        :lat-lng="inputLocation"
+      >
+        <l-popup
+          v-if="showInputLocation"
+        >
+          <p>
+            <strong>x:</strong> {{ inputLocation.lng }}, <strong>y:</strong> {{ inputLocation.lat }}
+          </p>
+
+          <router-link
+            to="/nests/create"
+            style="color: white !important;"
+            class="bg-olive visited:text-white border-0 py-2 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
+          >
+            Add Nest at this Location
+          </router-link>
+        </l-popup>
+      </l-circle-marker>
+
+      <!-- coordinates input -->
+      <div
+        style="z-index: 500;"
+        class="absolute top-0 right-0 w-1/4 p-2 rounded border-gray-400"
+      >
+        <div class="relative w-full rounded shadow-xl">
+          <input
+            type="text"
+            class="text-sm relative w-full border rounded placeholder-gray-400 focus:border-olive focus:outline-none py-2 px-2"
+            placeholder="Enter coordinates: x, y"
+            v-model="coordinates"
+          >
+
+          <button
+            class="absolute top-0 right-0 bg-olive text-sm px-4 h-full text-white rounded-r hover:bg-olive-darker"
+            @click="addLocationMarker"
+          >
+            Zoom
+          </button>
+
+        </div>
+      </div>
     </l-map>
 
     <div
@@ -47,25 +95,35 @@
 </template>
 
 <script>
-import { LMap, LTileLayer, LGeoJson } from 'vue2-leaflet'
+import {
+  LCircleMarker,
+  LGeoJson,
+  LMap,
+  LPopup,
+  LTileLayer
+} from 'vue2-leaflet'
 
 export default {
   name: 'Home',
 
   components: {
+    LCircleMarker,
+    LGeoJson,
     LMap,
-    LTileLayer,
-    LGeoJson
+    LPopup,
+    LTileLayer
   },
 
   data () {
     return {
       nests: [],
-      zoom: 5,
+      zoom: 6,
       center: [38.8568, -115.7080],
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       popupVisible: false,
-      activeNestId: null
+      activeNestId: null,
+      coordinates: null,
+      showInputLocation: false
     }
   },
 
@@ -75,6 +133,20 @@ export default {
       return {
         ...nest[0]
       }
+    },
+
+    inputLocation () {
+      const coords = (coords) => {
+        const xy = coords.split(', ')
+        return {
+          lng: parseFloat(xy[0]) || 0,
+          lat: parseFloat(xy[1]) || 0
+        }
+      }
+
+      return this.coordinates
+        ? coords(this.coordinates)
+        : null
     },
 
     nestGeoJson () {
@@ -111,6 +183,13 @@ export default {
   },
 
   methods: {
+    addLocationMarker () {
+      this.showInputLocation = false
+      this.showInputLocation = true
+
+      this.$refs.map.mapObject.flyTo(this.inputLocation, 10)
+    },
+
     hidePopup () {
       this.popupVisible = false
     },
