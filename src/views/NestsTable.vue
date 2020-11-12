@@ -5,6 +5,21 @@
       A table of all the raptor nest observations. Click view nests button to go to the nest page.
     </p>
 
+    <!-- download buttons -->
+    <div class="my-4">
+      <button
+        class="bg-olive text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base cursor-not-allowed"
+      >
+        Download CSV
+      </button>
+      <button
+        class="bg-olive text-white border-0 ml-2 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base cursor-not-allowed"
+      >
+        Download Shapefile
+      </button>
+    </div>
+
+    <!-- table -->
     <table class="min-w-full mt-4 mb-12">
       <thead>
         <tr>
@@ -84,13 +99,18 @@ export default {
   computed: {
     tableDisplay () {
       return this.nests.map(nest => {
+        const lastUseDate = !nest.observations[0] ? '' : nest.observations[0].date
+        const lastSpecies = !nest.observations[0] ? '' : nest.observations[0].species
+
+        console.log(lastUseDate)
+
         return {
           id: nest.id,
           habitat_category: nest.habitat_category,
           nest_type: nest.nest_type,
           probable_origin: nest.probable_origin,
-          last_use_date: nest[0] ? nest[0].date : '',
-          last_species: nest[0] ? nest[0].species : '',
+          last_use_date: lastUseDate,
+          last_species: lastSpecies,
           total_visits: nest.observations.length
         }
       })

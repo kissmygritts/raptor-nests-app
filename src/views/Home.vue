@@ -59,8 +59,24 @@
 
         </div>
       </div>
+
+      <!-- + button -->
+      <div
+        style="z-index: 1001;"
+        class="absolute bottom-0 right-0 p-6 border-gray-400"
+      >
+        <button
+          class="bg-olive text-white w-12 h-12 rounded-full shadow-xl hover:bg-olive-darker"
+          @click="addMarkerAtCenter()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </button>
+      </div>
     </l-map>
 
+    <!-- marker popup -->
     <div
       id="map-popup"
       style="z-index: 999;"
@@ -83,7 +99,7 @@
 
       <div class="mt-2 flex">
         <button
-          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base"
+          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base cursor-not-allowed"
         >
           Add Observation
         </button>
@@ -192,6 +208,18 @@ export default {
       this.showInputLocation = true
 
       this.$refs.map.mapObject.flyTo(this.inputLocation, 10)
+    },
+
+    addMarkerAtCenter () {
+      const center = this.$refs.map.mapObject.getCenter()
+      console.log(`${center.lng}, ${center.lat}`)
+
+      this.coordinates = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}`
+
+      this.$nextTick(() => {
+        this.showInputLocation = true
+        this.$refs.map.mapObject.zoomIn(3)
+      })
     },
 
     hidePopup () {

@@ -29,7 +29,7 @@
         <label for="Habitat Category" class="block mt-3">
           <span class="text-gray-700">Habitat Category</span>
           <p class="text-sm font-light mt-1">
-            Select the option that best describes the habitat type for the nesting ares.
+            Select the option that best describes the habitat type for the nesting area.
           </p>
           <select name="habitat_category" class="w-full form-select mt-1 block" v-model="nest.habitat_category">
             <option value="">Select One</option>
@@ -104,7 +104,9 @@
         <label for="probable_origin" class="block mt-3">
           <span class="text-gray-700">Probable Origin</span>
           <p class="text-sm font-light mt-1">
-            Select the species you believe initially constructed the nest.
+            Select the species you believe initially constructed the nest. Probable origin is based
+            on which species the observer believed to have initially constructed the nest. Variables
+            such as size, material, and placement are considered when assessing probable origin
           </p>
           <select name="probable_origin" class="w-full form-select mt-1 block" v-model="nest.probable_origin">
             <option value="">Select one</option>
@@ -135,10 +137,10 @@
       </fieldset>
 
       <!-- Observations -->
-      <h2 class="text-2xl mt-8">Nest Vists/Observations</h2>
+      <h2 class="text-2xl mt-8">Nest Vists</h2>
       <p>
         These fields are for entering unique visits to a nest. These details can change
-        over time. Click the add observation button to add a new observation.
+        over time.
       </p>
 
       <!-- observation details section -->
@@ -313,7 +315,7 @@
       </fieldset>
 
       <fieldset class="mt-5 bg-gray-200 p-4">
-        <legend>Nest Details</legend>
+        <legend class="text-xl">Nest Details</legend>
 
         <label for="nest_condition" class="block mt-4">
           <span>Nest Condition</span>
@@ -333,10 +335,14 @@
           </select>
         </label>
 
-        <label for="nest_size" class="block mt-4">
+        <label
+          v-if="showNestSize"
+          for="nest_size"
+          class="block mt-4"
+        >
           <span>Nest Size</span>
           <p class="text-sm font-light mt-1">
-            If this is a stick nest wat is the general size of the nest? Leave blank if not noted.
+            If this is a stick nest, what is the approximate sieze of the nest?
           </p>
           <select
             name="nest_size"
@@ -350,6 +356,24 @@
             <option>Extra Large</option>
           </select>
         </label>
+
+        <div class="block mt-3">
+          <span>Are there nest decorations?</span>
+          <div class="mt-2">
+            <div>
+              <label class="inline-flex items-center" for="yes">
+                <input type="radio" class="form-radio" id="yes" value="yes" v-model="observations.decorations">
+                <span class="ml-2">Yes</span>
+              </label>
+            </div>
+            <div>
+              <label class="inline-flex items-center" for="no">
+                <input type="radio" class="form-radio" id="no" value="no" v-model="observations.decorations">
+                <span class="ml-2">No</span>
+              </label>
+            </div>
+          </div>
+        </div>
       </fieldset>
 
       <fieldset class="mt-5 bg-gray-200 p-4">
@@ -578,6 +602,10 @@ export default {
         nestId: this.nest.id,
         ...this.observations
       }
+    },
+
+    showNestSize () {
+      return this.nest.nest_type === 'Stick nest'
     },
 
     showLocationModifiers () {
