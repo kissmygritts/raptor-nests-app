@@ -12,11 +12,11 @@
       >
         Download CSV
       </button>
-      <button
+      <!-- <button
         class="bg-olive text-white border-0 ml-2 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base cursor-not-allowed"
       >
         Download Shapefile
-      </button>
+      </button> -->
     </div>
 
     <!-- table -->
