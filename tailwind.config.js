@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
@@ -6,6 +8,9 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+      },
       colors: {
         carolina: '#589fd6',
         ginger: '#e0dd89',
@@ -35,5 +40,7 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: [require('@tailwindcss/custom-forms')]
+  plugins: [
+    require('@tailwindcss/ui')
+  ]
 }
