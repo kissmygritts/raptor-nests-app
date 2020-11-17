@@ -1,24 +1,22 @@
 # raptor-nests
 
+This is a prototype of the raptor nests application built for NDOW. 
+
 ## Project setup
 ```
-yarn install
-```
+git clone https://github.com/kissmygritts/raptor-nests
+cd raptor-nests
+git checkout prototype
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+# install dependancies
+npm install
 
-### Compiles and minifies for production
-```
-yarn build
-```
+# install json-server
+npm install -g json-server
 
-### Lints and fixes files
-```
-yarn lint
-```
+# start json server
+json-server db.json
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# start app
+npm run build
+```
