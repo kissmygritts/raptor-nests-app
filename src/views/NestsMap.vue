@@ -1,5 +1,5 @@
 <template>
-  <div id="map-container">
+  <div id="map-container" class="h-full">
     <!-- map -->
     <l-map
       ref="map"
