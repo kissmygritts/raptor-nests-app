@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="z-index: 1010;">
     <div class="md:hidden">
       <!--
         Off-canvas menu overlay, show/hide based on off-canvas menu state.
