@@ -38,7 +38,8 @@
       </l-circle-marker>
 
       <!-- coordinates input -->
-      <div
+      <!-- TODO: Move this to the search bar -->
+      <!-- <div
         style="z-index: 500;"
         class="absolute top-0 right-0 w-1/4 p-2 rounded border-gray-400"
       >
@@ -58,7 +59,7 @@
           </button>
 
         </div>
-      </div>
+      </div> -->
 
       <!-- + button -->
       <div
