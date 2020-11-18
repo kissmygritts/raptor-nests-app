@@ -9,7 +9,10 @@
     <!-- Page -->
     <div class="flex flex-col w-0 flex-1 overflow-hidden">
       <!-- Page header -->
-      <page-header @nav:toggle="toggleNav()" />
+      <page-header
+        v-if="isHomePage"
+        @nav:toggle="toggleNav()"
+      />
 
       <!-- Page content -->
       <main class="flex-1 relative overflow-y-auto focus:outline-none" tabindex="0">
@@ -32,6 +35,12 @@ export default {
   data () {
     return {
       showMobileNav: false
+    }
+  },
+
+  computed: {
+    isHomePage () {
+      return this.$route.path === '/'
     }
   },
 
