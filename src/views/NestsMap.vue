@@ -1,17 +1,26 @@
 <template>
-  <div id="map-container" class="h-full">
+  <div class="flex flex-col w-0 flex-1 overflow-hidden">
+    <!-- TODO: rename this component to map header -->
+    <page-header @nav:toggle="toggleNav()" />
+
     <!-- map -->
-    <l-map
-      ref="map"
-      class="w-full"
-      :zoom="zoom"
-      :center="center"
-    >
+    <main class="flex-1 relative">
+      <l-map
+        ref="map"
+        class="w-full"
+        :zoom="zoom"
+        :center="center"
+      >
       <l-tile-layer :url="url" />
+
+      <!-- TODO: style as circle markers -->
       <l-geo-json
         :geojson="nestGeoJson"
         :options="options"
       />
+
+      <!-- added marker after clicking button -->
+      <!-- TODO: use l-marker for this so it can be dragged -->
       <l-circle-marker
         :visible="showInputLocation"
         color="white"
@@ -37,31 +46,7 @@
         </l-popup>
       </l-circle-marker>
 
-      <!-- coordinates input -->
-      <!-- TODO: Move this to the search bar -->
-      <!-- <div
-        style="z-index: 500;"
-        class="absolute top-0 right-0 w-1/4 p-2 rounded border-gray-400"
-      >
-        <div class="relative w-full rounded shadow-xl">
-          <input
-            type="text"
-            class="text-sm relative w-full border rounded placeholder-gray-400 focus:border-olive focus:outline-none py-2 px-2"
-            placeholder="Enter coordinates: x, y"
-            v-model="coordinates"
-          >
-
-          <button
-            class="absolute top-0 right-0 bg-olive text-sm px-4 h-full text-white rounded-r hover:bg-olive-darker"
-            @click="addLocationMarker"
-          >
-            Zoom
-          </button>
-
-        </div>
-      </div> -->
-
-      <!-- + button -->
+      <!-- map options button -->
       <div
         style="z-index: 1001;"
         class="absolute bottom-0 right-0 p-6 border-gray-400"
@@ -75,47 +60,49 @@
           </svg>
         </button>
       </div>
-    </l-map>
+      </l-map>
 
-    <!-- marker popup -->
-    <div
-      id="map-popup"
-      style="z-index: 999;"
-      class="absolute bottom-0 my-4 ml-4 p-6 bg-white rounded shadow-xl border border-gray-400 text-gray-700"
-      v-if="popupVisible"
-    >
-      <!-- close button -->
-      <button
-        class="absolute top-0 right-0 h-6 w-6 bg-white text-olive hover:bg-olive hover:text-white rounded-tr"
-        @click="hidePopup()"
+      <!-- marker popup -->
+      <div
+        id="map-popup"
+        style="z-index: 999;"
+        class="absolute bottom-0 my-4 ml-4 p-6 bg-white rounded shadow-xl border border-gray-400 text-gray-700"
+        v-if="popupVisible"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <h1><strong>NestID:</strong> {{ activeNest.id }}</h1>
-      <p><strong>Last Visited:</strong> Nov, 1st 2020</p>
-      <p><strong>Probable Origin:</strong> {{ activeNest.probable_origin }}</p>
-      <p><strong>Nest Type:</strong> {{ activeNest.nest_type }}</p>
-
-      <div class="mt-2 flex">
+        <!-- close button -->
         <button
-          class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base cursor-not-allowed"
+          class="absolute top-0 right-0 h-6 w-6 bg-white text-olive hover:bg-olive hover:text-white rounded-tr"
+          @click="hidePopup()"
         >
-          Add Observation
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
         </button>
-        <router-link
-              :to="{name: 'nests-show', params: {id: activeNestId }}"
-              class="mt-2 bg-olive text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
-            >
-              View Nest
-            </router-link>
+        <h1><strong>NestID:</strong> {{ activeNest.id }}</h1>
+        <p><strong>Last Visited:</strong> Nov, 1st 2020</p>
+        <p><strong>Probable Origin:</strong> {{ activeNest.probable_origin }}</p>
+        <p><strong>Nest Type:</strong> {{ activeNest.nest_type }}</p>
+
+        <div class="mt-2 flex">
+          <button
+            class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base cursor-not-allowed"
+          >
+            Add Observation
+          </button>
+          <router-link
+                :to="{name: 'nests-show', params: {id: activeNestId }}"
+                class="mt-2 bg-olive text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
+              >
+                View Nest
+              </router-link>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import {
   LCircleMarker,
   LGeoJson,
@@ -123,6 +110,7 @@ import {
   LPopup,
   LTileLayer
 } from 'vue2-leaflet'
+import PageHeader from '@/components/PageHeader.vue'
 
 export default {
   name: 'Home',
@@ -132,7 +120,8 @@ export default {
     LGeoJson,
     LMap,
     LPopup,
-    LTileLayer
+    LTileLayer,
+    PageHeader
   },
 
   data () {
@@ -204,6 +193,10 @@ export default {
   },
 
   methods: {
+    toggleNav () {
+      this.$emit('nav:toggle')
+    },
+
     addLocationMarker () {
       this.showInputLocation = false
       this.showInputLocation = true

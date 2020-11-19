@@ -5,30 +5,17 @@
       :visible="showMobileNav"
       @close="toggleNav()"
     />
-
-    <!-- Page -->
-    <div class="flex flex-col w-0 flex-1 overflow-hidden">
-      <!-- Page header -->
-      <page-header
-        v-if="isHomePage"
-        @nav:toggle="toggleNav()"
-      />
-
-      <!-- Page content -->
-      <main class="flex-1 relative overflow-y-auto focus:outline-none" tabindex="0">
-        <router-view />
-      </main>
-    </div>
+    <router-view @nav:toggle="toggleNav()" />
   </div>
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader.vue'
+// import PageHeader from '@/components/PageHeader.vue'
 import SidebarNav from '@/components/SidebarNav.vue'
 
 export default {
   components: {
-    PageHeader,
+    // PageHeader,
     SidebarNav
   },
 
