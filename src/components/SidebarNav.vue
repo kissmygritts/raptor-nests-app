@@ -26,16 +26,6 @@
             leave-class="translate-x-0"
             leave-to-class="-translate-x-full"
           >
-          <!--
-            Off-canvas menu, show/hide based on off-canvas menu state.
-
-            Entering: "transition ease-in-out duration-300 transform"
-              From: "-translate-x-full"
-              To: "translate-x-0"
-            Leaving: "transition ease-in-out duration-300 transform"
-              From: "translate-x-0"
-              To: "-translate-x-full"
-          -->
             <div v-if="visible" class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-oxford">
               <div class="absolute top-0 right-0 -mr-14 p-1">
                 <button

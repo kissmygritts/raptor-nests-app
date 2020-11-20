@@ -47,19 +47,8 @@
       </l-circle-marker>
 
       <!-- map options button -->
-      <div
-        style="z-index: 1001;"
-        class="absolute bottom-0 right-0 p-6 border-gray-400"
-      >
-        <button
-          class="bg-olive text-white w-12 h-12 rounded-full shadow-xl hover:bg-olive-darker"
-          @click="addMarkerAtCenter()"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-        </button>
-      </div>
+      <!-- TODO: button clicks -->
+      <map-menu-button />
       </l-map>
 
       <!-- marker popup -->
@@ -110,6 +99,7 @@ import {
   LPopup,
   LTileLayer
 } from 'vue2-leaflet'
+import MapMenuButton from '@/components/MapMenuButton'
 import PageHeader from '@/components/PageHeader.vue'
 
 export default {
@@ -121,6 +111,7 @@ export default {
     LMap,
     LPopup,
     LTileLayer,
+    MapMenuButton,
     PageHeader
   },
 
