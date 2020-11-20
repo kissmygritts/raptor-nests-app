@@ -13,7 +13,6 @@
       >
       <l-tile-layer :url="url" />
 
-      <!-- TODO: style as circle markers -->
       <l-geo-json
         :geojson="nestGeoJson"
         :options="options"
@@ -21,12 +20,8 @@
 
       <!-- added marker after clicking button -->
       <!-- TODO: use l-marker for this so it can be dragged -->
-      <l-circle-marker
+      <l-marker
         :visible="showInputLocation"
-        color="white"
-        :weight="1"
-        fill-color="#f29647"
-        :fill-opacity="1"
         :lat-lng="inputLocation"
       >
         <l-popup
@@ -44,11 +39,13 @@
             Add Nest at this Location
           </router-link>
         </l-popup>
-      </l-circle-marker>
+      </l-marker>
 
       <!-- map options button -->
       <!-- TODO: button clicks -->
-      <map-menu-button />
+      <map-menu-button
+        @map:add-marker="addMarkerAtCenter()"
+      />
       </l-map>
 
       <!-- marker popup -->
@@ -91,9 +88,9 @@
 </template>
 
 <script>
-/* eslint-disable */
+import L from 'leaflet'
 import {
-  LCircleMarker,
+  LMarker,
   LGeoJson,
   LMap,
   LPopup,
@@ -106,7 +103,7 @@ export default {
   name: 'Home',
 
   components: {
-    LCircleMarker,
+    LMarker,
     LGeoJson,
     LMap,
     LPopup,
@@ -123,7 +120,7 @@ export default {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       popupVisible: false,
       activeNestId: null,
-      coordinates: null,
+      coordinates: '0, 0',
       showInputLocation: false
     }
   },
@@ -178,7 +175,8 @@ export default {
 
     options () {
       return {
-        onEachFeature: this.onEachFeature()
+        onEachFeature: this.onEachFeature(),
+        pointToLayer: this.pointToLayer()
       }
     }
   },
@@ -197,13 +195,15 @@ export default {
 
     addMarkerAtCenter () {
       const center = this.$refs.map.mapObject.getCenter()
-      console.log(`${center.lng}, ${center.lat}`)
-
+      const zoom = this.$refs.map.mapObject.getZoom()
       this.coordinates = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}`
 
       this.$nextTick(() => {
         this.showInputLocation = true
-        this.$refs.map.mapObject.zoomIn(3)
+
+        if (zoom < 10) {
+          this.$refs.map.mapObject.zoomIn(3)
+        }
       })
     },
 
@@ -218,6 +218,18 @@ export default {
             this.popupVisible = true
             this.activeNestId = feature.properties.nest_id
           }
+        })
+      }
+    },
+
+    pointToLayer () {
+      return (geoJsonPoint, latlng) => {
+        return L.circleMarker(latlng, {
+          radius: 6,
+          color: 'white',
+          weight: 1,
+          fillColor: '#e57310',
+          fillOpacity: 0.75
         })
       }
     }
