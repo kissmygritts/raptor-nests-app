@@ -24,7 +24,7 @@ module.exports = {
           lighter: '#95b298',
           DEFAULT: '#7a9e7f',
           darker: '#678e6c',
-          darkest: '56765a'
+          darkest: '#56765a'
         },
         saffron: {
           lightest: '#f8c9a0',
