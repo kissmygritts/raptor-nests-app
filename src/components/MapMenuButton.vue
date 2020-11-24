@@ -1,7 +1,7 @@
 <template>
   <div
     style="z-index: 1001;"
-    class="absolute bottom-0 right-0 p-6 border-gray-400"
+    class="absolute bottom-0 right-0 p-8 border-gray-400"
   >
     <div class="flex flex-col items-center">
       <!-- menu open options -->
@@ -50,7 +50,7 @@
       <!-- open menu button -->
       <button
         v-if="!menuVisible"
-        class="bg-olive text-white p-2 w-12 h-12 rounded-full shadow-xl hover:bg-olive-darker"
+        class="bg-olive text-white p-3 w-14 h-14 rounded-full shadow-xl hover:bg-olive-darker"
         @click="toggleMenu()"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,7 +60,7 @@
 
       <button
         v-else
-        class="bg-olive text-white p-2 w-12 h-12 rounded-full shadow-xl hover:bg-olive-darker"
+        class="bg-olive text-white p-3 w-14 h-14 rounded-full shadow-xl hover:bg-olive-darker"
         @click="toggleMenu()"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

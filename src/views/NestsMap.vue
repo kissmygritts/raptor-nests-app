@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col w-0 flex-1 overflow-hidden">
     <!-- TODO: rename this component to map header -->
-    <page-header @nav:toggle="toggleNav()" />
+    <page-header
+      @nav:toggle="toggleNav()"
+      @search="zoomToLocation"
+    />
 
     <!-- map -->
     <main class="flex-1 relative">
@@ -182,6 +185,21 @@ export default {
   },
 
   methods: {
+    zoomToLocation ({ type, term }) {
+      if (type === 'id') {
+        // TODO: what happens if nest id doesn't exist?
+        const nest = this.nestGeoJson.features.filter(feature => {
+          return feature.properties.nest_id === term
+        })
+
+        const coordinates = nest[0].geometry.coordinates
+        this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 10)
+      } else {
+        this.coordinates = term
+        this.addLocationMarker()
+      }
+    },
+
     toggleNav () {
       this.$emit('nav:toggle')
     },
@@ -228,8 +246,8 @@ export default {
           radius: 6,
           color: 'white',
           weight: 1,
-          fillColor: '#e57310',
-          fillOpacity: 0.75
+          fillColor: '#589fd6',
+          fillOpacity: 0.9
         })
       }
     }
