@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative flex-shrink-0 flex h-16 bg-white shadow"
-    style="z-index: 500;"
+    style="z-index: 3000;"
   >
     <!-- Menu open button, mobile only -->
     <button

@@ -1,5 +1,5 @@
 <template>
-  <div style="z-index: 1010;">
+  <div style="z-index: 4000;">
 
     <div class="md:hidden">
       <transition

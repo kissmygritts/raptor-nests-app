@@ -14,79 +14,47 @@
         :zoom="zoom"
         :center="center"
       >
-      <l-tile-layer :url="url" />
+        <l-tile-layer :url="url" />
 
-      <l-geo-json
-        :geojson="nestGeoJson"
-        :options="options"
-      />
+        <l-geo-json
+          :geojson="nestGeoJson"
+          :options="options"
+        />
 
-      <!-- added marker after clicking button -->
-      <!-- TODO: use l-marker for this so it can be dragged -->
-      <l-marker
-        :visible="showInputLocation"
-        :lat-lng="inputLocation"
-      >
-        <l-popup
-          v-if="showInputLocation"
+        <l-marker
+          :visible="showInputLocation"
+          :lat-lng="inputLocation"
         >
-          <p>
-            <strong>x:</strong> {{ inputLocation.lng }}, <strong>y:</strong> {{ inputLocation.lat }}
-          </p>
-
-          <router-link
-            to="/nests/create"
-            style="color: white !important;"
-            class="bg-olive visited:text-white border-0 py-2 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
+          <l-popup
+            v-if="showInputLocation"
           >
-            Add Nest at this Location
-          </router-link>
-        </l-popup>
-      </l-marker>
+            <p>
+              <strong>x:</strong> {{ inputLocation.lng }}, <strong>y:</strong> {{ inputLocation.lat }}
+            </p>
 
-      <!-- map options button -->
-      <!-- TODO: button clicks -->
+            <router-link
+              to="/nests/create"
+              style="color: white !important;"
+              class="bg-olive visited:text-white border-0 py-2 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
+            >
+              Add Nest at this Location
+            </router-link>
+          </l-popup>
+        </l-marker>
+      </l-map>
+
       <map-menu-button
         @map:add-marker="addMarkerAtCenter()"
       />
-      </l-map>
 
-      <!-- marker popup -->
-      <div
-        id="map-popup"
-        style="z-index: 999;"
-        class="absolute bottom-0 my-4 ml-4 p-6 bg-white rounded shadow-xl border border-gray-400 text-gray-700"
-        v-if="popupVisible"
-      >
-        <!-- close button -->
-        <button
-          class="absolute top-0 right-0 h-6 w-6 bg-white text-olive hover:bg-olive hover:text-white rounded-tr"
-          @click="hidePopup()"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-        <h1><strong>NestID:</strong> {{ activeNest.id }}</h1>
-        <p><strong>Last Visited:</strong> Nov, 1st 2020</p>
-        <p><strong>Probable Origin:</strong> {{ activeNest.probable_origin }}</p>
-        <p><strong>Nest Type:</strong> {{ activeNest.nest_type }}</p>
-
-        <div class="mt-2 flex">
-          <button
-            class="mt-2 mr-2 text-olive border-0 py-1 px-4 hover:text-olive-darker text-base cursor-not-allowed"
-          >
-            Add Observation
-          </button>
-          <router-link
-                :to="{name: 'nests-show', params: {id: activeNestId }}"
-                class="mt-2 bg-olive text-white border-0 py-1 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
-              >
-                View Nest
-              </router-link>
-        </div>
-      </div>
+      <!-- slide over -->
+      <slide-over
+        :nest="activeNest"
+        :visible="slider.visible"
+        @slider:toggle="toggleSlider"
+      />
     </main>
+
   </div>
 </template>
 
@@ -99,8 +67,9 @@ import {
   LPopup,
   LTileLayer
 } from 'vue2-leaflet'
-import MapMenuButton from '@/components/MapMenuButton'
+import MapMenuButton from '@/components/MapMenuButton.vue'
 import PageHeader from '@/components/PageHeader.vue'
+import SlideOver from '@/components/SlideOver.vue'
 
 export default {
   name: 'Home',
@@ -112,7 +81,8 @@ export default {
     LPopup,
     LTileLayer,
     MapMenuButton,
-    PageHeader
+    PageHeader,
+    SlideOver
   },
 
   data () {
@@ -121,10 +91,12 @@ export default {
       zoom: 6,
       center: [38.8568, -115.7080],
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      popupVisible: false,
       activeNestId: null,
       coordinates: '0, 0',
-      showInputLocation: false
+      showInputLocation: false,
+      slider: {
+        visible: false
+      }
     }
   },
 
@@ -204,6 +176,10 @@ export default {
       this.$emit('nav:toggle')
     },
 
+    toggleSlider () {
+      this.slider.visible = !this.slider.visible
+    },
+
     addLocationMarker () {
       this.showInputLocation = false
       this.showInputLocation = true
@@ -225,15 +201,11 @@ export default {
       })
     },
 
-    hidePopup () {
-      this.popupVisible = false
-    },
-
     onEachFeature () {
       return (feature, layer) => {
         layer.on({
           click: () => {
-            this.popupVisible = true
+            this.slider.visible = true
             this.activeNestId = feature.properties.nest_id
           }
         })
