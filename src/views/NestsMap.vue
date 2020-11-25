@@ -45,6 +45,7 @@
 
       <map-menu-button
         @map:add-marker="addMarkerAtCenter()"
+        @map:open-layers="toggleLayers()"
       />
 
       <!-- slide over -->
@@ -54,6 +55,12 @@
         @slider:toggle="toggleSlider"
       />
     </main>
+
+    <map-layers-modal
+      :visible="layers.visible"
+      @layers:toggle="toggleLayers"
+      @layers:change="setLayerUrl"
+    />
 
   </div>
 </template>
@@ -67,6 +74,7 @@ import {
   LPopup,
   LTileLayer
 } from 'vue2-leaflet'
+import MapLayersModal from '@/components/MapLayersModal.vue'
 import MapMenuButton from '@/components/MapMenuButton.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
@@ -80,6 +88,7 @@ export default {
     LMap,
     LPopup,
     LTileLayer,
+    MapLayersModal,
     MapMenuButton,
     PageHeader,
     SlideOver
@@ -90,11 +99,14 @@ export default {
       nests: [],
       zoom: 6,
       center: [38.8568, -115.7080],
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
       activeNestId: null,
       coordinates: '0, 0',
       showInputLocation: false,
       slider: {
+        visible: false
+      },
+      layers: {
         visible: false
       }
     }
@@ -157,6 +169,14 @@ export default {
   },
 
   methods: {
+    toggleLayers () {
+      this.layers.visible = !this.layers.visible
+    },
+
+    setLayerUrl (url) {
+      this.url = url
+    },
+
     zoomToLocation ({ type, term }) {
       if (type === 'id') {
         // TODO: what happens if nest id doesn't exist?
