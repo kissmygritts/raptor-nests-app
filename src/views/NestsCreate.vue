@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-16">
+  <div class="container mx-auto pt-16 overflow-y-auto">
     <form @submit.prevent="createNest" class="w-5/6 mx-auto text-gray-700">
       <h1 class="text-2xl text-gray-700">Create a New Nest</h1>
       <p class="text-gray-700">

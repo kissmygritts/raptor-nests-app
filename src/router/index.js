@@ -17,6 +17,10 @@ const routes = [
     name: 'nests-create',
     component: NestsCreate
   }, {
+    path: '/nests/new',
+    name: 'nests-new',
+    component: () => import(/* webpackChunkName: "nests-new" */ '../views/NestsNew.vue')
+  }, {
     path: '/nests/:id',
     name: 'nests-show',
     component: NestsShow
