@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded border-gray-700">
+  <div class="rounded border border-gray-300">
     <!-- header, always visible -->
     <div class="flex justify-between items-center">
       <h2 class="inline-block text-lg font-medium leading-6">{{ title }}</h2>
