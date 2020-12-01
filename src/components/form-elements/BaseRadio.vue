@@ -10,7 +10,8 @@
             :name="option"
             :id="option"
             :value="option"
-            :checked="option === value"
+            :checked="option === checked"
+            v-model="checked"
             @change="updateValue"
           />
           <span class="ml-2">{{ option }}</span>
@@ -26,12 +27,16 @@ export default {
   inheritAttrs: false,
   props: {
     value: {
-      type: String
+      type: [String, Number, Object]
     },
     label: {
       type: String,
       required: true,
       default: 'Radio Label'
+    },
+    name: {
+      type: String,
+      required: true
     },
     options: {
       type: Array,
@@ -39,9 +44,18 @@ export default {
       default: () => ['yes', 'no']
     }
   },
+  data () {
+    return {
+      checked: this.value ? this.value[this.name] : ''
+    }
+  },
   methods: {
     updateValue (event) {
-      this.$emit('input', event.target.value)
+      const payload = {
+        ...this.value
+      }
+      payload[this.name] = event.target.value
+      this.$emit('input', payload)
     }
   }
 }

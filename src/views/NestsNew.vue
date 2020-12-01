@@ -123,7 +123,7 @@
               :label="visit.nest_condition.label"
               :helptext="visit.nest_condition.helptext"
               :options="visit.nest_condition.options"
-              v-model="visit.nest_condition.value"
+              v-model="req"
             />
 
             <base-select
@@ -132,13 +132,14 @@
               :label="visit.nest_size.label"
               :helptext="visit.nest_size.helptext"
               :options="visit.nest_size.options"
-              v-model="visit.nest_condition.value"
+              v-model="req"
             />
 
             <base-radio
+              :name="visit.decorations.name"
               :label="visit.decorations.label"
               :options="visit.decorations.options"
-              v-model="visit.decorations.value"
+              v-model="req"
             />
           </form>
         </div>
@@ -204,7 +205,10 @@ export default {
   data () {
     return {
       ...formConfig,
-      visit: visitFormConfig
+      visit: visitFormConfig,
+      req: {
+        nest_size: 'Medium'
+      }
     }
   },
   methods: {

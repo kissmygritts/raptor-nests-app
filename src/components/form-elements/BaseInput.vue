@@ -21,7 +21,7 @@ export default {
   name: 'BaseInput',
   props: {
     value: {
-      type: [String, Number]
+      type: [String, Number, Object]
     },
     label: {
       type: String,

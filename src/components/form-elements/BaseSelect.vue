@@ -11,12 +11,13 @@
       :value="value"
       @change="updateValue"
       v-bind="$attrs"
+      v-model="selected"
     >
       <option value=""></option>
       <option
         v-for="(option, key) in options"
         :key="key"
-        :selected="option === value"
+        :selected="option === selected"
       >
         {{ option }}
       </option>
@@ -30,7 +31,7 @@ export default {
   name: 'BaseSelect',
   props: {
     value: {
-      type: [String, Number]
+      type: [String, Number, Object]
     },
     label: {
       type: String,
@@ -47,6 +48,13 @@ export default {
       default: () => ['options']
     }
   },
+  data () {
+    return {
+      // bind value, and v-model to selected and this works
+      // see: /Users/mitchellgritts/Documents/sandbox/web/vue/multiselect
+      selected: this.value ? this.value[this.$attrs.name] : ''
+    }
+  },
   computed: {
     labelFor () {
       return this.$attrs.id
@@ -54,7 +62,13 @@ export default {
   },
   methods: {
     updateValue (event) {
-      this.$emit('input', event.target.value)
+      // value is passed as an object from the parent, destructured
+      // with the next value added to the object
+      const payload = {
+        ...this.value
+      }
+      payload[this.$attrs.name] = event.target.value
+      this.$emit('input', payload)
     }
   }
 }
