@@ -45,4 +45,15 @@ const router = new VueRouter({
   routes
 })
 
+// add dev only routes
+if (process.env.NODE_ENV === 'development') {
+  router.addRoutes([
+    {
+      path: '/_forms',
+      name: 'forms-sandbox',
+      component: () => import(/* webpackChunkName: 'form-sandbox' */ '../views/dev/FormSandbox.vue')
+    }
+  ])
+}
+
 export default router
