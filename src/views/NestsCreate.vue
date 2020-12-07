@@ -132,7 +132,7 @@
             Description of the unchanging characteristics of the nest itself. Including,
             but not limited to tree or shrub species, height above ground, etc.
           </p>
-          <textarea class="w-full form-textarea mt-1 block w-full" rows="3" v-model="nest.nest_comments"></textarea>
+          <textarea class="w-full form-textarea mt-1 block" rows="3" v-model="nest.nest_comments"></textarea>
         </label>
       </fieldset>
 
@@ -519,7 +519,7 @@
         <p class="text-sm font-light mt-1">
           Miscellaneous comments detailing any other important information regarding the nest or observations.
         </p>
-        <textarea class="w-full form-textarea mt-1 block w-full" rows="3" v-model="observations.comments"></textarea>
+        <textarea class="w-full form-textarea mt-1 block" rows="3" v-model="observations.comments"></textarea>
       </label>
 
       <!-- form buttons -->
