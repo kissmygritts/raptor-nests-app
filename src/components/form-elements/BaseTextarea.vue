@@ -1,28 +1,27 @@
 <template>
   <div class="mt-4">
-    <label :for="labelFor" class="block font-medium text-gray-700">
+    <label class="block font-medium text-gray-700">
       {{ label }}
     </label>
     <p v-if="helptext" class="text-sm text-gray-600">
       {{ helptext }}
     </p>
-    <input
+    <textarea
       class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
-      :value="value"
       v-bind="$attrs"
       v-model="input"
       @input="updateValue"
-    >
+    ></textarea>
   </div>
 </template>
 
 <script>
 export default {
   inheritAttrs: false,
-  name: 'BaseInput',
+  name: 'BaseTextarea',
   props: {
     value: {
-      type: [String, Number, Object]
+      type: [String, Object]
     },
     label: {
       type: String,
@@ -39,11 +38,6 @@ export default {
       input: this.value ? this.value[this.$attrs.name] : ''
     }
   },
-  computed: {
-    labelFor () {
-      return this.$attrs.id
-    }
-  },
   methods: {
     updateValue (event) {
       const payload = {
@@ -55,7 +49,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

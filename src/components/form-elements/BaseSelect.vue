@@ -9,9 +9,9 @@
     <select
       class="mt-2 block w-full py-2 px-3 border border-gray-300 bg-white rounded shadow-sm focus:outline-none focus:ring-oxford-lightest focus:border-oxford-lightest sm:text-sm"
       :value="value"
-      @change="updateValue"
       v-bind="$attrs"
       v-model="selected"
+      @change="updateValue"
     >
       <option value=""></option>
       <option
