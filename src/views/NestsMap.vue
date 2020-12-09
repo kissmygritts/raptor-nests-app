@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-0 flex-1 overflow-hidden">
     <!-- TODO: rename this component to map header -->
-    <page-header
+    <map-header
       @nav:toggle="toggleNav()"
       @search="zoomToLocation"
     />
@@ -76,7 +76,7 @@ import {
 } from 'vue2-leaflet'
 import MapLayersModal from '@/components/MapLayersModal.vue'
 import MapMenuButton from '@/components/MapMenuButton.vue'
-import PageHeader from '@/components/PageHeader.vue'
+import MapHeader from '@/components/MapHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
 
 export default {
@@ -90,7 +90,7 @@ export default {
     LTileLayer,
     MapLayersModal,
     MapMenuButton,
-    PageHeader,
+    MapHeader,
     SlideOver
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-0 flex-1 overflow-hidden">
-    <page-header />
+    <page-header @nav:toggle="toggleNav()" />
 
     <div class="container pt-12 mx-auto px-2 md:px-24 text-gray-900 overflow-y-auto">
       <div class="px-4">
@@ -97,6 +97,10 @@ export default {
           'Content-type': 'application/json; charset=UTF-8'
         }
       })
+    },
+
+    toggleNav () {
+      this.$emit('nav:toggle')
     },
 
     updateLocationDetails (locationDetails) {
