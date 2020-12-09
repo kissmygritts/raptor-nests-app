@@ -1,97 +1,71 @@
 <template>
   <div>
-    <h2 class="text-2xl text-gray-800">Nest Details Form</h2>
-    <p class="pt-1">
-      All the necessary form elements and functions for the nest details form portion.
-    </p>
+    <form @submit.prevent>
+      <base-select
+        :name="nestDetails.habitat_category.name"
+        :label="nestDetails.habitat_category.label"
+        :helptext="nestDetails.habitat_category.helptext"
+        :options="nestDetails.habitat_category.options"
+        v-model="nestDetails.model"
+      />
 
-    <div class="bg-white rounded p-4 mt-4">
-      <form @submit.prevent>
-        <h2 class="text-2xl">Nest Details</h2>
-        <p class="mt-2 text-sm">
-          Relatively unchanging information about a nest. This data should only be
-          entered once for each nest. Then updated only when needed.
-        </p>
-        <p class="mt-2 text-sm">
-          Auto-generated Nest ID: <span class="font-mono">{{ nest_id }}</span>
-        </p>
+      <base-input
+        :name="nestDetails.habitat_description.name"
+        :label="nestDetails.habitat_description.label"
+        :helptext="nestDetails.habitat_description.helptext"
+        :type="nestDetails.habitat_description.type"
+        v-model="nestDetails.model"
+      />
 
-        <base-select
-          :name="nestDetails.habitat_category.name"
-          :label="nestDetails.habitat_category.label"
-          :helptext="nestDetails.habitat_category.helptext"
-          :options="nestDetails.habitat_category.options"
-          v-model="nestDetails.model"
-        />
+      <base-input
+        :name="nestDetails.location_description.name"
+        :label="nestDetails.location_description.label"
+        :helptext="nestDetails.location_description.helptext"
+        :type="nestDetails.location_description.type"
+        v-model="nestDetails.model"
+      />
 
-        <base-input
-          :name="nestDetails.habitat_description.name"
-          :label="nestDetails.habitat_description.label"
-          :helptext="nestDetails.habitat_description.helptext"
-          :type="nestDetails.habitat_description.type"
-          v-model="nestDetails.model"
-        />
+      <base-select
+        :name="nestDetails.nest_type.name"
+        :label="nestDetails.nest_type.label"
+        :helptext="nestDetails.nest_type.helptext"
+        :options="nestDetails.nest_type.options"
+        v-model="nestDetails.model"
+      />
 
-        <base-input
-          :name="nestDetails.location_description.name"
-          :label="nestDetails.location_description.label"
-          :helptext="nestDetails.location_description.helptext"
-          :type="nestDetails.location_description.type"
-          v-model="nestDetails.model"
-        />
+      <base-select
+        :name="nestDetails.nest_substrate.name"
+        :label="nestDetails.nest_substrate.label"
+        :helptext="nestDetails.nest_substrate.helptext"
+        :options="nestDetails.nest_substrate.options"
+        v-model="nestDetails.model"
+      />
 
-        <base-select
-          :name="nestDetails.nest_type.name"
-          :label="nestDetails.nest_type.label"
-          :helptext="nestDetails.nest_type.helptext"
-          :options="nestDetails.nest_type.options"
-          v-model="nestDetails.model"
-        />
+      <base-select
+        :name="nestDetails.probable_origin.name"
+        :label="nestDetails.probable_origin.label"
+        :helptext="nestDetails.probable_origin.helptext"
+        :options="nestDetails.probable_origin.options"
+        v-model="nestDetails.model"
+      />
 
-        <base-select
-          :name="nestDetails.nest_substrate.name"
-          :label="nestDetails.nest_substrate.label"
-          :helptext="nestDetails.nest_substrate.helptext"
-          :options="nestDetails.nest_substrate.options"
-          v-model="nestDetails.model"
-        />
-
-        <base-select
-          :name="nestDetails.probable_origin.name"
-          :label="nestDetails.probable_origin.label"
-          :helptext="nestDetails.probable_origin.helptext"
-          :options="nestDetails.probable_origin.options"
-          v-model="nestDetails.model"
-        />
-
-        <base-textarea
-          rows="3"
-          :name="nestDetails.nest_comments.name"
-          :label="nestDetails.nest_comments.label"
-          :helptext="nestDetails.nest_comments.helptext"
-          v-model="nestDetails.model"
-        />
-      </form>
-
-      <pre class="bg-gray-100 text-left my-4 p-4">{{ nestDetails.model }}</pre>
-    </div>
-
+      <base-textarea
+        rows="3"
+        :name="nestDetails.nest_comments.name"
+        :label="nestDetails.nest_comments.label"
+        :helptext="nestDetails.nest_comments.helptext"
+        v-model="nestDetails.model"
+      />
+    </form>
   </div>
 </template>
 
 <script>
-import generateId from '@/services/IdService.js'
 import BaseInput from '@/components/form-elements/BaseInput.vue'
 import BaseSelect from '@/components/form-elements/BaseSelect.vue'
-import BaseTextarea from '../../components/form-elements/BaseTextarea.vue'
+import BaseTextarea from '@/components/form-elements/BaseTextarea.vue'
 
 const nestDetailsConfig = {
-  nest_id: {
-    name: 'nest_id',
-    label: 'Nest ID',
-    type: 'text',
-    helptext: 'Autogenerated Nest ID. Cannot change this, shown for your information.'
-  },
   habitat_category: {
     name: 'habitat_category',
     label: 'Habitat Category',
@@ -197,7 +171,6 @@ export default {
 
   data () {
     return {
-      nest_id: null,
       nestDetails: {
         ...nestDetailsConfig,
         model: {}
@@ -208,7 +181,6 @@ export default {
   computed: {
     output () {
       return {
-        nest_id: this.nest_id,
         ...this.nestDetails.model
       }
     }
@@ -216,19 +188,8 @@ export default {
 
   watch: {
     output (newOutput, oldOutput) {
-      this.$emit('input', this.output)
+      this.$emit('input:nest-details', this.output)
     }
-  },
-
-  methods: {
-    async generateId () {
-      const id = await generateId()
-      this.nest_id = id
-    }
-  },
-
-  mounted () {
-    this.generateId()
   }
 }
 </script>

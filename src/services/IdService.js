@@ -1,8 +1,7 @@
 import { customAlphabet } from 'nanoid/async'
 
-const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 6)
-
-async function generateId () {
+async function generateId (n) {
+  const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', n)
   return nanoid()
 }
 

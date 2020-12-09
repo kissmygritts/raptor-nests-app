@@ -1,12 +1,12 @@
 <template>
-  <div class="rounded border border-gray-300">
+  <div>
     <!-- header, always visible -->
-    <div class="flex justify-between items-center">
-      <h2 class="inline-block text-lg font-medium leading-6">{{ title }}</h2>
-      <button
-        class="inline-block h-5 w-5"
-        @click="toggleOpen()"
-      >
+    <div
+      class="flex justify-between items-center cursor-pointer"
+      @click="toggleOpen()"
+    >
+      <slot name="header"></slot>
+      <button class="inline-block h-5 w-5">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -24,7 +24,7 @@
     >
       <div
         class="mt-4 transform"
-        v-if="open"
+        v-show="open"
       >
         <slot>Collapsible Section Content</slot>
       </div>

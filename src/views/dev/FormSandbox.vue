@@ -3,6 +3,7 @@
     <h1 class="h-16 text-2xl text-gray-800">Forms</h1>
 
     <!-- forms go in here, separate by category/chunk/etc -->
+    <!-- Nest Details -->
     <div>
       <h2 class="text-2xl text-gray-800">Nest Details Form</h2>
       <p class="pt-1">
@@ -81,6 +82,19 @@
       </div>
 
     </div>
+
+    <!-- Location Details -->
+    <div class="mt-8">
+      <h2 class="text-2xl text-gray-800">Location Details Form</h2>
+      <p class="pt-1">
+        Location input and details for the form.
+      </p>
+
+      <div class="bg-white rounded py-4 mt-4">
+        <!-- location map -->
+        <location-details />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -90,6 +104,7 @@ import BaseInput from '@/components/form-elements/BaseInput.vue'
 // import BaseRadio from '@/components/form-elements/BaseRadio.vue'
 import BaseSelect from '@/components/form-elements/BaseSelect.vue'
 import BaseTextarea from '../../components/form-elements/BaseTextarea.vue'
+import LocationDetails from '@/components/forms/LocationDetails.vue'
 
 const nestDetailsConfig = {
   nest_id: {
@@ -198,7 +213,8 @@ export default {
   components: {
     BaseSelect,
     BaseInput,
-    BaseTextarea
+    BaseTextarea,
+    LocationDetails
   },
 
   data () {
