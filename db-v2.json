@@ -1,26 +1,40 @@
 {
   "nests": [
     {
-      "nest_id": "25jpni",
-      "habitat_category": "Joshua tree",
-      "habitat_description": "J tree, creosote scrub",
-      "location_description": "Near Ash Meadows NWR",
-      "nest_type": "Burrow",
-      "nest_substrate": "Ground - subterranean",
-      "probable_origin": "Burrowing Owl",
-      "nest_comments": "Some general comments, etc, cool stuff",
-      "id": 1
+      "id": "kyl93h",
+      "habitat_category": "Mixed conifer",
+      "habitat_description": "ytrew",
+      "location_description": "er",
+      "nest_type": "Scrape",
+      "nest_substrate": "Shrub",
+      "probable_origin": "Falcon",
+      "nest_comments": "asdfasdf"
     },
     {
-      "nest_id": "yzqdjb",
-      "habitat_category": "Joshua tree",
-      "habitat_description": "J tree and creosote scrub",
-      "location_description": "North of Las Vegas",
-      "nest_type": "Scrape",
-      "nest_substrate": "Ground - surfact",
-      "probable_origin": "Burrowing Owl",
-      "nest_comments": "Some nest comments, very interesting things.",
-      "id": 2
+      "id": "dpoyw5",
+      "habitat_category": "Desert wash",
+      "habitat_description": "as",
+      "location_description": "f",
+      "nest_type": "Cavity",
+      "nest_substrate": "Outcrop",
+      "probable_origin": "Ferruginous Hawk",
+      "nest_comments": "adfasf"
+    }
+  ],
+  "locations": [
+    {
+      "id": "6vuwrzv8idknv8jl",
+      "nestId": "kyl93h",
+      "lat": 39.51576912572451,
+      "lng": -119.8190668913886,
+      "exact_coordinates": "Yes"
+    },
+    {
+      "id": "9qle97f4k93j2de7",
+      "nestId": "dpoyw5",
+      "lat": 39.55964762177084,
+      "lng": -119.86564636230469,
+      "exact_coordinates": "Yes"
     }
   ]
 }

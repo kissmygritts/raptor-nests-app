@@ -51,7 +51,7 @@
         <button
           type="submit"
           class="text-white bg-olive border-0 py-2 px-6 focus:outline-none focus:ring-olive hover:bg-olive-darker rounded text-lg"
-          @click.prevent="submitNest"
+          @click.prevent="submit()"
         >
           Submit Nest
         </button>
@@ -63,10 +63,11 @@
 <script>
 /* eslint-disable */
 import PageHeader from '@/components/PageHeader.vue'
+import CollapsibleSection from '@/components/CollapsibleSection.vue'
 import NestDetails from '@/components/forms/NestDetails.vue'
 import LocationDetails from '@/components/forms/LocationDetails.vue'
 import generateId from '@/services/IdService.js'
-import CollapsibleSection from '@/components/CollapsibleSection.vue'
+import api from '@/services/api.js'
 
 export default {
   name: 'NestsNew',
@@ -88,15 +89,29 @@ export default {
     }
   },
 
+  computed: {
+    nestInput () {
+      return {
+        id: this.ids.nest_id,
+        ...this.nestDetails
+      }
+    },
+
+    locationInput () {
+      return {
+        id: this.ids.location_id,
+        nestId: this.ids.nest_id,
+        ...this.locationDetails
+      }
+    }
+  },
+
   methods: {
-    async submitNest () {
-      await fetch('http://localhost:3000/nests', {
-        method: 'POST',
-        body: JSON.stringify(this.nestDetails),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
+    async submit () {
+      await api.submitNest(this.nestInput)
+      await api.submitNestLocation(this.locationInput)
+
+      this.$router.push('/')
     },
 
     toggleNav () {
