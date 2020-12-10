@@ -2,7 +2,10 @@
   <!-- form -->
   <div>
     <form @submit.prevent>
-      <map-input @input:nest-location="updateNestLocation" />
+      <map-input
+        :lat-lng="latLng"
+        @input:nest-location="updateNestLocation"
+      />
 
       <!-- exact location? -->
       <base-radio
@@ -80,7 +83,8 @@ export default {
   data () {
     return {
       ...locationDetailsConfig,
-      model: {}
+      model: {},
+      latLng: null
     }
   },
 
@@ -93,6 +97,10 @@ export default {
 
     showLocationModifiers () {
       return this.model.exact_coordinates === 'No'
+    },
+
+    hasCoordsInRoute () {
+      return Object.keys(this.$route.query).includes('lat', 'lng')
     }
   },
 
@@ -106,6 +114,13 @@ export default {
     updateNestLocation ({ lat, lng }) {
       this.model.lat = lat
       this.model.lng = lng
+    }
+  },
+
+  mounted () {
+    if (this.hasCoordsInRoute) {
+      const { lat, lng } = this.$route.query
+      this.latLng = { lat, lng }
     }
   }
 }

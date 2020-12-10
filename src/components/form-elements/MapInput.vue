@@ -72,7 +72,7 @@ export default {
 
   props: {
     latLng: {
-      type: Array,
+      type: Object,
       required: false,
       default: null
     }
@@ -98,7 +98,7 @@ export default {
     },
 
     hasLatLngProp () {
-      return Array.isArray(this.latLng)
+      return this.latLng !== null
     },
 
     hasNestLocation () {
@@ -132,21 +132,23 @@ export default {
   },
 
   async mounted () {
-    let zoom = 12
+    this.$nextTick(async () => {
+      let zoom = 10
 
-    if (this.hasLatLngProp) {
-      this.nestLocation.latLng = { lat: this.latLng[0], lng: this.latLng[1] }
-    } else {
-      try {
-        this.geolocation = await geolocate()
-        this.nestLocation.latLng = { lat: this.geolocation.lat, lng: this.geolocation.lng }
-      } catch (err) {
-        this.nestLocation.latLng = { lat: this.map.center[0], lng: this.map.center[1] }
-        zoom = 8
+      if (this.hasLatLngProp) {
+        this.nestLocation.latLng = this.latLng
+      } else {
+        try {
+          this.geolocation = await geolocate()
+          this.nestLocation.latLng = { lat: this.geolocation.lat, lng: this.geolocation.lng }
+        } catch (err) {
+          this.nestLocation.latLng = { lat: this.map.center[0], lng: this.map.center[1] }
+          zoom = 8
+        }
       }
-    }
 
-    this.flyToLocation(zoom)
+      this.flyToLocation(zoom)
+    })
   }
 }
 </script>

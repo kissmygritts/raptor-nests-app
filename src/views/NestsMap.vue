@@ -33,7 +33,7 @@
             </p>
 
             <router-link
-              to="/nests/create"
+              :to="{ name: 'nests-new', query: { ...inputLocation }}"
               style="color: white !important;"
               class="bg-olive visited:text-white border-0 py-2 px-4 focus:outline-none hover:bg-olive-darker rounded-sm text-base"
             >
