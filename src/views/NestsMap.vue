@@ -45,6 +45,7 @@
 
       <map-menu-button
         @map:add-marker="addMarkerAtCenter()"
+        @map:geolocate="locateMe()"
         @map:open-layers="toggleLayers()"
       />
 
@@ -79,6 +80,7 @@ import MapMenuButton from '@/components/MapMenuButton.vue'
 import MapHeader from '@/components/MapHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
 import api from '@/services/api.js'
+import geolocate from '@/services/geolocate.js'
 
 export default {
   name: 'Home',
@@ -109,7 +111,8 @@ export default {
       },
       layers: {
         visible: false
-      }
+      },
+      geolocation: null
     }
   },
 
@@ -243,11 +246,21 @@ export default {
           fillOpacity: 0.9
         })
       }
+    },
+
+    async locateMe () {
+      const position = await geolocate()
+      this.geolocation = position
+      this.$refs.map.mapObject.flyTo({
+        lat: position.lat,
+        lng: position.lng
+      }, 10)
     }
   },
 
   async created () {
     this.nests = await api.getNests()
+    this.locateMe()
   }
 }
 </script>
