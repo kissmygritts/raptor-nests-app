@@ -19,6 +19,16 @@
       "nest_substrate": "Outcrop",
       "probable_origin": "Ferruginous Hawk",
       "nest_comments": "adfasf"
+    },
+    {
+      "id": "i0vzm9",
+      "habitat_category": "Agriculture",
+      "habitat_description": "Ag field. mixed use",
+      "location_description": "Just south of the main turn off in Lovelock",
+      "nest_type": "Stick nest",
+      "nest_substrate": "Shrub",
+      "probable_origin": "Falcon",
+      "nest_comments": "Things to say about this nest"
     }
   ],
   "locations": [
@@ -34,6 +44,13 @@
       "nestId": "dpoyw5",
       "lat": 39.55964762177084,
       "lng": -119.86564636230469,
+      "exact_coordinates": "Yes"
+    },
+    {
+      "id": "97hci2yjmki53537",
+      "nestId": "i0vzm9",
+      "lat": 40.2235,
+      "lng": -118.412,
       "exact_coordinates": "Yes"
     }
   ]
