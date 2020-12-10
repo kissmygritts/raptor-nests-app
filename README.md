@@ -1,24 +1,23 @@
 # raptor-nests
 
-## Project setup
-```
-yarn install
-```
+A data entry application & dashboard for raptor nest survey efforts at the Nevada Department of Wildlife. *Under active development, will remain unstable until v1 is reached.*
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Test it out
 
-### Compiles and minifies for production
-```
-yarn build
-```
+For those interested in testing there are a few prerequisites:
 
-### Lints and fixes files
-```
-yarn lint
-```
+* Install NodeJS
+* Install json-server
+* install pm2
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+git clone https://github.com/kissmygritts/raptor-nests-app.git
+cd raptor-nests-app
+
+# install dependencies and build
+npm install
+npm run build:modern
+
+# run application
+pm2 start ecosystem.config.js
+```
