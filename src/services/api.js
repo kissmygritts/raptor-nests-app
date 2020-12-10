@@ -1,10 +1,13 @@
-const API_URL = 'http://localhost:3000'
+const API_URL = process.env.VUE_APP_API_URL || 'http://localhost:3000'
+
 const POST_HEADERS = {
   'Content-type': 'application/json; charset=UTF-8'
 }
 
 async function getNests () {
   const url = `${API_URL}/nests?_embed=locations`
+  console.log(url)
+  console.log(process.env.VUE_APP_API_URL)
 
   try {
     const res = await fetch(url)
