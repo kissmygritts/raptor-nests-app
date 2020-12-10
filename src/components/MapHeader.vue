@@ -34,8 +34,8 @@
             <input
               type="search"
               id="search_field"
-              class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-              placeholder="Search for nest or zoom to coordinates"
+              class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+              placeholder="Search for nest (id: kyl93h) or zoom to coordinates (geo: x, y)"
               autocomplete="off"
               v-model="searchTerm"
             >
@@ -86,7 +86,7 @@ export default {
       const search = this.searchTerm.split(':')
 
       return {
-        type: search[0].trim(),
+        type: search[0].trim().toLowerCase(),
         term: search[1].trim()
       }
     }
