@@ -78,6 +78,7 @@ import MapLayersModal from '@/components/MapLayersModal.vue'
 import MapMenuButton from '@/components/MapMenuButton.vue'
 import MapHeader from '@/components/MapHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
+import api from '@/services/api.js'
 
 export default {
   name: 'Home',
@@ -141,7 +142,7 @@ export default {
           geometry: {
             type: 'Point',
             coordinates: [
-              nest.long, nest.lat
+              nest.lng, nest.lat
             ]
           },
           properties: {
@@ -246,10 +247,7 @@ export default {
   },
 
   async created () {
-    const response = await fetch('http://localhost:3000/nests')
-    const nests = await response.json()
-
-    this.nests = nests
+    this.nests = await api.getNests()
   }
 }
 </script>

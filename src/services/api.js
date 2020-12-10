@@ -4,7 +4,25 @@ const POST_HEADERS = {
 }
 
 async function getNests () {
+  const url = `${API_URL}/nests?_embed=locations`
 
+  try {
+    const res = await fetch(url)
+    const nests = await res.json()
+    const data = nests.map(nest => {
+      const { lat, lng } = nest.locations[0]
+
+      return {
+        ...nest,
+        lat,
+        lng
+      }
+    })
+
+    return data
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 async function findNest () {
