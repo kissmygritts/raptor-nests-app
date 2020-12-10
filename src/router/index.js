@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NestsMap from '@/views/NestsMap.vue'
-import NestsCreate from '@/views/NestsCreate.vue'
-import NestsShow from '@/views/NestsShow.vue'
-import NestsTable from '@/views/NestsTable.vue'
 
 Vue.use(VueRouter)
 
@@ -11,23 +7,27 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: NestsMap
-  }, {
-    path: '/nests/create',
-    name: 'nests-create',
-    component: NestsCreate
-  }, {
+    component: () => import(/* webpackChunkName: "nests-map" */ '../views/NestsMap')
+  },
+  // {
+  //   path: '/nests/create',
+  //   name: 'nests-create',
+  //   component: NestsCreate
+  // },
+  {
     path: '/nests/new',
     name: 'nests-new',
     component: () => import(/* webpackChunkName: "nests-new" */ '../views/NestsNew.vue')
-  }, {
-    path: '/nests/:id',
-    name: 'nests-show',
-    component: NestsShow
-  }, {
+  },
+  // {
+  //   path: '/nests/:id',
+  //   name: 'nests-show',
+  //   component: NestsShow
+  // },
+  {
     path: '/table',
     name: 'nests-table',
-    component: NestsTable
+    component: () => import(/* webpackChunkName: "nests-table" */ '../views/NestsTable')
   }
 // {
   // path: '/about',
