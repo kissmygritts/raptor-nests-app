@@ -18,11 +18,12 @@
           label="Title"
           helptext="Think of a funny title."
           :has-error="$v.title.$error"
+          :is-invalid="$v.title.$invalid"
           v-model="title"
           @blur="$v.title.$touch()"
         >
-            <p v-if="!$v.title.required">This field is required</p>
-            <p v-if="!$v.title.minLength">Must be at least 3 characters</p>
+            <p v-if="!$v.title.required">Title is required.</p>
+            <p v-if="!$v.title.minLength">Title must be at least 3 characters long.</p>
         </tw-input>
 
         <pre class="bg-gray-100 p-4 rounded mt-4">{{ { title } }}</pre>

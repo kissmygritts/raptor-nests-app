@@ -8,7 +8,7 @@
     </p>
 
     <input
-      class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
+      class="mt-2 shadow-sm block w-full rounded sm:text-sm border-gray-300"
       :class="validationClasses"
       v-bind="$attrs"
       v-on="listeners"
@@ -44,6 +44,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    isInvalid: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -55,8 +60,17 @@ export default {
       }
     },
 
+    hasErrorOrIsvalid () {
+      return this.hasError || !this.isInvalid
+    },
+
     validationClasses () {
-      return this.hasError ? 'border-red-600' : ''
+      // this works ok
+      return this.hasError
+        ? 'border-red-700 focus:ring-red-700 focus:border-red-700'
+        : this.hasErrorOrIsvalid
+          ? 'border-green-600 focus:ring-green-700 focus:border-green-700'
+          : 'focus:ring-oxford-lightest focus:border-oxford-lightest'
     }
   },
 
