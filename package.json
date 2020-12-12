@@ -15,7 +15,8 @@
     "nanoid": "^3.1.16",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vue2-leaflet": "^2.6.0"
+    "vue2-leaflet": "^2.6.0",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.2.1",
