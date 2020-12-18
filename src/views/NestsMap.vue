@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col w-0 flex-1 overflow-hidden">
-    <!-- TODO: rename this component to map header -->
     <map-header
       @nav:toggle="toggleNav()"
       @search="zoomToLocation"
@@ -11,8 +10,9 @@
       <l-map
         ref="map"
         class="w-full"
-        :zoom="zoom"
-        :center="center"
+        :zoom="map.zoom"
+        :center="map.center"
+        :options="map.options"
       >
         <l-tile-layer :url="url" />
 
@@ -81,6 +81,7 @@ import MapHeader from '@/components/MapHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
 import api from '@/services/api.js'
 import geolocate from '@/services/geolocate.js'
+import { toGeojson } from '@/utils/parse-geobuf.js'
 
 export default {
   name: 'Home',
@@ -99,9 +100,13 @@ export default {
 
   data () {
     return {
-      nests: [],
-      zoom: 6,
-      center: [38.8568, -115.7080],
+      map: {
+        zoom: 6,
+        center: [38.8568, -115.7080],
+        options: {
+          preferCanvas: true
+        }
+      },
       url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
       activeNestId: null,
       coordinates: '0, 0',
@@ -112,16 +117,14 @@ export default {
       layers: {
         visible: false
       },
-      geolocation: null
+      geolocation: null,
+      nestGeoJson: null
     }
   },
 
   computed: {
     activeNest () {
-      const nest = this.nests.filter(nest => nest.id === this.activeNestId)
-      return {
-        ...nest[0]
-      }
+      return this.nestGeoJson?.features.find(nest => nest.properties.id === this.activeNestId)
     },
 
     inputLocation () {
@@ -136,32 +139,6 @@ export default {
       return this.coordinates
         ? coords(this.coordinates)
         : null
-    },
-
-    nestGeoJson () {
-      const features = this.nests.map(nest => {
-        return {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [
-              nest.lng, nest.lat
-            ]
-          },
-          properties: {
-            nest_id: nest.id,
-            habitat_category: nest.habitat_category,
-            probable_origin: nest.probable_origin
-          }
-        }
-      })
-
-      const geojson = {
-        type: 'FeatureCollection',
-        features: features
-      }
-
-      return geojson
     },
 
     options () {
@@ -183,12 +160,12 @@ export default {
 
     zoomToLocation ({ type, term }) {
       if (type === 'id') {
-        // TODO: what happens if nest id doesn't exist?
-        const nest = this.nestGeoJson.features.filter(feature => {
-          return feature.properties.nest_id === term
+        // TODO: what happens if nest id doesn't exist? Would be nice to flash a message
+        const nest = this.nestGeoJson.features.find(feature => {
+          return feature.properties.id === term
         })
 
-        const coordinates = nest[0].geometry.coordinates
+        const coordinates = nest.geometry.coordinates
         this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 10)
       } else {
         this.coordinates = term
@@ -230,7 +207,7 @@ export default {
         layer.on({
           click: () => {
             this.slider.visible = true
-            this.activeNestId = feature.properties.nest_id
+            this.activeNestId = feature.properties.id
           }
         })
       }
@@ -259,8 +236,11 @@ export default {
   },
 
   async created () {
-    this.nests = await api.getNests()
     this.locateMe()
+
+    // fetch nest geobuf, convert to geojson
+    const buffer = await api.getNestsGeobuf()
+    this.nestGeoJson = toGeojson(buffer)
   }
 }
 </script>

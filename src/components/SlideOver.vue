@@ -9,7 +9,7 @@
         leave-to-class="translate-x-full"
       >
         <section
-          v-show="visible"
+          v-if="visible"
           style="z-index: 2000;"
           class="absolute inset-y-0 right-0 max-w-full flex"
           aria-labelledby="slide-over-heading"

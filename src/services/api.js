@@ -64,9 +64,23 @@ async function submitNestLocation (location) {
   }
 }
 
+async function getNestsGeobuf () {
+  try {
+    const response = await fetch('http://localhost:8000/geobuf/nests', {
+      method: 'GET',
+      responseType: 'arraybuffer'
+    })
+
+    return response.arrayBuffer()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default {
   getNests,
   findNest,
   submitNest,
-  submitNestLocation
+  submitNestLocation,
+  getNestsGeobuf
 }
