@@ -4,30 +4,6 @@ const POST_HEADERS = {
   'Content-type': 'application/json; charset=UTF-8'
 }
 
-async function getNests () {
-  const url = `${API_URL}/nests?_embed=locations`
-  console.log(url)
-  console.log(process.env.VUE_APP_API_URL)
-
-  try {
-    const res = await fetch(url)
-    const nests = await res.json()
-    const data = nests.map(nest => {
-      const { lat, lng } = nest.locations[0]
-
-      return {
-        ...nest,
-        lat,
-        lng
-      }
-    })
-
-    return data
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 async function findNest () {
 
 }
@@ -66,7 +42,7 @@ async function submitNestLocation (location) {
 
 async function getNestsGeobuf () {
   try {
-    const response = await fetch('http://localhost:8000/geobuf/nests', {
+    const response = await fetch(`${API_URL}/geobuf/nests`, {
       method: 'GET',
       responseType: 'arraybuffer'
     })
@@ -78,7 +54,6 @@ async function getNestsGeobuf () {
 }
 
 export default {
-  getNests,
   findNest,
   submitNest,
   submitNestLocation,
