@@ -72,21 +72,21 @@ const nestDetailsConfig = {
     type: 'select',
     helptext: 'Select a description of the habitat surrounding the nest. Leave blank if not listed.',
     options: [
-      'Agriculture',
-      'Canyon',
-      'Creosote scrub',
-      'Desert wash',
-      'Developed - other',
-      'Grassland',
-      'Joshua tree',
-      'Mixed conifer',
-      'Pinyon and/or Juniper',
-      'Riparian - aspen',
-      'Riparian - other',
-      'Salt desert scrub',
-      'Shoreline',
-      'Sagebrush',
-      'Other'
+      'agriculture',
+      'canyon',
+      'creosote scrub',
+      'desert wash',
+      'developed - other',
+      'grassland',
+      'joshua tree',
+      'mixed conifer',
+      'pinyon and/or juniper',
+      'riparian - aspen',
+      'riparian - other',
+      'salt desert scrub',
+      'shoreline',
+      'sagebrush',
+      'other'
     ]
   },
   habitat_description: {
@@ -109,13 +109,13 @@ const nestDetailsConfig = {
     type: 'select',
     helptext: 'The substrate upon which the nest is located. More specific details should be provided in the nest comments field.',
     options: [
-      'Artificial',
-      'Cliff',
-      'Ground - surfact',
-      'Ground - subterranean',
-      'Outcrop',
-      'Shrub',
-      'Tree'
+      'artificial',
+      'cliff',
+      'ground - surface',
+      'ground - subterranean',
+      'outcrop',
+      'shrub',
+      'tree'
     ]
   },
   nest_type: {
@@ -124,10 +124,10 @@ const nestDetailsConfig = {
     type: 'select',
     helptext: null,
     options: [
-      'Burrow',
-      'Cavity',
-      'Scrape',
-      'Stick nest'
+      'burrow',
+      'cavity',
+      'scrape',
+      'stick nest'
     ]
   },
   probable_origin: {
@@ -136,20 +136,19 @@ const nestDetailsConfig = {
     type: 'select',
     helptext: 'Select the species you believe initially constructed the nest. Probable origin is based on which species the observer believed to have initially constructed the nest. Variables such as size, material, and placement are considered when assessing probable origin',
     options: [
-      'Accipter',
-      'Accipter/Buteo',
-      'Burrowing Owl',
-      'Burrowing Owl',
-      'Buteo',
-      'Buteo/Corvid',
-      'Corvid',
-      'Eagle',
-      'Eagle/Buteo',
-      'Falcon',
-      'Ferruginous Hawk',
-      'Northern Goshawk',
-      'Osprey',
-      'Other'
+      'accipter',
+      'accipter/buteo',
+      'burrowing owl',
+      'buteo',
+      'buteo/corvid',
+      'corvid',
+      'eagle',
+      'eagle/buteo',
+      'falcon',
+      'ferruginous hawk',
+      'northern goshawk',
+      'osprey',
+      'other'
     ]
   },
   nest_comments: {

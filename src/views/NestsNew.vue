@@ -100,7 +100,7 @@ export default {
     locationInput () {
       return {
         id: this.ids.location_id,
-        nestId: this.ids.nest_id,
+        nest_id: this.ids.nest_id,
         ...this.locationDetails
       }
     }
@@ -108,10 +108,10 @@ export default {
 
   methods: {
     async submit () {
-      await api.submitNest(this.nestInput)
-      await api.submitNestLocation(this.locationInput)
-
-      this.$router.push('/')
+      const nests = await api.submitNest(this.nestInput)
+      const locations = await api.submitNestLocation(this.locationInput)
+      console.log({ nests, locations })
+      // this.$router.push('/')
     },
 
     toggleNav () {

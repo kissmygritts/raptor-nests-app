@@ -9,34 +9,34 @@ async function findNest () {
 }
 
 async function submitNest (nest) {
-  const body = JSON.stringify(nest)
+  const response = await fetch(`${API_URL}/nests`, {
+    method: 'POST',
+    body: JSON.stringify(nest),
+    headers: {
+      ...POST_HEADERS
+    }
+  })
 
-  try {
-    await fetch(`${API_URL}/nests`, {
-      method: 'POST',
-      body: body,
-      headers: {
-        ...POST_HEADERS
-      }
-    })
-  } catch (err) {
-    console.log(err)
+  const data = await response.json()
+  return {
+    statusCode: response.status,
+    data
   }
 }
 
 async function submitNestLocation (location) {
-  const body = JSON.stringify(location)
+  const response = await fetch(`${API_URL}/locations`, {
+    method: 'POST',
+    body: JSON.stringify(location),
+    headers: {
+      ...POST_HEADERS
+    }
+  })
 
-  try {
-    await fetch(`${API_URL}/locations`, {
-      method: 'POST',
-      body: body,
-      headers: {
-        ...POST_HEADERS
-      }
-    })
-  } catch (err) {
-    console.log(err)
+  const data = await response.json()
+  return {
+    statusCode: response.status,
+    data
   }
 }
 

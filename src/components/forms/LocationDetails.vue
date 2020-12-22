@@ -7,6 +7,14 @@
         @input:nest-location="updateNestLocation"
       />
 
+      <!-- current location -->
+      <base-radio
+        :label="current_location.label"
+        :name="current_location.name"
+        :options="current_location.options"
+        v-model="model"
+      />
+
       <!-- exact location? -->
       <base-radio
         :label="exact_coordinates.label"
@@ -46,13 +54,19 @@ import MapInput from '@/components/form-elements/MapInput.vue'
 
 // location form config
 const locationDetailsConfig = {
+  current_location: {
+    name: 'current_location',
+    label: 'Is this the current, actual location of the nest.',
+    type: 'radio',
+    options: ['true', 'false']
+  },
   exact_coordinates: {
     name: 'exact_coordinates',
     label: 'Are these the exact coordinates of the nest?',
     type: 'radio',
     options: [
-      'Yes',
-      'No'
+      'true',
+      'false'
     ]
   },
   distance: {
