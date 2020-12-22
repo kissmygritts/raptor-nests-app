@@ -28,6 +28,39 @@
 
         <pre class="bg-gray-100 p-4 rounded mt-4">{{ { title } }}</pre>
       </div>
+
+      <div class="bg-white p-4 rounded mt-6">
+        <h2 class="text-2xl text-gray-800">Select Test</h2>
+        <p class="pt-1">
+          Testing the select component...
+        </p>
+
+        <tw-select
+          class="mt-6"
+          label="Pick a color"
+          helptext="Select a color from the list, no validation"
+          :options="['red', 'green', 'blue']"
+          v-model="select.simple"
+        />
+
+        <tw-select
+          class="mt-6"
+          label="Pick a color"
+          helptext="Select a color from the list, required"
+          :options="['', 'red', 'green', 'blue']"
+          :has-error="$v.select.withValidation.$error"
+          :is-invalid="$v.select.withValidation.$invalid"
+          v-model="select.withValidation"
+          @blur="$v.select.withValidation.$touch()"
+        >
+          <p v-if="!$v.select.withValidation.required">This field is required</p>
+        </tw-select>
+
+        <pre class="bg-gray-100 p-4 rounded mt-4">{{ {
+          select: select.simple,
+          withValidation: select.withValidation
+        } }}</pre>
+      </div>
     </main>
   </div>
 </template>
@@ -40,7 +73,11 @@ export default {
 
   data () {
     return {
-      title: ''
+      title: '',
+      select: {
+        simple: '',
+        withValidation: ''
+      }
     }
   },
 
@@ -48,6 +85,11 @@ export default {
     title: {
       required,
       minLength: minLength(4)
+    },
+    select: {
+      withValidation: {
+        required
+      }
     }
   },
 
