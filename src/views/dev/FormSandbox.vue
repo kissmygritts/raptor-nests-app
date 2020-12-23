@@ -4,7 +4,7 @@
 
     <main>
 
-      <!-- functionality container -->
+      <!-- basic inputs -->
       <div class="bg-white p-4 rounded mt-6">
         <h2 class="text-2xl text-gray-800">Base Input Test</h2>
         <p class="pt-1">
@@ -29,6 +29,7 @@
         <pre class="bg-gray-100 p-4 rounded mt-4">{{ { title } }}</pre>
       </div>
 
+      <!-- select inputs -->
       <div class="bg-white p-4 rounded mt-6">
         <h2 class="text-2xl text-gray-800">Select Test</h2>
         <p class="pt-1">
@@ -61,6 +62,39 @@
           withValidation: select.withValidation
         } }}</pre>
       </div>
+
+      <!-- radio inputs -->
+      <div class="bg-white p-4 rounded mt-6">
+        <h2 class="text-2xl text-gray-800">Base Input Test</h2>
+        <p class="pt-1">
+          Testing the base input...
+        </p>
+
+        <tw-radio
+          class="mt-6"
+          label="Radio input"
+          name="simple_radio"
+          helptext="Pick a color from the list"
+          :options="['red', 'orange', 'blue']"
+          v-model="radio.simple"
+        />
+
+        <tw-radio
+          class="mt-6"
+          label="Radio with validation"
+          name="validation_radio"
+          helptext="Pick a color from the list"
+          :options="['true', 'false']"
+          :has-error="$v.radio.withValidation.$error"
+          :is-invalid="$v.radio.withValidation.$invalid"
+          v-model="radio.withValidation"
+          @blur="$v.radio.withValidation.$touch()"
+        >
+          <p v-if="!$v.radio.withValidation.required">This field is required</p>
+        </tw-radio>
+
+        <pre class="bg-gray-100 p-4 rounded mt-4">{{ { ...radio } }}</pre>
+      </div>
     </main>
   </div>
 </template>
@@ -77,6 +111,10 @@ export default {
       select: {
         simple: '',
         withValidation: ''
+      },
+      radio: {
+        simple: 'red',
+        withValidation: null
       }
     }
   },
@@ -87,6 +125,11 @@ export default {
       minLength: minLength(4)
     },
     select: {
+      withValidation: {
+        required
+      }
+    },
+    radio: {
       withValidation: {
         required
       }

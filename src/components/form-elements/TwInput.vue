@@ -48,7 +48,7 @@ export default {
     isInvalid: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     }
   },
 
