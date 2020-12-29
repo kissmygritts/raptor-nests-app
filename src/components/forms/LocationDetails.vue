@@ -8,30 +8,36 @@
       />
 
       <!-- exact location? -->
-      <base-radio
+      <tw-radio
+        class="mt-4"
         :label="exact_coordinates.label"
         :name="exact_coordinates.name"
         :options="exact_coordinates.options"
-        v-model="model"
-      />
+        :has-error="$v.model.exact_coordinates.$error"
+        :is-invalid="$v.model.exact_coordinates.$invalid"
+        v-model="model.exact_coordinates"
+        @blur="$v.model.exact_coordinates.$touch()"
+      >
+        <p v-if="!$v.model.exact_coordinates.required">Exact Coordinates is a required field.</p>
+      </tw-radio>
 
       <!-- show these fields base on exact location -->
       <div v-if="showLocationModifiers">
-        <base-input
+        <tw-input
           :name="distance.name"
           :label="distance.label"
           :helptext="distance.helptext"
           :type="distance.type"
-          v-model="model"
+          v-model="model.distance"
         />
 
-        <base-select
+        <tw-select
           :name="direction.name"
           :label="direction.label"
           :helptext="direction.helptext"
           :type="direction.type"
           :options="direction.options"
-          v-model="model"
+          v-model="model.direction"
         />
       </div>
     </form>
@@ -39,9 +45,7 @@
 </template>
 
 <script>
-import BaseRadio from '@/components/form-elements/BaseRadio.vue'
-import BaseInput from '@/components/form-elements/BaseInput.vue'
-import BaseSelect from '@/components/form-elements/BaseSelect.vue'
+import { required } from 'vuelidate/lib/validators'
 import MapInput from '@/components/form-elements/MapInput.vue'
 
 // location form config
@@ -51,8 +55,8 @@ const locationDetailsConfig = {
     label: 'Are these the exact coordinates of the nest?',
     type: 'radio',
     options: [
-      'Yes',
-      'No'
+      'true',
+      'false'
     ]
   },
   distance: {
@@ -66,25 +70,30 @@ const locationDetailsConfig = {
     label: 'Direction',
     type: 'select',
     helptext: 'Approximate direction to the nest from the recorded coordinates',
-    options: ['NW', 'N', 'NE', 'E', 'SE', 'S', 'SW', 'W']
+    options: ['', 'NW', 'N', 'NE', 'E', 'SE', 'S', 'SW', 'W']
   }
 }
 
 export default {
   name: 'LocationDetails',
 
-  components: {
-    BaseInput,
-    BaseSelect,
-    BaseRadio,
-    MapInput
-  },
+  components: { MapInput },
 
   data () {
     return {
       ...locationDetailsConfig,
-      model: {},
-      latLng: null
+      latLng: null,
+      model: {
+        exact_coordinates: null,
+        distance: null,
+        direction: null
+      }
+    }
+  },
+
+  validations: {
+    model: {
+      exact_coordinates: { required }
     }
   },
 
