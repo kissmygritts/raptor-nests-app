@@ -1,9 +1,9 @@
 <template>
-  <div class="mt-4">
-    <label class="block font-medium text-gray-700">
+  <div>
+    <label class="block text-lg font-medium tracking-wide text-gray-700">
       {{ label }}
     </label>
-    <p v-if="helptext" class="text-sm text-gray-600">
+    <p v-if="helptext" class="text-sm text-gray-700 font-light">
       {{ helptext }}
     </p>
     <textarea
@@ -21,7 +21,7 @@ export default {
   name: 'BaseTextarea',
   props: {
     value: {
-      type: [String, Object]
+      type: String
     },
     label: {
       type: String,
@@ -40,11 +40,7 @@ export default {
   },
   methods: {
     updateValue (event) {
-      const payload = {
-        ...this.value
-      }
-      payload[this.$attrs.name] = event.target.value
-      this.$emit('input', payload)
+      this.$emit('input', event.target.value)
     }
   }
 }

@@ -7,8 +7,8 @@
         <h1 class="text-3xl">New Raptor Nest Data Entry</h1>
         <p class="mt-2 text-gray-700 font-light">
           Use this form to enter new nests and nest visits to the Raptor Nest database.
-          Unless noted as optional all fields are required. For more information about
-          how to properly fill out this form please review the documentation (here, link).
+          Required fields are marked, all other fields are optional.
+          For more information about how to properly fill out this form please review the documentation (here, link).
         </p>
       </div>
 
