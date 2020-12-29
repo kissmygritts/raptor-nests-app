@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full space-y-4">
     <l-map
       ref="map"
       style="height: 350px;"
@@ -28,31 +28,22 @@
 
     <!-- lat long (x,y) inputs -->
     <!-- x -->
-    <div class="mt-4">
-      <label class="block font-medium text-gray-700">
-        Longitude
-      </label>
-      <input
-        type="number"
-        class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
-        v-model="nestLocation.latLng.lng"
-        @input="updateNestMarker()"
-      >
-    </div>
-    <!-- y -->
-    <div class="mt-4">
-      <label class="block font-medium text-gray-700">
-        Latitude
-      </label>
-      <input
-        type="number"
-        class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
-        v-model="nestLocation.latLng.lat"
-        @input="updateNestMarker()"
-      >
-    </div>
+    <tw-input
+      label="X Coordinate"
+      name="x"
+      type="number"
+      v-model="nestLocation.latLng.lng"
+      @input="updateNestMarker()"
+    />
 
-    <!-- <pre class="bg-gray-100 text-left my-4 p-4">{{ $data }}</pre> -->
+    <!-- y -->
+    <tw-input
+      label="Y Coordinate"
+      name="y"
+      type="number"
+      v-model="nestLocation.latLng.lat"
+      @input="updateNestMarker()"
+    />
   </div>
 </template>
 
@@ -71,10 +62,11 @@ export default {
   },
 
   props: {
-    latLng: {
+    value: {
       type: Object,
-      required: false,
-      default: null
+      default () {
+        return { lat: 39.320833, lng: -116.638583 }
+      }
     }
   },
 
@@ -98,7 +90,7 @@ export default {
     },
 
     hasLatLngProp () {
-      return this.latLng !== null
+      return this.value !== null
     },
 
     hasNestLocation () {
@@ -127,7 +119,8 @@ export default {
     },
 
     emitLocation () {
-      this.$emit('input:nest-location', this.nestLocation.latLng)
+      // this.$emit('input:nest-location', this.nestLocation.latLng)
+      this.$emit('input', this.nestLocation.latLng)
     }
   },
 
@@ -136,7 +129,7 @@ export default {
       let zoom = 10
 
       if (this.hasLatLngProp) {
-        this.nestLocation.latLng = this.latLng
+        this.nestLocation.latLng = this.value
       } else {
         try {
           this.geolocation = await geolocate()
@@ -147,6 +140,7 @@ export default {
         }
       }
 
+      this.emitLocation()
       this.flyToLocation(zoom)
     })
   }

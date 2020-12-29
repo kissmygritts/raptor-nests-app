@@ -95,19 +95,36 @@
 
         <pre class="bg-gray-100 p-4 rounded mt-4">{{ { ...radio } }}</pre>
       </div>
+
+      <!-- map input -->
+      <div class="bg-white p-4 rounded mt-6">
+        <h2 class="text-2xl text-gray-800">Map Input Test</h2>
+        <p class="pt-1">
+          Testing the map input
+        </p>
+
+        <map-input
+          v-model="map.latLng"
+        />
+
+        <pre class="bg-gray-100 p-4 rounded mt-4">{{ { map } }}</pre>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
+import MapInput from '@/components/form-elements/MapInput.vue'
 
 export default {
   name: 'FormSandbox',
 
+  components: { MapInput },
+
   data () {
     return {
-      title: '',
+      title: 'Big Green Egg',
       select: {
         simple: '',
         withValidation: ''
@@ -115,6 +132,9 @@ export default {
       radio: {
         simple: 'red',
         withValidation: null
+      },
+      map: {
+        latLng: { lat: 40, lng: 0 }
       }
     }
   },

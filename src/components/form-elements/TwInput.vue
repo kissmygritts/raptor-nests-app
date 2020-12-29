@@ -10,6 +10,7 @@
     <input
       class="mt-2 shadow-sm block w-full rounded sm:text-sm border-gray-300"
       :class="validationClasses"
+      :value="value"
       v-bind="$attrs"
       v-on="listeners"
     >
