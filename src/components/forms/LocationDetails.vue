@@ -21,7 +21,7 @@
       </tw-radio>
 
       <!-- show these fields base on exact location -->
-      <div v-if="showLocationModifiers">
+      <div v-if="showLocationModifiers" class="space-y-4 mt-4">
         <tw-input
           :name="distance.name"
           :label="distance.label"
@@ -46,32 +46,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 import MapInput from '@/components/form-elements/MapInput.vue'
-
-// location form config
-const locationDetailsConfig = {
-  exact_coordinates: {
-    name: 'exact_coordinates',
-    label: 'Are these the exact coordinates of the nest?',
-    type: 'radio',
-    options: [
-      'true',
-      'false'
-    ]
-  },
-  distance: {
-    name: 'distance',
-    label: 'Distance to Nest',
-    type: 'number',
-    helptext: 'The distance, in meters, to the nest from your location.'
-  },
-  direction: {
-    name: 'direction',
-    label: 'Direction',
-    type: 'select',
-    helptext: 'Approximate direction to the nest from the recorded coordinates',
-    options: ['', 'NW', 'N', 'NE', 'E', 'SE', 'S', 'SW', 'W']
-  }
-}
+import locationDetailsConfig from '@/data/LocationDetailsForm.json'
 
 export default {
   name: 'LocationDetails',
@@ -105,7 +80,7 @@ export default {
     },
 
     showLocationModifiers () {
-      return this.model.exact_coordinates === 'No'
+      return this.model.exact_coordinates === 'false'
     },
 
     hasCoordsInRoute () {

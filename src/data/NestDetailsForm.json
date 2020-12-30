@@ -1,0 +1,91 @@
+{
+  "habitat_category": {
+    "name": "habitat_category",
+    "label": "Habitat Category",
+    "type": "select",
+    "helptext": "Select a description of the habitat surrounding the nest. Leave blank if not listed.",
+    "options": [
+      "",
+      "Agriculture",
+      "Canyon",
+      "Creosote scrub",
+      "Desert wash",
+      "Developed - other",
+      "Grassland",
+      "Joshua tree",
+      "Mixed conifer",
+      "Pinyon and/or Juniper",
+      "Riparian - aspen",
+      "Riparian - other",
+      "Salt desert scrub",
+      "Shoreline",
+      "Sagebrush",
+      "Other"
+    ]
+  },
+  "habitat_description": {
+    "name": "habitat_description",
+    "label": "Habitat Description",
+    "type": "text",
+    "helptext": "General description of the habitat characteristics of the nest site location.",
+    "options": null
+  },
+  "location_description": {
+    "name": "location_description",
+    "label": "Location Description",
+    "type": "text",
+    "helptext": "General description of the survey area location and relevant landmarks (e.g. mountain range, reivers, landscape features).",
+    "options": null
+  },
+  "nest_substrate": {
+    "name": "nest_substrate",
+    "label": "Nest Substrate",
+    "type": "select",
+    "helptext": "The substrate upon which the nest is located. More specific details should be provided in the nest comments field.",
+    "options": [
+      "",
+      "Artificial",
+      "Cliff",
+      "Ground - surface",
+      "Ground - subterranean",
+      "Outcrop",
+      "Shrub",
+      "Tree"
+    ]
+  },
+  "nest_type": {
+    "name": "nest_type",
+    "label": "Nest Type",
+    "type": "select",
+    "helptext": null,
+    "options": ["", "Burrow", "Cavity", "Scrape", "Stick nest"]
+  },
+  "probable_origin": {
+    "name": "probable_origin",
+    "label": "Probable Origin",
+    "type": "select",
+    "helptext": "Select the species you believe initially constructed the nest. Probable origin is based on which species the observer believed to have initially constructed the nest. Variables such as size, material, and placement are considered when assessing probable origin",
+    "options": [
+      "",
+      "Accipter",
+      "Accipter/Buteo",
+      "Burrowing Owl",
+      "Buteo",
+      "Buteo/Corvid",
+      "Corvid",
+      "Eagle",
+      "Eagle/Buteo",
+      "Falcon",
+      "Ferruginous Hawk",
+      "Northern Goshawk",
+      "Osprey",
+      "Other"
+    ]
+  },
+  "nest_comments": {
+    "name": "nest_comments",
+    "label": "Nest Comments",
+    "type": "textarea",
+    "helptext": "Description of the unchanging characteristics of the nest itself. Including, but not limited to: tree or shrub species, height above grounde, etc."
+  }
+}
