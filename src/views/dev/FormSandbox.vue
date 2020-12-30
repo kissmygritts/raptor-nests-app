@@ -134,7 +134,7 @@ export default {
         withValidation: null
       },
       map: {
-        latLng: { lat: 40, lng: 0 }
+        latLng: null
       }
     }
   },

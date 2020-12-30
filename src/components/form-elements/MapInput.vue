@@ -26,6 +26,25 @@
       />
     </l-map>
 
+    <!-- latlng/utm selector -->
+    <!-- WIP: still working on this  -->
+    <!-- <div class="inline-flex shadow-sm rounded">
+      <label
+        class="relative inline-flex items-center px-5 py-2 rounded-l cursor-pointer border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-oxford-lightest focus:border-oxford-lightest"
+        :class="{ active: crs === 'latlng' }"
+      >
+        <input type="radio" class="hidden" name="crs" v-model="crs" value="latlng">
+        LatLng
+      </label>
+      <label
+        class="-ml-px relative inline-flex items-center px-5 py-2 rounded-r cursor-pointer border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-oxford-lightest focus:border-oxford-lightest"
+        :class="{ active: crs === 'utm' }"
+      >
+        <input type="radio" class="hidden" name="crs" v-model="crs" value="utm">
+        UTMs
+      </label>
+    </div> -->
+
     <!-- lat long (x,y) inputs -->
     <!-- x -->
     <tw-input
@@ -50,6 +69,7 @@
 <script>
 import { LMap, LMarker, LTileLayer, LCircleMarker } from 'vue2-leaflet'
 import geolocate from '@/services/geolocate.js'
+// import { coordConverter } from '@/services/utm.js'
 
 export default {
   name: 'MapInput',
@@ -77,6 +97,7 @@ export default {
         zoom: 7,
         basemaps: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       },
+      crs: 'latlng',
       geolocation: null,
       nestLocation: {
         latLng: []
@@ -96,6 +117,11 @@ export default {
     hasNestLocation () {
       return Object.keys(this.nestLocation.latLng).length > 0
     }
+
+    // coordinates () {
+    //   const { lng: x, lat: y } = this.nestLocation.latLng
+    //   return coordConverter({ x, y, proj: 'latlng' })
+    // }
   },
 
   methods: {
@@ -146,3 +172,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.active {
+  @apply bg-olive border-olive text-white
+}
+</style>

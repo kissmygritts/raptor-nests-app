@@ -3,8 +3,7 @@
   <div>
     <form @submit.prevent>
       <map-input
-        :lat-lng="latLng"
-        @input:nest-location="updateNestLocation"
+        v-model="latLng"
       />
 
       <!-- exact location? -->
@@ -100,7 +99,8 @@ export default {
   computed: {
     output () {
       return {
-        ...this.model
+        ...this.model,
+        ...this.latLng
       }
     },
 

@@ -44,7 +44,7 @@
       </collapsible-section>
 
       <!-- data -->
-      <pre class="text-left p-4">{{ $data }}</pre>
+      <pre class="text-left p-4">{{ reqBody }}</pre>
 
       <!-- submit buttons -->
       <div class="my-8 w-full flex justify-end">
@@ -102,6 +102,13 @@ export default {
         id: this.ids.location_id,
         nestId: this.ids.nest_id,
         ...this.locationDetails
+      }
+    },
+
+    reqBody () {
+      return {
+        nest: this.nestInput,
+        location: this.locationInput
       }
     }
   },
