@@ -1,7 +1,7 @@
 <template>
   <!-- form -->
   <div>
-    <form @submit.prevent>
+    <form @submit.prevent novalidate>
       <map-input
         v-model="latLng"
       />
@@ -16,8 +16,23 @@
         :is-invalid="$v.model.exact_coordinates.$invalid"
         v-model="model.exact_coordinates"
         @blur="$v.model.exact_coordinates.$touch()"
+        required
       >
         <p v-if="!$v.model.exact_coordinates.required">Exact Coordinates is a required field.</p>
+      </tw-radio>
+
+      <tw-radio
+        class="mt-4"
+        :label="current_location.label"
+        :name="current_location.name"
+        :options="current_location.options"
+        :has-error="$v.model.current_location.$error"
+        :is-invalid="$v.model.current_location.$invalid"
+        v-model="model.current_location"
+        @blur="$v.model.current_location.$touch()"
+        required
+      >
+        <p v-if="!$v.model.current_location.required">Current Location is a required field.</p>
       </tw-radio>
 
       <!-- show these fields base on exact location -->
@@ -59,6 +74,7 @@ export default {
       latLng: null,
       model: {
         exact_coordinates: null,
+        current_location: null,
         distance: null,
         direction: null
       }
@@ -67,7 +83,8 @@ export default {
 
   validations: {
     model: {
-      exact_coordinates: { required }
+      exact_coordinates: { required },
+      current_location: { required }
     }
   },
 

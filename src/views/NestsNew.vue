@@ -26,6 +26,7 @@
         </p>
 
         <nest-details
+          ref="nestDetails"
           class="my-4 md:my-8 md:mx-4"
           @input:nest-details="updateNestDetails"
         />
@@ -38,13 +39,14 @@
         </template>
 
         <location-details
+          ref="locationDetails"
           class="my-4 md:my-8 md:mx-4"
           @input:location-details="updateLocationDetails"
         />
       </collapsible-section>
 
       <!-- data -->
-      <pre class="text-left p-4">{{ reqBody }}</pre>
+      <!-- <pre class="text-left p-4">{{ reqBody }}</pre> -->
 
       <!-- submit buttons -->
       <div class="my-8 w-full flex justify-end">
@@ -93,32 +95,37 @@ export default {
     nestInput () {
       return {
         id: this.ids.nest_id,
-        ...this.nestDetails
+        ...this.nestDetails,
+        location: this.locationInput
       }
     },
 
     locationInput () {
       return {
         id: this.ids.location_id,
-        nestId: this.ids.nest_id,
+        nest_id: this.ids.nest_id,
         ...this.locationDetails
       }
     },
 
-    reqBody () {
-      return {
-        nest: this.nestInput,
-        location: this.locationInput
-      }
+    isFormValid() {
+      return !this.$refs.nestDetails.$v.$invalid && !this.$refs.locationDetails.$v.$invalid
     }
   },
 
   methods: {
     async submit () {
-      await api.submitNest(this.nestInput)
-      await api.submitNestLocation(this.locationInput)
+      // check for validations: $v.$touch on children
+      this.$refs.nestDetails.$v.$touch()
+      this.$refs.locationDetails.$v.$touch()
 
-      this.$router.push('/')
+      // if no errors, submit
+      if (this.isFormValid) {
+        await api.submitNest(this.nestInput)
+  
+        // route to nest page
+        this.$router.push('/')
+      }
     },
 
     toggleNav () {

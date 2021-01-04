@@ -5,6 +5,12 @@
     "type": "radio",
     "options": ["true", "false"]
   },
+  "current_location": {
+    "name": "current_location",
+    "label": "Is this the current location of the nest?",
+    "type": "radio",
+    "options": ["true", "false"]
+  },
   "distance": {
     "name": "distance",
     "label": "Distance to Nest",
@@ -16,6 +22,6 @@
     "label": "Direction",
     "type": "select",
     "helptext": "Approximate direction to the nest from the recorded coordinates",
-    "options": ["", "NW", "N", "NE", "E", "SE", "S", "SW", "W"]
+    "options": ["", "nw", "n", "ne", "e", "se", "s", "sw", "w"]
   }
 }
