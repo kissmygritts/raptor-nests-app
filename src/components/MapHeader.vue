@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import { coordConverter } from '@/services/utm.js'
+
 export default {
   name: 'MapHeader',
   data () {
@@ -82,12 +84,43 @@ export default {
   },
 
   computed: {
-    search () {
-      const search = this.searchTerm.split(':')
+    isGeoSearch () {
+      return this.searchType === 'geo' || this.searchType === 'utm'
+    },
 
+    searchType () {
+      return this.searchTerm?.split(':')[0]?.toLowerCase().trim()
+    },
+
+    searchValue () {
+      return this.searchTerm?.split(':')[1]?.trim()
+    },
+
+    searchCoords () {
+      if (this.isGeoSearch) {
+        const coords = this.searchValue?.split(',')
+        const [x, y] = coords
+        const proj = this.searchType === 'geo' ? 'latlng' : 'utm'
+
+        const { latlng } = coordConverter({
+          x: parseFloat(x),
+          y: parseFloat(y),
+          proj
+        })
+
+        return {
+          lat: latlng.y,
+          lng: latlng.x
+        }
+      } else {
+        return undefined
+      }
+    },
+
+    search () {
       return {
-        type: search[0].trim().toLowerCase(),
-        term: search[1].trim()
+        type: this.searchType,
+        value: this.isGeoSearch ? this.searchCoords : this.searchValue
       }
     }
   },

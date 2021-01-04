@@ -109,7 +109,10 @@ export default {
       },
       url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
       activeNestId: null,
-      coordinates: '0, 0',
+      coordinates: {
+        lat: 38.8568,
+        lng: -115.7080
+      },
       showInputLocation: false,
       slider: {
         visible: false
@@ -128,17 +131,7 @@ export default {
     },
 
     inputLocation () {
-      const coords = (coords) => {
-        const xy = coords.split(', ')
-        return {
-          lng: parseFloat(xy[0]) || 0,
-          lat: parseFloat(xy[1]) || 0
-        }
-      }
-
       return this.coordinates
-        ? coords(this.coordinates)
-        : null
     },
 
     options () {
@@ -154,31 +147,31 @@ export default {
       this.layers.visible = !this.layers.visible
     },
 
-    setLayerUrl (url) {
-      this.url = url
-    },
-
-    zoomToLocation ({ type, term }) {
-      if (type === 'id') {
-        // TODO: what happens if nest id doesn't exist? Would be nice to flash a message
-        const nest = this.nestGeoJson.features.find(feature => {
-          return feature.properties.id === term
-        })
-
-        const coordinates = nest.geometry.coordinates
-        this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 10)
-      } else {
-        this.coordinates = term
-        this.addLocationMarker()
-      }
-    },
-
     toggleNav () {
       this.$emit('nav:toggle')
     },
 
     toggleSlider () {
       this.slider.visible = !this.slider.visible
+    },
+
+    setLayerUrl (url) {
+      this.url = url
+    },
+
+    zoomToLocation ({ type, value }) {
+      if (type === 'id') {
+        // TODO: what happens if nest id doesn't exist? Would be nice to flash a message
+        const nest = this.nestGeoJson.features.find(feature => {
+          return feature.properties.id === value
+        })
+
+        const coordinates = nest.geometry.coordinates
+        this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 10)
+      } else {
+        this.coordinates = value
+        this.addLocationMarker()
+      }
     },
 
     addLocationMarker () {
@@ -191,7 +184,7 @@ export default {
     addMarkerAtCenter () {
       const center = this.$refs.map.mapObject.getCenter()
       const zoom = this.$refs.map.mapObject.getZoom()
-      this.coordinates = `${center.lng.toFixed(4)}, ${center.lat.toFixed(4)}`
+      this.coordinates = center
 
       this.$nextTick(() => {
         this.showInputLocation = true
