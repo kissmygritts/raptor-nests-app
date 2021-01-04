@@ -7,8 +7,8 @@
         <h1 class="text-3xl">New Raptor Nest Data Entry</h1>
         <p class="mt-2 text-gray-700 font-light">
           Use this form to enter new nests and nest visits to the Raptor Nest database.
-          Required fields are marked, all other fields are optional.
-          For more information about how to properly fill out this form please review the documentation (here, link).
+          Unless noted as optional all fields are required. For more information about
+          how to properly fill out this form please review the documentation (here, link).
         </p>
       </div>
 
@@ -26,7 +26,6 @@
         </p>
 
         <nest-details
-          ref="nestDetails"
           class="my-4 md:my-8 md:mx-4"
           @input:nest-details="updateNestDetails"
         />
@@ -39,14 +38,13 @@
         </template>
 
         <location-details
-          ref="locationDetails"
           class="my-4 md:my-8 md:mx-4"
           @input:location-details="updateLocationDetails"
         />
       </collapsible-section>
 
       <!-- data -->
-      <!-- <pre class="text-left p-4">{{ reqBody }}</pre> -->
+      <pre class="text-left p-4">{{ $data }}</pre>
 
       <!-- submit buttons -->
       <div class="my-8 w-full flex justify-end">
@@ -95,37 +93,25 @@ export default {
     nestInput () {
       return {
         id: this.ids.nest_id,
-        ...this.nestDetails,
-        location: this.locationInput
+        ...this.nestDetails
       }
     },
 
     locationInput () {
       return {
         id: this.ids.location_id,
-        nest_id: this.ids.nest_id,
+        nestId: this.ids.nest_id,
         ...this.locationDetails
       }
-    },
-
-    isFormValid() {
-      return !this.$refs.nestDetails.$v.$invalid && !this.$refs.locationDetails.$v.$invalid
     }
   },
 
   methods: {
     async submit () {
-      // check for validations: $v.$touch on children
-      this.$refs.nestDetails.$v.$touch()
-      this.$refs.locationDetails.$v.$touch()
+      await api.submitNest(this.nestInput)
+      await api.submitNestLocation(this.locationInput)
 
-      // if no errors, submit
-      if (this.isFormValid) {
-        await api.submitNest(this.nestInput)
-  
-        // route to nest page
-        this.$router.push('/')
-      }
+      this.$router.push('/')
     },
 
     toggleNav () {

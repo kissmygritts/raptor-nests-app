@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full space-y-4">
+  <div class="w-full">
     <l-map
       ref="map"
       style="height: 350px;"
@@ -26,50 +26,39 @@
       />
     </l-map>
 
-    <!-- latlng/utm selector -->
-    <!-- WIP: still working on this  -->
-    <!-- <div class="inline-flex shadow-sm rounded">
-      <label
-        class="relative inline-flex items-center px-5 py-2 rounded-l cursor-pointer border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-oxford-lightest focus:border-oxford-lightest"
-        :class="{ active: crs === 'latlng' }"
-      >
-        <input type="radio" class="hidden" name="crs" v-model="crs" value="latlng">
-        LatLng
-      </label>
-      <label
-        class="-ml-px relative inline-flex items-center px-5 py-2 rounded-r cursor-pointer border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-oxford-lightest focus:border-oxford-lightest"
-        :class="{ active: crs === 'utm' }"
-      >
-        <input type="radio" class="hidden" name="crs" v-model="crs" value="utm">
-        UTMs
-      </label>
-    </div> -->
-
     <!-- lat long (x,y) inputs -->
     <!-- x -->
-    <tw-input
-      label="X Coordinate"
-      name="x"
-      type="number"
-      v-model="nestLocation.latLng.lng"
-      @input="updateNestMarker()"
-    />
-
+    <div class="mt-4">
+      <label class="block font-medium text-gray-700">
+        Longitude
+      </label>
+      <input
+        type="number"
+        class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
+        v-model="nestLocation.latLng.lng"
+        @input="updateNestMarker()"
+      >
+    </div>
     <!-- y -->
-    <tw-input
-      label="Y Coordinate"
-      name="y"
-      type="number"
-      v-model="nestLocation.latLng.lat"
-      @input="updateNestMarker()"
-    />
+    <div class="mt-4">
+      <label class="block font-medium text-gray-700">
+        Latitude
+      </label>
+      <input
+        type="number"
+        class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
+        v-model="nestLocation.latLng.lat"
+        @input="updateNestMarker()"
+      >
+    </div>
+
+    <!-- <pre class="bg-gray-100 text-left my-4 p-4">{{ $data }}</pre> -->
   </div>
 </template>
 
 <script>
 import { LMap, LMarker, LTileLayer, LCircleMarker } from 'vue2-leaflet'
 import geolocate from '@/services/geolocate.js'
-// import { coordConverter } from '@/services/utm.js'
 
 export default {
   name: 'MapInput',
@@ -82,11 +71,10 @@ export default {
   },
 
   props: {
-    value: {
+    latLng: {
       type: Object,
-      default () {
-        return { lat: 39.320833, lng: -116.638583 }
-      }
+      required: false,
+      default: null
     }
   },
 
@@ -97,7 +85,6 @@ export default {
         zoom: 7,
         basemaps: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       },
-      crs: 'latlng',
       geolocation: null,
       nestLocation: {
         latLng: []
@@ -111,17 +98,12 @@ export default {
     },
 
     hasLatLngProp () {
-      return this.value !== null
+      return this.latLng !== null
     },
 
     hasNestLocation () {
       return Object.keys(this.nestLocation.latLng).length > 0
     }
-
-    // coordinates () {
-    //   const { lng: x, lat: y } = this.nestLocation.latLng
-    //   return coordConverter({ x, y, proj: 'latlng' })
-    // }
   },
 
   methods: {
@@ -145,8 +127,7 @@ export default {
     },
 
     emitLocation () {
-      // this.$emit('input:nest-location', this.nestLocation.latLng)
-      this.$emit('input', this.nestLocation.latLng)
+      this.$emit('input:nest-location', this.nestLocation.latLng)
     }
   },
 
@@ -155,7 +136,7 @@ export default {
       let zoom = 10
 
       if (this.hasLatLngProp) {
-        this.nestLocation.latLng = this.value
+        this.nestLocation.latLng = this.latLng
       } else {
         try {
           this.geolocation = await geolocate()
@@ -166,15 +147,8 @@ export default {
         }
       }
 
-      this.emitLocation()
       this.flyToLocation(zoom)
     })
   }
 }
 </script>
-
-<style scoped>
-.active {
-  @apply bg-olive border-olive text-white
-}
-</style>

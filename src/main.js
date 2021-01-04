@@ -1,17 +1,8 @@
 import Vue from 'vue'
-import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import router from './router'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-
-// global components
-import TwInput from './components/form-elements/TwInput.vue'
-import TwSelect from './components/form-elements/TwSelect.vue'
-import TwRadio from './components/form-elements/TwRadio.vue'
-Vue.component('TwInput', TwInput)
-Vue.component('TwSelect', TwSelect)
-Vue.component('TwRadio', TwRadio)
 
 delete Icon.Default.prototype._getIconUrl
 Icon.Default.mergeOptions({
@@ -21,8 +12,6 @@ Icon.Default.mergeOptions({
 })
 
 Vue.config.productionTip = false
-
-Vue.use(Vuelidate)
 
 new Vue({
   router,
