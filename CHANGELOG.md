@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2021-01-03
+
+### Added
+- Zoom to utm coordinates on main map
+- Feature marker is draggable on the main map
+- Uses raptor nest API now (not just json-server mock API)
+- Loads nests from API as a geobuffer and parses to GeoJSON for display
+- Base radio input component
+
+### Fixed
+- Scrollbar on `/nests/new` is aligned to the left now
+- Locations details accepts `v-model` so it is reactive to marker drag in
+  the map input component
+
+### Changed
+- Refactor base inputs to be more reusable, robust
+- Use preferCanvas on leaflet map to help with performance
+
+### Removed
+- Deleted unused componentes
+
 ## [0.3.1] - 2020-12-11
 
 Most of the work here was to work on deployment to DigitalOcean Apps platform.
@@ -17,7 +38,7 @@ Most of the work here was to work on deployment to DigitalOcean Apps platform.
 - `json-server.sh` to start `json-server` with pm2
 - `ecosystem.config.js` to run with one command for others
 
-### FIXED
+### Fixed
 - moved some dependencies to to development in `package.json`
 - Updated TailwindCSS based on some tweets form Adam Wathan. Essential
 the initial 2.0.0 release with PurgeCSS 7 compatibility had some issues. These
