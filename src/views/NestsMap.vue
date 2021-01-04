@@ -23,7 +23,8 @@
 
         <l-marker
           :visible="showInputLocation"
-          :lat-lng="inputLocation"
+          :lat-lng.sync="coordinates"
+          :draggable="true"
         >
           <l-popup
             v-if="showInputLocation"
