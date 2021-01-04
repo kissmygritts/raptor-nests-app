@@ -1,0 +1,27 @@
+{
+  "exact_coordinates": {
+    "name": "exact_coordinates",
+    "label": "Are these the exact coordinates of the nest?",
+    "type": "radio",
+    "options": ["true", "false"]
+  },
+  "current_location": {
+    "name": "current_location",
+    "label": "Is this the current location of the nest?",
+    "type": "radio",
+    "options": ["true", "false"]
+  },
+  "distance": {
+    "name": "distance",
+    "label": "Distance to Nest",
+    "type": "number",
+    "helptext": "The distance, in meters, to the nest from your location."
+  },
+  "direction": {
+    "name": "direction",
+    "label": "Direction",
+    "type": "select",
+    "helptext": "Approximate direction to the nest from the recorded coordinates",
+    "options": ["", "nw", "n", "ne", "e", "se", "s", "sw", "w"]
+  }
+}
