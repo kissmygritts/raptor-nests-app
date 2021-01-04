@@ -6,14 +6,6 @@
         v-model="latLng"
       />
 
-      <!-- current location -->
-      <base-radio
-        :label="current_location.label"
-        :name="current_location.name"
-        :options="current_location.options"
-        v-model="model"
-      />
-
       <!-- exact location? -->
       <tw-radio
         class="mt-4"
