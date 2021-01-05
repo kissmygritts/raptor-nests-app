@@ -5,7 +5,7 @@
       :visible="showMobileNav"
       @close="toggleNav()"
     />
-    <router-view @nav:toggle="toggleNav()" />
+    <router-view :key="$route.fullPath" @nav:toggle="toggleNav()" />
   </div>
 </template>
 

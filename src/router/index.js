@@ -19,11 +19,11 @@ const routes = [
     name: 'nests-new',
     component: () => import(/* webpackChunkName: "nests-new" */ '../views/NestsNew.vue')
   },
-  // {
-  //   path: '/nests/:id',
-  //   name: 'nests-show',
-  //   component: NestsShow
-  // },
+  {
+    path: '/nests/:id',
+    name: 'nests-show',
+    component: () => import(/* webpackChunkName: "nests-show" */ '../views/NestsShow.vue')
+  },
   {
     path: '/table',
     name: 'nests-table',

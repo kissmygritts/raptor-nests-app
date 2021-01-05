@@ -19,7 +19,7 @@
 
       <!-- Form container, left side -->
       <div class="flex-1 flex items-center">
-        <h1 class="text-xl tracking-wide text-gray-800">Data Entry</h1>
+        <h1 class="text-xl tracking-wide text-gray-800">{{ title }}</h1>
       </div>
 
       <!-- Right side of page header -->
@@ -43,6 +43,14 @@
 <script>
 export default {
   name: 'PageHeader',
+
+  props: {
+    title: {
+      type: String,
+      required: false,
+      default: 'Data Entry'
+    }
+  },
 
   methods: {
     toggleNav () {

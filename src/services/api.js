@@ -4,8 +4,14 @@ const POST_HEADERS = {
   'Content-type': 'application/json; charset=UTF-8'
 }
 
-async function findNest () {
+async function getNestById ({ id }) {
+  const response = await fetch(uriPath(`nests/${id}`))
+  const data = await response.json()
 
+  return {
+    statusCode: response.status,
+    data
+  }
 }
 
 async function submitNest (nest) {
@@ -54,8 +60,12 @@ async function getNestsGeobuf () {
 }
 
 export default {
-  findNest,
+  getNestById,
   submitNest,
   submitNestLocation,
   getNestsGeobuf
+}
+
+function uriPath (path) {
+  return `${API_URL}/${path}`
 }
