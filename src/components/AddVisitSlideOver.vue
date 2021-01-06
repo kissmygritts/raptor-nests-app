@@ -3,11 +3,11 @@
     <div class="absolute inset-0 overflow-hidden">
 
       <section
-        class="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16"
+        class="absolute inset-y-0 right-0 max-w-full flex"
         aria-labelledby="slide-over-heading"
       >
         <div class="w-screen max-w-2xl">
-          <form
+          <div
             class="h-full flex flex-col bg-gray-100 shadow-xl overflow-y-scroll"
           >
             <div class="flex-1">
@@ -18,11 +18,11 @@
                   <div class="space-y-1">
                     <h2
                       id="slide-over-heading"
-                      class="text-lg font-medium text-gray-200"
+                      class="text-2xl font-medium text-gray-200"
                     >
                       Add a Visit to Nest: <span class="font-mono">{{ nestId }}</span>
                     </h2>
-                    <p class="text-sm text-gray-400">
+                    <p class="font-light text-gray-400">
                       Complete the form below to add a new visit to this nest.
                     </p>
                   </div>
@@ -47,7 +47,7 @@
               </p>
 
               <!-- Divider container -->
-              <div class="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
+              <div class="space-y-6 sm:space-y-0 sm:divide-y sm:divide-gray-200">
                 <div class="bg-white rounded shadow-sm m-4 p-4">
                   <nest-visit-form
                     ref="nestVisit"
@@ -71,7 +71,7 @@
                 </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </div>
