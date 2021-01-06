@@ -7,11 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Added: `nests/:id` view. Includes data about the nest, all nest visits,
-  nearby nests. Links out to additional nest pages.
-- Added: `nests/new` has data entry and validation for entering a nest visit.
-- Fixed: added `:key` to `<router-view>` to properly change pages when using
   the same route, but changing the parameters.
+
+## [0.5.0] - 2021-01-04
+
+### Added
+- `nests/:id` view. Includes data about the nest, all nest visits, nearby nests. Links out to additional nest pages.
+- `nests/:id` slide over for new nest visit data entry
+  - takes response from the API and pushes it to the `nests.nest_visits` array to avoid page refresh
+- `nests/new` has data entry and validation for entering a nest visit.
+- Scroll to top of forms when there are form errors
+- Link to create new nest in `PageHeader.vue`, doesn't show on `/nests/new` route
+- Set map bounds in `create` hook on `/nests/:id` page
+
+### Fixed
+- Use `:key` to `<router-view>` to properly change pages when using
 
 ## [0.4.0] - 2021-01-03
 
