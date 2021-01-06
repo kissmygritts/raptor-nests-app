@@ -45,6 +45,19 @@
           />
         </collapsible-section>
 
+        <!-- nest visit form -->
+        <collapsible-section class="bg-white mt-4 p-2 md:p-4 rounded">
+          <template v-slot:header>
+            <h2 class="text-2xl">Nest Visit</h2>
+          </template>
+
+          <nest-visit-form
+            ref="nestVisit"
+            class="my-4 md:my-8 md:mx-4"
+            @input:nest-visit="updateNestVisit"
+          />
+        </collapsible-section>
+
         <!-- data -->
         <pre class="text-left p-4">{{ nestInput }}</pre>
 
@@ -69,6 +82,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import CollapsibleSection from '@/components/CollapsibleSection.vue'
 import NestDetails from '@/components/forms/NestDetails.vue'
 import LocationDetails from '@/components/forms/LocationDetails.vue'
+import NestVisitForm from '@/components/forms/NestVisitForm.vue'
 import generateId from '@/services/IdService.js'
 import api from '@/services/api.js'
 
@@ -78,6 +92,7 @@ export default {
     CollapsibleSection,
     LocationDetails,
     NestDetails,
+    NestVisitForm,
     PageHeader
   },
 
@@ -85,10 +100,12 @@ export default {
     return {
       ids: {
         nest_id: null,
-        location_id: null
+        location_id: null,
+        visit_id: null
       },
       nestDetails: null,
       locationDetails: null,
+      nestVisit: null
     }
   },
 
@@ -97,7 +114,8 @@ export default {
       return {
         id: this.ids.nest_id,
         ...this.nestDetails,
-        location: this.locationInput
+        location: this.locationInput,
+        visit: this.visitInput
       }
     },
 
@@ -109,8 +127,19 @@ export default {
       }
     },
 
+    visitInput () {
+      return {
+        id: this.ids.visit_id,
+        nest_id: this.ids.nest_id,
+        location_id: this.ids.location_id,
+        ...this.nestVisit
+      }
+    },
+
     isFormValid() {
-      return !this.$refs.nestDetails.$v.$invalid && !this.$refs.locationDetails.$v.$invalid
+      return !this.$refs.nestDetails.$v.$invalid
+        && !this.$refs.locationDetails.$v.$invalid
+        && !this.$refs.nestVisit.$v.$invalid
     }
   },
 
@@ -119,13 +148,14 @@ export default {
       // check for validations: $v.$touch on children
       this.$refs.nestDetails.$v.$touch()
       this.$refs.locationDetails.$v.$touch()
+      this.$refs.nestVisit.$v.$touch()
 
       // if no errors, submit
       if (this.isFormValid) {
         await api.submitNest(this.nestInput)
   
         // route to nest page
-        this.$router.push('/')
+        this.$router.push({ name: 'nests-show', params: { id: this.ids.nest_id }})
       }
     },
 
@@ -139,12 +169,17 @@ export default {
 
     updateNestDetails (nestDetails) {
       this.nestDetails = nestDetails
+    },
+
+    updateNestVisit (nestVisit) {
+      this.nestVisit = nestVisit
     }
   },
 
   async mounted () {
     this.ids.nest_id = await generateId(6)
     this.ids.location_id = await generateId(16)
+    this.ids.visit_id = await generateId(16)
   }
 }
 </script>

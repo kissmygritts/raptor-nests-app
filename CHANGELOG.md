@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added: `nests/:id` view. Includes data about the nest, all nest visits,
+  nearby nests. Links out to additional nest pages.
+- Added: `nests/new` has data entry and validation for entering a nest visit.
+- Fixed: added `:key` to `<router-view>` to properly change pages when using
+  the same route, but changing the parameters.
+
 ## [0.4.0] - 2021-01-03
 
 ### Added
