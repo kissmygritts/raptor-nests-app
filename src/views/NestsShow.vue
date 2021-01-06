@@ -7,12 +7,49 @@
       LOADING
     </div>
     <div v-else class="overflow-y-auto px-8 pt-12">
+      <!-- slide over -->
+      <transition
+        enter-active-class="transition-opacity ease-linear duration-300"
+        enter-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition-opacity ease-linear duration-300"
+        leave-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="slider.visible"
+          class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          style="z-index: 5000;"
+          aria-hidden="true"
+        />
+      </transition>
+
+      <transition
+        enter-active-class="transform transition ease-in-out duration-500 md:duration-700"
+        enter-class="translate-x-full"
+        enter-to-class="translate-x-0"
+        leave-active-class="transform transition ease-in-out duration-500 md:duration-700"
+        leave-class="translate-x-0"
+        leave-to-class="translate-x-full"
+      >
+        <add-visit-slide-over
+          v-if="slider.visible"
+          :visible="slider.visible"
+          :nest-id="nestId"
+          :location-id="locationId"
+          @slider:toggle="toggleSlider"
+          @submit-visit="pushVisit"
+        />
+      </transition>
+
+      <!-- page content -->
       <page-meta-title
         :nestId="nest.id"
         :totalVisits="totalVisits"
         :lastVisitDate="lastVisitDate"
         :location="lastLocation"
         :probableOrigin="nest.probable_origin"
+        @click:add-visit="toggleSlider()"
       />
 
       <div class="container mx-auto mt-12">
@@ -77,6 +114,7 @@ import {
   LTileLayer,
   LGeoJson
 } from 'vue2-leaflet'
+import AddVisitSlideOver from '@/components/AddVisitSlideOver.vue'
 import PageHeader from '@/components/PageHeader'
 import PageMetaTitle from '@/components/PageMetaTitle'
 import SimpleTable from '@/components/SimpleTable'
@@ -87,6 +125,7 @@ export default {
   name: 'NestsShow',
 
   components: {
+    AddVisitSlideOver,
     LMap,
     LTileLayer,
     LGeoJson,
@@ -105,6 +144,9 @@ export default {
         zoom: 6,
         center: [38.8568, -115.7080],
         url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+      },
+      slider: {
+        visible: false
       }
     }
   },
@@ -123,6 +165,16 @@ export default {
     lastLocation () {
       const { lat, lng } = this.nest?.locations[0]
       return `${lng.toFixed(4)}, ${lat.toFixed(4)}`
+    },
+
+    // slide over props
+    nestId () {
+      return this.nest?.id || ''
+    },
+
+    locationId () {
+      return this.nest?.locations
+        ?.filter(location => location.current_location)[0]?.id
     },
 
     // geojson feature props
@@ -192,10 +244,18 @@ export default {
           case 'nest location': return { fillColor: '#589fd6' }
         }
       }
+    },
+
+    toggleSlider () {
+      this.slider.visible = !this.slider.visible
+    },
+
+    pushVisit (visit) {
+      this.nest.nest_visits.push(visit)
     }
   },
 
-  async mounted () {
+  async created () {
     this.loading = true
     const response = await api.getNestById({ id: this.$route.params.id })
     this.nest = response.data
