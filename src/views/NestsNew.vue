@@ -3,12 +3,15 @@
     <page-header @nav:toggle="toggleNav()" />
     <div class="overflow-y-auto">
       <div class="container pt-12 mx-auto px-2 md:px-24 text-gray-900">
-        <div class="px-4">
+        <div id="FormTitleContainer" class="px-4">
           <h1 class="text-3xl">New Raptor Nest Data Entry</h1>
           <p class="mt-2 text-gray-700 font-light">
             Use this form to enter new nests and nest visits to the Raptor Nest database.
             Required fields are marked, all other fields are optional.
             For more information about how to properly fill out this form please review the documentation (here, link).
+          </p>
+          <p v-show="formErrors" id="FormErrors" class="mt-4 -mx-2 p-2 font-light bg-red-100 text-red-700 rounded">
+            Please correct the errors on the form and resubmit.
           </p>
         </div>
 
@@ -105,7 +108,8 @@ export default {
       },
       nestDetails: null,
       locationDetails: null,
-      nestVisit: null
+      nestVisit: null,
+      formErrors: false
     }
   },
 
@@ -156,6 +160,9 @@ export default {
   
         // route to nest page
         this.$router.push({ name: 'nests-show', params: { id: this.ids.nest_id }})
+      } else {
+        this.formErrors = true
+        document.getElementById('FormTitleContainer').scrollIntoView({ behavior: 'smooth' })
       }
     },
 

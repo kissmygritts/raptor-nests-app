@@ -41,6 +41,11 @@
                 </div>
               </div>
 
+              <!-- form errors -->
+              <p v-show="formErrors" id="FormErrors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
+                Please correct the errors on the form and resubmit.
+              </p>
+
               <!-- Divider container -->
               <div class="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
                 <div class="bg-white rounded shadow-sm m-4 p-4">
@@ -104,7 +109,8 @@ export default {
   data () {
     return {
       nestVisit: null,
-      visit_id: undefined
+      visit_id: undefined,
+      formErrors: false
     }
   },
 
@@ -142,6 +148,9 @@ export default {
         // emit data
         console.log({ response })
         this.$emit('submit-visit', response.data)
+      } else {
+        this.formErrors = true
+        document.getElementById('slide-over-heading').scrollIntoView({ behavior: 'smooth' })
       }
     }
   },
