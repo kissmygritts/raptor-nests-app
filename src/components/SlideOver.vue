@@ -38,20 +38,92 @@
                 </div>
                 <div class="mt-6 relative flex-1 px-4 sm:px-6">
                   <!-- Replace with your content -->
-                  <pre><code>{{ nest }}</code></pre>
-                  <!-- /End replace -->
+                  <div>
+                    <ul class="divide-y divide-gray-200">
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Habitat Category</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.habitat_category }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Nest Type</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.nest_type }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Probable Origin</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.probable_origin }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Last Checked</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_checked }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Total Visits</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.n_visits }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Coordinates</h3>
+                            </div>
+                            <p class="text-gray-500">LatLng: {{ geoCoords }}</p>
+                            <p class="text-gray-500">UTM: {{ utmCoords }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <!-- More items... -->
+                    </ul>
+                  </div>
+                  <!-- /End content -->
                 </div>
               </div>
               <div class="flex-shrink-0 px-4 py-4 flex justify-end">
                 <router-link
                   :to="{ name: 'nests-show', params: { id: nest.properties.id } }"
-                  class="bg-white py-2 px-4 border border-gray-300 rounded shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm font-medium rounded text-white bg-olive hover:bg-olive-darker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   View Nest
                 </router-link>
-                <button type="button" class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded text-white bg-olive hover:bg-olive-darker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-not-allowed">
+                <!-- <button type="button" class="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded text-white bg-olive hover:bg-olive-darker focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-not-allowed">
                   Add Visit To Nest
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -60,6 +132,8 @@
 </template>
 
 <script>
+import { coordConverter } from '@/services/utm.js'
+
 export default {
   name: 'SlideOver',
   props: {
@@ -74,6 +148,24 @@ export default {
       default: () => {}
     }
   },
+  computed: {
+    coordinates () {
+      return this.nest.geometry.coordinates
+    },
+    geoCoords () {
+      const [lng, lat] = this.coordinates
+      return `${lng.toFixed(4)}, ${lat.toFixed(4)}`
+    },
+    utmCoords () {
+      const [lng, lat] = this.coordinates
+      const { utms } = coordConverter({
+        x: lng,
+        y: lat,
+        proj: 'latlng'
+      })
+      return `${utms.x.toFixed(2)}, ${utms.y.toFixed(2)}`
+    }
+  },
   methods: {
     emitToggle () {
       this.$emit('slider:toggle')
@@ -81,7 +173,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
