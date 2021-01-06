@@ -60,9 +60,10 @@
           style="height: 375px;"
           :zoom="map.zoom"
           :center="map.center"
+          @ready="setMapBounds()"
         >
           <l-tile-layer :url="map.url" />
-          <l-geo-json :geojson="locationsGeoJson" :options="options" />
+          <l-geo-json ref="geojson" :geojson="locationsGeoJson" :options="options" />
         </l-map>
 
         <!-- Nest visits section -->
@@ -252,6 +253,12 @@ export default {
 
     pushVisit (visit) {
       this.nest.nest_visits.push(visit)
+    },
+
+    setMapBounds () {
+      this.$refs.map.setBounds(this.$refs.geojson.getBounds(), {
+        padding: [1000, 1000]
+      })
     }
   },
 
