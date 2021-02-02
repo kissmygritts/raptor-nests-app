@@ -6,25 +6,11 @@
         v-model="latLng"
       />
 
-      <!-- exact location? -->
-      <tw-radio
-        class="mt-4"
-        :label="exact_coordinates.label"
-        :name="exact_coordinates.name"
-        :options="exact_coordinates.options"
-        :has-error="$v.model.exact_coordinates.$error"
-        :is-invalid="$v.model.exact_coordinates.$invalid"
-        v-model="model.exact_coordinates"
-        @blur="$v.model.exact_coordinates.$touch()"
-        required
-      >
-        <p v-if="!$v.model.exact_coordinates.required">Exact Coordinates is a required field.</p>
-      </tw-radio>
-
       <tw-radio
         class="mt-4"
         :label="current_location.label"
         :name="current_location.name"
+        :helptext="current_location.helptext"
         :options="current_location.options"
         :has-error="$v.model.current_location.$error"
         :is-invalid="$v.model.current_location.$invalid"
@@ -33,6 +19,22 @@
         required
       >
         <p v-if="!$v.model.current_location.required">Current Location is a required field.</p>
+      </tw-radio>
+
+      <!-- exact location? -->
+      <tw-radio
+        class="mt-4"
+        :label="exact_coordinates.label"
+        :name="exact_coordinates.name"
+        :helptext="exact_coordinates.helptext"
+        :options="exact_coordinates.options"
+        :has-error="$v.model.exact_coordinates.$error"
+        :is-invalid="$v.model.exact_coordinates.$invalid"
+        v-model="model.exact_coordinates"
+        @blur="$v.model.exact_coordinates.$touch()"
+        required
+      >
+        <p v-if="!$v.model.exact_coordinates.required">Exact Coordinates is a required field.</p>
       </tw-radio>
 
       <!-- show these fields base on exact location -->

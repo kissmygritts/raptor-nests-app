@@ -2,12 +2,14 @@
   "exact_coordinates": {
     "name": "exact_coordinates",
     "label": "Are these the exact coordinates of the nest?",
+    "helptext": "e.g. at the base of the tree, or within the 5 meters of the nest tree.",
     "type": "radio",
     "options": ["true", "false"]
   },
   "current_location": {
     "name": "current_location",
-    "label": "Is this the current location of the nest?",
+    "label": "Is this the current, most up to date location of the nest?",
+    "helptext": "It's possible to observe a nest at multiple locations over time. Is this location the current location of the nest?",
     "type": "radio",
     "options": ["true", "false"]
   },

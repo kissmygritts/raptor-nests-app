@@ -115,8 +115,22 @@
           :label="schema.adult_count.label"
           :type="schema.adult_count.type"
           :helptext="schema.adult_count.helptext"
+          :has-error="$v.model.adult_count.$error"
+          :is-invalid="$v.model.adult_count.$invalid"
           min="0"
           v-model="model.adult_count"
+          @blur="$v.model.adult_count.$touch()"
+        >
+          <p v-if="!$v.model.adult_count.minValue">Adult Count must be >= 0</p>
+        </tw-input>
+
+        <tw-radio
+          v-if="hasAdultCount"
+          :name="schema.adult_count_clarify.name"
+          :label="schema.adult_count_clarify.label"
+          :helptext="schema.adult_count_clarify.label"
+          :options="schema.adult_count_clarify.options"
+          v-model="model.adult_count_clarify"
         />
 
         <tw-input
@@ -133,8 +147,22 @@
           :label="schema.production_count.label"
           :type="schema.production_count.type"
           :helptext="schema.production_count.helptext"
+          :has-error="$v.model.production_count.$error"
+          :is-invalid="$v.model.production_count.$invalid"
           min="0"
           v-model="model.production_count"
+          @blur="$v.model.production_count.$touch()"
+        >
+          <p v-if="!$v.model.production_count.minValue">Production Count must be >= 0</p>
+        </tw-input>
+
+        <tw-radio
+          v-if="hasProductionCount"
+          :name="schema.production_count_clarify.name"
+          :label="schema.production_count_clarify.label"
+          :helptext="schema.production_count_clarify.label"
+          :options="schema.production_count_clarify.options"
+          v-model="model.production_count_clarify"
         />
 
         <tw-select
@@ -169,7 +197,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, minValue } from 'vuelidate/lib/validators'
 import TwTextarea from '@/components/form-elements/TwTextarea.vue'
 import nestVisitConfig from '@/data/NestVisitForm.json'
 
@@ -193,9 +221,11 @@ export default {
         occupied: null,
         species: null,
         breeding_stage: null,
-        adult_count: null,
+        adult_count_clarify: null,
+        adult_count: 0,
         adult_behavior: null,
-        production_count: null,
+        production_count_clarify: null,
+        production_count: 0,
         young_stage: null,
         production_notes: null,
         comments: null
@@ -208,7 +238,13 @@ export default {
       visit_date: { required },
       observers: { required },
       survey_type: { required },
-      occupied: { required }
+      occupied: { required },
+      adult_count: {
+        minValue: minValue(0)
+      },
+      production_count: {
+        minValue: minValue(0)
+      }
     }
   },
 

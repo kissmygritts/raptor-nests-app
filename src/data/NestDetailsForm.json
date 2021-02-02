@@ -34,7 +34,7 @@
     "name": "location_description",
     "label": "Location Description",
     "type": "text",
-    "helptext": "General description of the survey area location and relevant landmarks (e.g. mountain range, reivers, landscape features).",
+    "helptext": "General description of the survey area location and relevant landmarks (e.g. mountain ranges, drainages, landscape features).",
     "options": null
   },
   "nest_substrate": {

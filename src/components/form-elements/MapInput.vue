@@ -48,7 +48,7 @@
     <!-- lat long (x,y) inputs -->
     <!-- x -->
     <tw-input
-      label="X Coordinate"
+      label="Longitude"
       name="x"
       type="number"
       v-model="nestLocation.latLng.lng"
@@ -57,7 +57,7 @@
 
     <!-- y -->
     <tw-input
-      label="Y Coordinate"
+      label="Latitude"
       name="y"
       type="number"
       v-model="nestLocation.latLng.lat"
@@ -174,7 +174,7 @@ export default {
 </script>
 
 <style scoped>
-.active {
+/* .active {
   @apply bg-olive border-olive text-white
-}
+} */
 </style>

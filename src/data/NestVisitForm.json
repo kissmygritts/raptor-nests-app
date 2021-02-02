@@ -17,7 +17,19 @@
     "name": "agency",
     "label": "Agency",
     "helptext": "Agency or organizations the observers represent",
-    "type": "text"
+    "type": "select",
+    "options": [
+      "",
+      "state wildlife agency",
+      "nevada natural heritage program",
+      "state (and other) parks",
+      "bureau of land management",
+      "national park service",
+      "US army corps of engineers",
+      "US fish & wildlife service",
+      "US forest service",
+      "US geological survey"
+    ]
   },
   "survey_type": {
     "name": "survey_type",
@@ -87,7 +99,7 @@
       "great-horned owl",
       "long-eared owl",
       "merlin",
-      "nortern saw-whet owl",
+      "northern saw-whet owl",
       "northern goshawk",
       "osprey",
       "peregrine falcon",
@@ -107,13 +119,21 @@
     "options": [
       "",
       "courtship",
-      "failed",
-      "fledged",
       "incubation",
       "incubation/brooding - stage unclear",
       "nestling",
-      "territorial birds - stage unclear"
+      "fledged",
+      "territorial birds - stage unclear",
+      "stage unclear",
+      "failed"
     ]
+  },
+  "adult_count_clarify": {
+    "name": "adult_count_clarify",
+    "label": "Clarify Adult Count",
+    "helptext": "Is the number of adults equal to or greater than the count above?",
+    "type": "radio",
+    "options": ["=", ">"]
   },
   "adult_count": {
     "name": "adult_count",
@@ -125,6 +145,13 @@
     "label": "Adult Behavior",
     "helptext": "Description of the behavior of the adults, if observed.",
     "type": "text"
+  },
+  "production_count_clarify": {
+    "name": "production_count_clarify",
+    "label": "Clarify Production Count",
+    "helptext": "Is the number of production equal to or greater than the count above?",
+    "type": "radio",
+    "options": ["=", ">"]
   },
   "production_count": {
     "name": "production_count",
@@ -138,11 +165,11 @@
     "helptext": "What stage/age are the young if present.",
     "options": [
       "",
-      "branchers",
-      "eggs or nestlings",
       "eggs",
-      "fledglings",
-      "nestlings"
+      "eggs or nestlings",
+      "nestlings",
+      "branchers",
+      "fledglings"
     ]
   },
   "production_notes": {
