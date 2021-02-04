@@ -30,6 +30,24 @@ async function submitNest (nest) {
   }
 }
 
+async function updateNestDetails (nest) {
+  const { id, ...nestDetails } = nest
+
+  const response = await fetch(`${API_URL}/nests/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(nestDetails),
+    headers: {
+      ...POST_HEADERS
+    }
+  })
+
+  const data = await response.json()
+  return {
+    statusCode: response.status,
+    data
+  }
+}
+
 async function submitNestVisit (nest) {
   const response = await fetch(`${API_URL}/nests/${nest.nest_id}/new`, {
     method: 'POST',
@@ -80,7 +98,8 @@ export default {
   submitNest,
   submitNestLocation,
   submitNestVisit,
-  getNestsGeobuf
+  getNestsGeobuf,
+  updateNestDetails
 }
 
 function uriPath (path) {

@@ -1,139 +1,153 @@
 <template>
-  <div class="flex flex-col w-0 flex-1 overflow-hidden">
-    <page-header title="View Nest By Id" @nav:toggle="toggleNav()" />
+  <div class="min-h-screen w-full bg-gray-100 overflow-y-auto">
+    <page-header title="View Nest By Id" />
 
-    <!-- page container -->
-    <div v-if="!hasNest">
-      LOADING
-    </div>
-    <div v-else class="overflow-y-auto px-8 pt-12">
-      <!-- slide over -->
-      <transition
-        enter-active-class="transition-opacity ease-linear duration-300"
-        enter-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition-opacity ease-linear duration-300"
-        leave-class="opacity-100"
-        leave-to-class="opacity-0"
-      >
-        <div
-          v-if="slider.visible"
-          class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-          style="z-index: 5000;"
-          aria-hidden="true"
-        />
-      </transition>
-
-      <transition
-        enter-active-class="transform transition ease-in-out duration-500 md:duration-700"
-        enter-class="translate-x-full"
-        enter-to-class="translate-x-0"
-        leave-active-class="transform transition ease-in-out duration-500 md:duration-700"
-        leave-class="translate-x-0"
-        leave-to-class="translate-x-full"
-      >
-        <add-visit-slide-over
-          v-if="slider.visible"
-          :visible="slider.visible"
-          :nest-id="nestId"
-          :location-id="locationId"
-          @slider:toggle="toggleSlider"
-          @submit-visit="pushVisit"
-        />
-      </transition>
-
-      <!-- page content -->
-      <page-meta-title
-        :nestId="nest.id"
-        :totalVisits="totalVisits"
-        :lastVisitDate="lastVisitDate"
-        :location="lastLocation"
-        :probableOrigin="nest.probable_origin"
-        @click:add-visit="toggleSlider()"
-      />
-
-      <div class="container mx-auto mt-12">
-        <!-- map -->
-        <l-map
-          ref="map"
-          class="w-full shadow-sm"
-          style="height: 375px;"
-          :zoom="map.zoom"
-          :center="map.center"
-          @ready="setMapBounds()"
-        >
-          <l-tile-layer :url="map.url" />
-          <l-geo-json ref="geojson" :geojson="locationsGeoJson" :options="options" />
-        </l-map>
-
-        <!-- Nest visits section -->
-        <div class="w-full mt-10">
-          <!-- preamble -->
-          <div>
-            <h2 class="text-2xl">Nest Visits</h2>
-            <p class="text-gray-700 font-light">
-              The table below shows every visit to this nest. ...
-            </p>
-          </div>
-
-          <!-- table -->
-          <simple-table
-            class="mt-6"
-            :table-rows="nest.nest_visits"
-            :table-columns="['visit_date', 'observers', 'species', 'nest_condition', 'occupied']"
-          />
-        </div>
-
-        <!-- Nearby nests -->
-        <div class="w-full mt-10">
-          <!-- preamble -->
-          <div>
-            <h2 class="text-2xl">Nearby Nests</h2>
-            <p class="text-gray-700 font-light">
-              The table below shows every visit to this nest. ...
-            </p>
-          </div>
-
-          <!-- table -->
-          <nearby-nests-table
-            class="mt-6"
-            :nearby-nests="nest.nearby_nests"
-          />
-        </div>
-
-        <h2 class="text-2xl mt-12">All Data</h2>
-        <pre>{{ nest }}</pre>
+    <!-- main page content section -->
+    <main v-if="!hasNest" class="flex justify-center items-center w-full h-full">
+      <div>
+        LOADING
       </div>
-    </div>
+    </main>
+    <main v-else class="py-10">
+
+      <!-- add visit slide over -->
+      <div>
+        <transition
+          enter-active-class="transition-opacity ease-linear duration-300"
+          enter-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transition-opacity ease-linear duration-300"
+          leave-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
+          <div
+            v-if="slider.visible"
+            class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            style="z-index: 5000;"
+            aria-hidden="true"
+          />
+        </transition>
+
+        <transition
+          enter-active-class="transform transition ease-in-out duration-500 md:duration-700"
+          enter-class="translate-x-full"
+          enter-to-class="translate-x-0"
+          leave-active-class="transform transition ease-in-out duration-500 md:duration-700"
+          leave-class="translate-x-0"
+          leave-to-class="translate-x-full"
+        >
+          <add-visit-slide-over
+            v-if="slider.visible"
+            :visible="slider.visible"
+            :nest-id="nestId"
+            :location-id="locationId"
+            @slider:toggle="toggleSlider"
+            @submit-visit="pushVisit"
+          />
+        </transition>
+      </div>
+
+      <!-- page title area -->
+      <div class="max-w-3xl lg:max-w-7xl px-4 sm:px-6 mx-auto">
+        <nest-page-title-card
+          :nest-id="nest.id"
+          :total-visits="totalVisits"
+          :location="lastLocation"
+          :last-visit-date="lastVisitDate"
+          :nest-type="nest.nest_type"
+          @click:add-visit="toggleSlider()"
+          @click:edit-nest="toggleEditNestVisible()"
+        />
+      </div>
+
+      <!-- content sections - grid container -->
+      <div class="mt-6 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+
+        <!-- edit nest details -->
+        <div
+          v-if="editNest.visible"
+          class="lg:col-start-1 lg:col-span-3 bg-white rounded-lg shadow"
+        >
+          <nest-details-edit
+            :nest-edit-details="nestEditDetails"
+            @submit:nest-edit="toggleEditNestVisible()"
+          />
+        </div>
+
+        <!-- left grid container -->
+        <div class="space-y-6 lg:col-start-1 lg:col-span-2">
+
+          <!-- nest map -->
+          <section aria-labelledby="applicant-information-title">
+            <div class="h-96 bg-white shadow sm:rounded-lg">
+              <l-map
+                ref="map"
+                class="w-full shadow-sm rounded-lg"
+                :zoom="map.zoom"
+                :center="map.center"
+                @ready="setMapBounds()"
+              >
+                <l-tile-layer :url="map.url" />
+                <l-geo-json ref="geojson" :geojson="locationsGeoJson" :options="options" />
+              </l-map>
+            </div>
+          </section>
+
+          <!-- nearby nests-->
+          <section aria-labelledby="notes-title">
+            <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
+              <div class="divide-y divide-gray-200">
+                <div class="px-4 py-4 sm:px-6">
+                  <h2 id="notes-title" class="text-lg font-medium text-gray-900">Nearby Nests</h2>
+                </div>
+                <nearby-nests-list class="mb-1" :nearby-nests="nest.nearby_nests" />
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- right grid container -->
+        <section aria-labelledby="nest-details-title" class="lg:col-start-3 lg:col-span-1">
+          <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-4">
+            <h2 id="nest-details-title" class="text-lg font-medium text-gray-900">Nest Details</h2>
+
+            <!-- Nest Detials -->
+            <div class="mt-2 flow-root">
+              <detail-list :detail-list="nestDetails" />
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import L from 'leaflet'
-import {
-  LMap,
-  LTileLayer,
-  LGeoJson
-} from 'vue2-leaflet'
+import { LMap, LTileLayer, LGeoJson } from 'vue2-leaflet'
+import PageHeader from '@/components/PageHeader.vue'
+import DetailList from '@/components/DetailList.vue'
+import NearbyNestsList from '@/components/NearbyNestsList.vue'
+import NestPageTitleCard from '@/components/NestPageTitleCard.vue'
 import AddVisitSlideOver from '@/components/AddVisitSlideOver.vue'
-import PageHeader from '@/components/PageHeader'
-import PageMetaTitle from '@/components/PageMetaTitle'
-import SimpleTable from '@/components/SimpleTable'
-import NearbyNestsTable from '@/components/NearbyNestsTable.vue'
+import NestDetailsEdit from '@/components/forms/NestDetailsEdit.vue'
 import api from '@/services/api'
 
 export default {
   name: 'NestsShow',
 
   components: {
-    AddVisitSlideOver,
     LMap,
     LTileLayer,
     LGeoJson,
     PageHeader,
-    PageMetaTitle,
-    SimpleTable,
-    NearbyNestsTable
+    DetailList,
+    NearbyNestsList,
+    NestPageTitleCard,
+    AddVisitSlideOver,
+    NestDetailsEdit
   },
 
   data () {
@@ -148,11 +162,49 @@ export default {
       },
       slider: {
         visible: false
+      },
+      editNest: {
+        visible: false
       }
     }
   },
 
   computed: {
+    nestDetails () {
+      const {
+        locations,
+        nest_visits,
+        nearby_nests,
+        id,
+        ...nestDetails } = this.nest
+
+      const details = Object.keys(nestDetails).map((key) => {
+        return {
+          title: key.replace('_', ' '),
+          content: nestDetails[key] || 'undefined'
+        }
+      })
+
+      return details.sort((a, b) => {
+        a = a.title.toUpperCase()
+        b = b.title.toUpperCase()
+
+        if (a < b) return -1
+        if (a > b) return 1
+        return 0
+      })
+    },
+
+    nestEditDetails () {
+      const {
+        locations,
+        nest_visits,
+        nearby_nests,
+        ...nestDetails } = this.nest
+
+      return nestDetails
+    },
+
     totalVisits () {
       return this.nest?.nest_visits.length
     },
@@ -245,6 +297,10 @@ export default {
           case 'nest location': return { fillColor: '#589fd6' }
         }
       }
+    },
+
+    toggleEditNestVisible () {
+      this.editNest.visible = !this.editNest.visible
     },
 
     toggleSlider () {
