@@ -6,7 +6,7 @@
         <div class="sm:flex sm:space-x-5">
           <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
             <p class="text-sm font-medium text-gray-600">Raptor Nest ID:</p>
-            <p class="text-xl font-bold text-olive-darkest sm:text-2xl font-mono">ABC1234</p>
+            <p class="text-xl font-bold text-olive-darkest sm:text-2xl font-mono">{{ nestId }}</p>
           </div>
         </div>
         <div class="mt-5 flex justify-center sm:mt-0">

@@ -7,7 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-  the same route, but changing the parameters.
+  - the same route, but changing the parameters.
+
+## [0.6.0] - 2021-02-04
+
+### Added
+- Edit nest details 
+
+### Changed
+- Form field updates requested by diversity staff
+  - dropdown for Agency
+  - qualify adult and production counts
+- `/nests/:id` layout redesign for better visualization of nest data
+  - embedded within `/nest/:id` shows up after click on "Edit Nest" button
 
 ## [0.5.0] - 2021-01-04
 
