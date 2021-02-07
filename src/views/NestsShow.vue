@@ -118,6 +118,19 @@
 
           </div>
         </section>
+
+        <!-- nest visits table -->
+        <section aria-labelledby="nest-visits-title" class="lg:col-start-1 lg:col-span-3">
+          <div class="bg-white shadow sm:rounded-lg sm:overflow">
+            <div class="divide-y divide-gray-200">
+              <div class="px-4 py-4 sm:px-6">
+                <h2 id="nest-visits-title" class="text-lg font-medium text-gray-900">Nest Visits</h2>
+              </div>
+              <nest-visits-table :nest-visits="nest.nest_visits" />
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
   </div>
@@ -133,6 +146,7 @@ import NearbyNestsList from '@/components/NearbyNestsList.vue'
 import NestPageTitleCard from '@/components/NestPageTitleCard.vue'
 import AddVisitSlideOver from '@/components/AddVisitSlideOver.vue'
 import NestDetailsEdit from '@/components/forms/NestDetailsEdit.vue'
+import NestVisitsTable from '@/components/NestVisitsTable.vue'
 import api from '@/services/api'
 
 export default {
@@ -147,7 +161,8 @@ export default {
     NearbyNestsList,
     NestPageTitleCard,
     AddVisitSlideOver,
-    NestDetailsEdit
+    NestDetailsEdit,
+    NestVisitsTable
   },
 
   data () {

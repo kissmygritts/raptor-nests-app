@@ -29,11 +29,12 @@
         <p v-if="!$v.model.observers.required">Observers is a required field.</p>
       </tw-input>
 
-      <tw-input
+      <tw-select
         :name="schema.agency.name"
         :label="schema.agency.label"
         :type="schema.agency.type"
         :helptext="schema.agency.helptext"
+        :options="schema.agency.options"
         v-model="model.agency"
       />
 
