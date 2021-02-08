@@ -86,6 +86,6 @@
     "name": "nest_comments",
     "label": "Nest Comments",
     "type": "textarea",
-    "helptext": "Description of the unchanging characteristics of the nest itself. Including, but not limited to: tree or shrub species, height above grounde, etc."
+    "helptext": "Description of the unchanging characteristics of the nest itself. Including, but not limited to: tree or shrub species, height above ground, etc."
   }
 }

@@ -62,7 +62,7 @@
         </collapsible-section>
 
         <!-- data -->
-        <pre class="text-left p-4">{{ nestInput }}</pre>
+        <!-- <pre class="text-left p-4">{{ nestInput }}</pre> -->
 
         <!-- submit buttons -->
         <div class="my-8 w-full flex justify-end">

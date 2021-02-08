@@ -9,7 +9,7 @@
     "name": "observers",
     "label": "Observers",
     "helptext": "Name of observer(s). If there are multiple observers separate by a semi-colon (;).",
-    "placeholder": "Mackenzie Jeffress; Kristy Klinger",
+    "placeholder": "Mackenzie Jeffress; Christy Klinger",
     "type": "text",
     "required": true
   },
@@ -56,14 +56,14 @@
   "nest_condition": {
     "name": "nest_condition",
     "label": "Nest Condition",
-    "helptext": "What is the general condition of the nest. Leave blank if not noted",
+    "helptext": "What is the general condition of the nest. Leave blank if not noted.",
     "type": "select",
     "options": ["", "deteriorating", "destroyed", "intact", "not found"]
   },
   "nest_size": {
     "name": "nest_size",
     "label": "Nest Size",
-    "helptext": "If this is a stick nest, what is the approximate size of the nest",
+    "helptext": "If this is a stick nest, what is the approximate size of the nest? For example, ravens and sharp-shinned hawks often build \"small\" nests. \"medium\"-sized nests could be larger accipiters or most buteos. \"large\"-sized nests could be larger buteos or most eagles. \"extra large\" nests are most often very large eagle nests.",
     "type": "select",
     "options": ["", "small", "medium", "large", "extra large"]
   },
@@ -133,7 +133,7 @@
     "label": "Clarify Adult Count",
     "helptext": "Is the number of adults equal to or greater than the count above?",
     "type": "radio",
-    "options": ["=", ">"]
+    "options": ["=", ">="]
   },
   "adult_count": {
     "name": "adult_count",
@@ -151,7 +151,7 @@
     "label": "Clarify Production Count",
     "helptext": "Is the number of production equal to or greater than the count above?",
     "type": "radio",
-    "options": ["=", ">"]
+    "options": ["=", ">="]
   },
   "production_count": {
     "name": "production_count",

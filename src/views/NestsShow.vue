@@ -173,7 +173,7 @@ export default {
       map: {
         zoom: 6,
         center: [38.8568, -115.7080],
-        url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
       },
       slider: {
         visible: false

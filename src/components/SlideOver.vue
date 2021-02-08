@@ -45,17 +45,6 @@
                         <div class="flex space-x-3">
                           <div class="flex-1 space-y-1">
                             <div class="flex items-center justify-between">
-                              <h3 class="font-medium">Habitat Category</h3>
-                            </div>
-                            <p class="text-gray-500 capitalize">{{ nest.properties.habitat_category }}</p>
-                          </div>
-                        </div>
-                      </li>
-
-                      <li class="py-4">
-                        <div class="flex space-x-3">
-                          <div class="flex-1 space-y-1">
-                            <div class="flex items-center justify-between">
                               <h3 class="font-medium">Nest Type</h3>
                             </div>
                             <p class="text-gray-500 capitalize">{{ nest.properties.nest_type }}</p>
@@ -67,9 +56,9 @@
                         <div class="flex space-x-3">
                           <div class="flex-1 space-y-1">
                             <div class="flex items-center justify-between">
-                              <h3 class="font-medium">Probable Origin</h3>
+                              <h3 class="font-medium">Last Checked</h3>
                             </div>
-                            <p class="text-gray-500 capitalize">{{ nest.properties.probable_origin }}</p>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_checked }}</p>
                           </div>
                         </div>
                       </li>
@@ -78,9 +67,31 @@
                         <div class="flex space-x-3">
                           <div class="flex-1 space-y-1">
                             <div class="flex items-center justify-between">
-                              <h3 class="font-medium">Last Checked</h3>
+                              <h3 class="font-medium">Last Species</h3>
                             </div>
-                            <p class="text-gray-500 capitalize">{{ nest.properties.last_checked }}</p>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_species }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Habitat Category</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.habitat_category }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Probable Origin</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.probable_origin }}</p>
                           </div>
                         </div>
                       </li>

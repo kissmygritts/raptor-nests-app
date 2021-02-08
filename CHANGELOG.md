@@ -7,7 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-  - the same route, but changing the parameters.
+## [0.7.0] - 2020-02-07
+
+### Added
+- Nest Visits table to `/nests/:id`, the view nest by ID, page
+  - One row for each visit to the nest with: Visit Date, Species, Observers, Occupied, options button as the columns
+  - The table is mobile friendly. Observers, Occupied column will be removed from the table on smaller screens
+  - Clicking the `...` button will expand the row to show all the data for a nest visit. 
+    - Clicking the same button again will close the nest details
+
+### Changed
+- Default basemap is from road map to ESRI topo map
+- Change `>` to `>=` for adult and production clarification field options
+- Spelling: grounde to ground
+- Help text for the "Nest Size" question in the form is more descriptive.
+
+### Fixed
+- Agency dropdown wasn't showing up in the form. Now it does.
+
+## [0.6.1] - 2020-02-04
+
+### Fixed
+- Nest ID wasn't reactive in the header of `/nests/:id` page. It was hardcoded as ABC1234. It is now reactive
+- 
 
 ## [0.6.0] - 2021-02-04
 

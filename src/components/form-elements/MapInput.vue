@@ -95,7 +95,7 @@ export default {
       map: {
         center: [39.320833, -116.638583],
         zoom: 7,
-        basemaps: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        basemaps: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
       },
       crs: 'latlng',
       geolocation: null,
