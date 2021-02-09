@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div id="edit-nest-container" class="bg-saffron-darker rounded-t-lg p-4">
-      <h2 class="text-xl text-gray-50">Edit Nest Details</h2>
-      <p class="text-gray-50 text-sm mt-2">
+  <div class="border border-saffron-darker rounded">
+    <div id="edit-nest-container" class="bg-saffron-darker p-4">
+      <h2 class="text-xl text-white">Edit Nest Details</h2>
+      <p class="text-white text-sm mt-2">
         Warning, you are editing the nest details.
       </p>
     </div>

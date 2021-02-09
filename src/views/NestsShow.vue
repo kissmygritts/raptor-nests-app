@@ -48,7 +48,7 @@
       </div>
 
       <!-- page title area -->
-      <div class="max-w-3xl lg:max-w-7xl px-4 sm:px-6 mx-auto">
+      <div class="max-w-3xl lg:max-w-7xl px-4 sm:px-6 mx-auto rounded">
         <nest-page-title-card
           :nest-id="nest.id"
           :total-visits="totalVisits"
@@ -66,7 +66,7 @@
         <!-- edit nest details -->
         <div
           v-if="editNest.visible"
-          class="lg:col-start-1 lg:col-span-3 bg-white rounded-lg shadow"
+          class="lg:col-start-1 lg:col-span-3 bg-white rounded shadow"
         >
           <nest-details-edit
             :nest-edit-details="nestEditDetails"
@@ -79,10 +79,10 @@
 
           <!-- nest map -->
           <section aria-labelledby="applicant-information-title">
-            <div class="h-96 bg-white shadow sm:rounded-lg">
+            <div class="h-96 bg-white shadow sm:rounded">
               <l-map
                 ref="map"
-                class="w-full shadow-sm rounded-lg"
+                class="w-full shadow-sm rounded"
                 :zoom="map.zoom"
                 :center="map.center"
                 @ready="setMapBounds()"
@@ -95,7 +95,7 @@
 
           <!-- nearby nests-->
           <section aria-labelledby="notes-title">
-            <div class="bg-white shadow sm:rounded-lg sm:overflow-hidden">
+            <div class="bg-white shadow sm:rounded sm:overflow-hidden">
               <div class="divide-y divide-gray-200">
                 <div class="px-4 py-4 sm:px-6">
                   <h2 id="notes-title" class="text-lg font-medium text-gray-900">Nearby Nests</h2>
@@ -108,7 +108,7 @@
 
         <!-- right grid container -->
         <section aria-labelledby="nest-details-title" class="lg:col-start-3 lg:col-span-1">
-          <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-4">
+          <div class="bg-white px-4 py-5 shadow sm:rounded sm:px-4">
             <h2 id="nest-details-title" class="text-lg font-medium text-gray-900">Nest Details</h2>
 
             <!-- Nest Detials -->
@@ -121,7 +121,7 @@
 
         <!-- nest visits table -->
         <section aria-labelledby="nest-visits-title" class="lg:col-start-1 lg:col-span-3">
-          <div class="bg-white shadow sm:rounded-lg sm:overflow">
+          <div class="bg-white shadow sm:rounded sm:overflow">
             <div class="divide-y divide-gray-200">
               <div class="px-4 py-4 sm:px-6">
                 <h2 id="nest-visits-title" class="text-lg font-medium text-gray-900">Nest Visits</h2>

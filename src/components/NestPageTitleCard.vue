@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-lg bg-white overflow-hidden shadow">
+  <div class="bg-white overflow-hidden shadow">
     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
     <div class="bg-white p-6">
       <div class="sm:flex sm:items-center sm:justify-between">
