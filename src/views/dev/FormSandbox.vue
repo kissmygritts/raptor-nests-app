@@ -96,6 +96,24 @@
         <pre class="bg-gray-100 p-4 rounded mt-4">{{ { ...radio } }}</pre>
       </div>
 
+      <div class="bg-white p-4 rounded mt-6">
+        <h2 class="text-2xl text-gray-800">Checkbox Input Test</h2>
+        <p class="pt-1">
+          Testing the Checkbox input
+        </p>
+
+        <tw-checkbox
+          class="mt-6"
+          label="Radio input"
+          name="simple_radio"
+          helptext="Pick a color from the list"
+          :options="['red', 'orange', 'blue']"
+          v-model="checkbox.simple"
+        />
+
+        <pre class="bg-gray-100 p-4 rounded mt-4">{{ { ...checkbox } }}</pre>
+      </div>
+
       <!-- map input -->
       <div class="bg-white p-4 rounded mt-6">
         <h2 class="text-2xl text-gray-800">Map Input Test</h2>
@@ -132,6 +150,9 @@ export default {
       radio: {
         simple: 'red',
         withValidation: null
+      },
+      checkbox: {
+        simple: 'red'
       },
       map: {
         latLng: null

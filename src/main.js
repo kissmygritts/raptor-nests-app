@@ -9,9 +9,11 @@ import 'leaflet/dist/leaflet.css'
 import TwInput from './components/form-elements/TwInput.vue'
 import TwSelect from './components/form-elements/TwSelect.vue'
 import TwRadio from './components/form-elements/TwRadio.vue'
+import TwCheckbox from './components/form-elements/TwCheckbox.vue'
 Vue.component('TwInput', TwInput)
 Vue.component('TwSelect', TwSelect)
 Vue.component('TwRadio', TwRadio)
+Vue.component('TwCheckbox', TwCheckbox)
 
 delete Icon.Default.prototype._getIconUrl
 Icon.Default.mergeOptions({
