@@ -197,7 +197,7 @@ export default {
       this.$refs.nestVisit.$v.$touch()
 
       if (this.isFormValid) {
-        const response = await api.submitNestVisit(this.reqBody)
+        const response = await api.submitNestVisit(this.requestBody)
 
         if (response.statusCode >= 400) {
           this.errorMessage = 'There was a problem submitting your form, Please try again.'
