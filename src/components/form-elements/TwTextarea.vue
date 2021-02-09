@@ -9,7 +9,7 @@
     <textarea
       class="mt-2 shadow-sm focus:ring-oxford-lightest focus:border-oxford-lightest block w-full rounded sm:text-sm border-gray-300"
       v-bind="$attrs"
-      v-model="input"
+      v-model="value"
       @input="updateValue"
     ></textarea>
   </div>
@@ -18,7 +18,9 @@
 <script>
 export default {
   inheritAttrs: false,
+
   name: 'TwTextarea',
+
   props: {
     value: {
       type: String
@@ -33,11 +35,7 @@ export default {
       required: false
     }
   },
-  data () {
-    return {
-      input: this.value ? this.value[this.$attrs.name] : ''
-    }
-  },
+
   methods: {
     updateValue (event) {
       this.$emit('input', event.target.value)
