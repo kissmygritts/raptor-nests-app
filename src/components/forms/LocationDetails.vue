@@ -22,7 +22,7 @@
       </tw-radio>
 
       <!-- exact location? -->
-      <tw-radio
+      <tw-select
         class="mt-4"
         :label="exact_coordinates.label"
         :name="exact_coordinates.name"
@@ -32,10 +32,10 @@
         :is-invalid="$v.model.exact_coordinates.$invalid"
         v-model="model.exact_coordinates"
         @blur="$v.model.exact_coordinates.$touch()"
-        required
+        :required="true"
       >
         <p v-if="!$v.model.exact_coordinates.required">Exact Coordinates is a required field.</p>
-      </tw-radio>
+      </tw-select>
 
       <!-- show these fields base on exact location -->
       <div v-if="showLocationModifiers" class="space-y-4 mt-4">
@@ -99,7 +99,7 @@ export default {
     },
 
     showLocationModifiers () {
-      return this.model.exact_coordinates === 'false'
+      return this.model.exact_coordinates === 'observation location'
     },
 
     hasCoordsInRoute () {

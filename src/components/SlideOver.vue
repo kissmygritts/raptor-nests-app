@@ -56,9 +56,9 @@
                         <div class="flex space-x-3">
                           <div class="flex-1 space-y-1">
                             <div class="flex items-center justify-between">
-                              <h3 class="font-medium">Last Checked</h3>
+                              <h3 class="font-medium">Last Visited</h3>
                             </div>
-                            <p class="text-gray-500 capitalize">{{ nest.properties.last_checked }}</p>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_visit_date }}</p>
                           </div>
                         </div>
                       </li>
@@ -67,9 +67,20 @@
                         <div class="flex space-x-3">
                           <div class="flex-1 space-y-1">
                             <div class="flex items-center justify-between">
-                              <h3 class="font-medium">Last Species</h3>
+                              <h3 class="font-medium">Last Occupied</h3>
                             </div>
-                            <p class="text-gray-500 capitalize">{{ nest.properties.last_species }}</p>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_occupied_date }}</p>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="py-4">
+                        <div class="flex space-x-3">
+                          <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                              <h3 class="font-medium">Last Occupied Species</h3>
+                            </div>
+                            <p class="text-gray-500 capitalize">{{ nest.properties.last_occupied_species }}</p>
                           </div>
                         </div>
                       </li>

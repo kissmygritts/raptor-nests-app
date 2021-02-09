@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.7.0] - 2020-02-07
+## [0.7.0] - 2021-02-08
 
 ### Added
 - Nest Visits table to `/nests/:id`, the view nest by ID, page
@@ -21,11 +21,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change `>` to `>=` for adult and production clarification field options
 - Spelling: grounde to ground
 - Help text for the "Nest Size" question in the form is more descriptive.
+- "Exact Coordinates" question and data types:
+  - Changed the data type to a string instead of boolean
+  - Changed the date entry field type to a select instead of a radio
+  - Help text changes
+- Map slide over data fields to include "Last Visit", "Last Occupied", "Last Occupied Species"
 
 ### Fixed
 - Agency dropdown wasn't showing up in the form. Now it does.
 
-## [0.6.1] - 2020-02-04
+## [0.6.1] - 2021-02-04
 
 ### Fixed
 - Nest ID wasn't reactive in the header of `/nests/:id` page. It was hardcoded as ABC1234. It is now reactive

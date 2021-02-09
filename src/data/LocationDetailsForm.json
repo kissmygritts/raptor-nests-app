@@ -2,14 +2,20 @@
   "exact_coordinates": {
     "name": "exact_coordinates",
     "label": "Are these the exact coordinates of the nest?",
-    "helptext": "e.g. at the base of the tree, or within the 5 meters of the nest tree.",
-    "type": "radio",
-    "options": ["true", "false"]
+    "helptext": "Do the coordinates above represent the actual nest (i.e. within 5 meters of the nest), the observers location, or an estimated nest location made by the observer? Select \"not noted\" if you are unsure.",
+    "type": "select",
+    "options": [
+      "",
+      "actual nest",
+      "estimated location",
+      "observation location",
+      "not noted"
+    ]
   },
   "current_location": {
     "name": "current_location",
-    "label": "Is this the current, most up to date location of the nest?",
-    "helptext": "It's possible to observe a nest at multiple locations over time. Is this location the current location of the nest?",
+    "label": "Is this the current location of the nest?",
+    "helptext": "If this location represents the actual nest and the nest is already in our database selecting \"true\" will update the location in the database.",
     "type": "radio",
     "options": ["true", "false"]
   },
@@ -17,13 +23,13 @@
     "name": "distance",
     "label": "Distance to Nest",
     "type": "number",
-    "helptext": "The distance, in meters, to the nest from your location."
+    "helptext": "If this location is an observation location estimate the distance, in meters, to the nest from your location. Leave blank if not noted."
   },
   "direction": {
     "name": "direction",
     "label": "Direction",
     "type": "select",
-    "helptext": "Approximate direction to the nest from the recorded coordinates",
+    "helptext": "If this location is an observation location estimate the direction to the nest from your location. Leave blank if not noted.",
     "options": ["", "nw", "n", "ne", "e", "se", "s", "sw", "w"]
   }
 }
