@@ -6,7 +6,7 @@
         v-model="latLng"
       />
 
-      <tw-radio
+      <!-- <tw-radio
         class="mt-4"
         :label="current_location.label"
         :name="current_location.name"
@@ -19,7 +19,7 @@
         required
       >
         <p v-if="!$v.model.current_location.required">Current Location is a required field.</p>
-      </tw-radio>
+      </tw-radio> -->
 
       <!-- exact location? -->
       <tw-select
@@ -70,13 +70,19 @@ export default {
 
   components: { MapInput },
 
+  props: {
+    currentLocation: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data () {
     return {
       ...locationDetailsConfig,
       latLng: null,
       model: {
         exact_coordinates: null,
-        current_location: null,
         distance: null,
         direction: null
       }
@@ -85,8 +91,7 @@ export default {
 
   validations: {
     model: {
-      exact_coordinates: { required },
-      current_location: { required }
+      exact_coordinates: { required }
     }
   },
 
@@ -94,7 +99,8 @@ export default {
     output () {
       return {
         ...this.model,
-        ...this.latLng
+        ...this.latLng,
+        current_location: this.currentLocation
       }
     },
 

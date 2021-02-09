@@ -46,8 +46,27 @@
                 Please correct the errors on the form and resubmit.
               </p>
 
-              <!-- Divider container -->
+              <!-- form content container -->
               <div class="space-y-6 sm:space-y-0 sm:divide-y sm:divide-gray-200">
+                <div class="bg-white rounded shadow-sm m-4 p-4">
+                  <tw-checkbox
+                    label="Update Nest Location?"
+                    name="update-nest-location"
+                    helptext="Do you need to change the location of this nest? If you do, click the radio and a new Nest Location will be added to the database."
+                    :options="['yes']"
+                    v-model="updateNestLocation"
+                  />
+
+                  <!-- nest location form -->
+                  <location-details
+                    v-if="hasNewLocation"
+                    ref="locationDetails"
+                    class="mt-6"
+                    :current-location="hasNewLocation"
+                    @input:location-details="updateLocation"
+                  />
+                </div>
+
                 <div class="bg-white rounded shadow-sm m-4 p-4">
                   <nest-visit-form
                     ref="nestVisit"
@@ -76,6 +95,8 @@
                 </button>
               </div>
             </div>
+
+            <pre>{{ requestBody }}</pre>
           </div>
         </div>
       </section>
@@ -85,6 +106,7 @@
 
 <script>
 import NestVisitForm from '@/components/forms/NestVisitForm.vue'
+import LocationDetails from '@/components/forms/LocationDetails.vue'
 import generateId from '@/services/IdService.js'
 import api from '@/services/api.js'
 
@@ -92,7 +114,8 @@ export default {
   name: 'SlideOver',
 
   components: {
-    NestVisitForm
+    NestVisitForm,
+    LocationDetails
   },
 
   props: {
@@ -114,9 +137,14 @@ export default {
   data () {
     return {
       nestVisit: null,
-      visit_id: undefined,
+      updateNestLocation: [],
+      nestLocation: null,
       formErrors: false,
-      errorMessage: null
+      errorMessage: null,
+      ids: {
+        new_visit_id: undefined,
+        new_location_id: undefined
+      }
     }
   },
 
@@ -125,13 +153,30 @@ export default {
       return !this.$refs.nestVisit.$v.$invalid
     },
 
-    visitInput () {
-      return {
-        id: this.visit_id,
-        nest_id: this.nestId,
-        location_id: this.locationId,
-        ...this.nestVisit
+    hasNewLocation () {
+      return this.updateNestLocation.includes('yes')
+    },
+
+    requestBody () {
+      const data = {
+        visit: {
+          id: this.ids.new_visit_id,
+          nest_id: this.nestId,
+          location_id: this.locationId,
+          ...this.nestVisit
+        }
       }
+
+      if (this.hasNewLocation) {
+        data.visit.location_id = this.ids.new_location_id
+        data.location = {
+          id: this.ids.new_location_id,
+          nest_id: this.nestId,
+          ...this.nestLocation
+        }
+      }
+
+      return data
     }
   },
 
@@ -144,11 +189,15 @@ export default {
       this.nestVisit = nestVisit
     },
 
+    updateLocation (nestLocation) {
+      this.nestLocation = nestLocation
+    },
+
     async submitVisit () {
       this.$refs.nestVisit.$v.$touch()
 
       if (this.isFormValid) {
-        const response = await api.submitNestVisit(this.visitInput)
+        const response = await api.submitNestVisit(this.reqBody)
 
         if (response.statusCode >= 400) {
           this.errorMessage = 'There was a problem submitting your form, Please try again.'
@@ -164,7 +213,8 @@ export default {
   },
 
   async created () {
-    this.visit_id = await generateId(16)
+    this.ids.new_visit_id = await generateId(16)
+    this.ids.new_location_id = await generateId(16)
   }
 }
 </script>

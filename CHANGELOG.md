@@ -12,10 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - HTTP response error handled when trying to add nest visit
 - "gound - unspecified" added to options for survey type
+- Location workflow is changed:
+  - when entering a new nest the location.current_location is set to TRUE. It will always be true in this case.
+  - When adding a new nest visit users have the choice to either update the nest location (location form shows up) or enter a new visit at the same location
 
 ## Changed
 - Update error message for required "Is nest occupied" question
 - `POST /nest/:id/visits` instead of `POST /nests/:id/new` to add new nest visit
+- `LocationDetails.vue` form has new prop `currentLocation` to deal with changes to the location workflow
 
 ## [0.7.0] - 2021-02-08
 

@@ -44,6 +44,7 @@
           <location-details
             ref="locationDetails"
             class="my-4 md:my-8 md:mx-4"
+            :current-location="true"
             @input:location-details="updateLocationDetails"
           />
         </collapsible-section>
@@ -62,7 +63,12 @@
         </collapsible-section>
 
         <!-- data -->
-        <!-- <pre class="text-left p-4">{{ nestInput }}</pre> -->
+        <pre class="text-left p-4">{{ nestInput }}</pre>
+
+        <!-- Form submit error messages, response 400 or 500 -->
+        <p v-show="errors.errorMessage" id="submission-errors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
+          There is a problem with the server. Please try again later.
+        </p>
 
         <!-- submit buttons -->
         <div class="my-8 w-full flex justify-end">
@@ -109,7 +115,10 @@ export default {
       nestDetails: null,
       locationDetails: null,
       nestVisit: null,
-      formErrors: false
+      formErrors: false,
+      errors: {
+        errorMessage: false
+      }
     }
   },
 
@@ -154,12 +163,17 @@ export default {
       this.$refs.locationDetails.$v.$touch()
       this.$refs.nestVisit.$v.$touch()
 
+      const response = await api.submitNest(this.nestInput)
+      
       // if no errors, submit
       if (this.isFormValid) {
-        await api.submitNest(this.nestInput)
-  
-        // route to nest page
-        this.$router.push({ name: 'nests-show', params: { id: this.ids.nest_id }})
+
+        if (response.statusCode >= 400) {
+          this.errors.errorMessage = true
+        } else {
+          // route to nest page
+          this.$router.push({ name: 'nests-show', params: { id: this.ids.nest_id }})
+        }
       } else {
         this.formErrors = true
         document.getElementById('FormTitleContainer').scrollIntoView({ behavior: 'smooth' })
