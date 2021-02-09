@@ -7,16 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.2] - 2021-02-09
+
+### Fixed
+- Nearby Nest table links to the referenced nest
+- Textarea component uses the `value` prop for `v-model`. It is now reactive when `value` is not empty
+- `api.submitNestVisit` is passed `requestBody` instead of `reqBody`, caused an error before
+
+### Changed
+- `rounded-lg` changed to `rounded`
+
 ## [0.7.1] - 2021-02-08
 
-## Added
+### Added
 - HTTP response error handled when trying to add nest visit
 - "gound - unspecified" added to options for survey type
 - Location workflow is changed:
   - when entering a new nest the location.current_location is set to TRUE. It will always be true in this case.
   - When adding a new nest visit users have the choice to either update the nest location (location form shows up) or enter a new visit at the same location
 
-## Changed
+### Changed
 - Update error message for required "Is nest occupied" question
 - `POST /nest/:id/visits` instead of `POST /nests/:id/new` to add new nest visit
 - `LocationDetails.vue` form has new prop `currentLocation` to deal with changes to the location workflow

@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a href="#" class="block hover:bg-gray-50">
+    <router-link :to="{ name: 'nests-show', params: { id: nest.nest_id } }" class="block hover:bg-gray-50">
       <div class="flex items-center px-4 py-2 sm:px-6">
         <div class="min-w-0 flex-1 flex items-center">
 
@@ -27,7 +27,7 @@
           </svg>
         </div>
       </div>
-    </a>
+    </router-link>
   </li>
 </template>
 
