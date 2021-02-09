@@ -57,6 +57,11 @@
               </div>
             </div>
 
+            <!-- Form submit error messages, response 400 or 500 -->
+            <p v-show="errorMessage" id="submission-errors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
+              {{ errorMessage }}
+            </p>
+
             <!-- Action buttons -->
             <div
               class="flex-shrink-0 px-4 py-5 sm:px-6"
@@ -110,7 +115,8 @@ export default {
     return {
       nestVisit: null,
       visit_id: undefined,
-      formErrors: false
+      formErrors: false,
+      errorMessage: null
     }
   },
 
@@ -143,11 +149,13 @@ export default {
 
       if (this.isFormValid) {
         const response = await api.submitNestVisit(this.visitInput)
-        this.emitToggle()
 
-        // emit data
-        console.log({ response })
-        this.$emit('submit-visit', response.data)
+        if (response.statusCode >= 400) {
+          this.errorMessage = 'There was a problem submitting your form, Please try again.'
+        } else {
+          this.emitToggle()
+          this.$emit('submit-visit', response.data)
+        }
       } else {
         this.formErrors = true
         document.getElementById('slide-over-heading').scrollIntoView({ behavior: 'smooth' })

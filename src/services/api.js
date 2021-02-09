@@ -49,7 +49,7 @@ async function updateNestDetails (nest) {
 }
 
 async function submitNestVisit (nest) {
-  const response = await fetch(`${API_URL}/nests/${nest.nest_id}/new`, {
+  const response = await fetch(`${API_URL}/nests/${nest.nest_id}/visits`, {
     method: 'POST',
     body: JSON.stringify(nest),
     headers: {

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2021-02-08
+
+## Added
+- HTTP response error handled when trying to add nest visit
+- "gound - unspecified" added to options for survey type
+
+## Changed
+- Update error message for required "Is nest occupied" question
+- `POST /nest/:id/visits` instead of `POST /nests/:id/new` to add new nest visit
+
 ## [0.7.0] - 2021-02-08
 
 ### Added

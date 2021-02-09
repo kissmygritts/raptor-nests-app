@@ -43,6 +43,7 @@
       "ground - incidental",
       "ground - passive",
       "ground - broadcast",
+      "ground - unspecified",
       "not noted"
     ],
     "required": true

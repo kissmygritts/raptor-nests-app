@@ -92,7 +92,9 @@
         :has-error="$v.model.occupied.$error"
         :is-invalid="$v.model.occupied.$invalid"
         @blur="$v.model.occupied.$touch()"
-      />
+      >
+        <p v-if="!$v.model.occupied.required">Is the Nest Occupied is a required field.</p>
+      </tw-radio>
 
       <!-- if nest is occupied -->
       <div v-if="isNestOccupied" class="space-y-4">
