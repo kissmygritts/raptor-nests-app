@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.3] - 2021-02-09
+
+### Changed
+- Added `isDev` prop to show hide things that only need to be seen in development.
+
 ## [0.7.2] - 2021-02-09
 
 ### Fixed

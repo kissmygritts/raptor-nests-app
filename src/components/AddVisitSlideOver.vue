@@ -96,7 +96,7 @@
               </div>
             </div>
 
-            <pre>{{ requestBody }}</pre>
+            <pre v-if="isDev">{{ requestBody }}</pre>
           </div>
         </div>
       </section>
@@ -151,6 +151,10 @@ export default {
   computed: {
     isFormValid () {
       return !this.$refs.nestVisit.$v.$invalid
+    },
+
+    isDev () {
+      return process.env.NODE_ENV === 'development'
     },
 
     hasNewLocation () {

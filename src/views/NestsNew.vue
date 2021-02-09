@@ -63,7 +63,7 @@
         </collapsible-section>
 
         <!-- data -->
-        <pre class="text-left p-4">{{ nestInput }}</pre>
+        <pre v-if="isDev" class="text-left p-4">{{ nestInput }}</pre>
 
         <!-- Form submit error messages, response 400 or 500 -->
         <p v-show="errors.errorMessage" id="submission-errors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
@@ -153,7 +153,11 @@ export default {
       return !this.$refs.nestDetails.$v.$invalid
         && !this.$refs.locationDetails.$v.$invalid
         && !this.$refs.nestVisit.$v.$invalid
-    }
+    },
+
+    isDev () {
+      return process.env.NODE_ENV === 'development'
+    },
   },
 
   methods: {
