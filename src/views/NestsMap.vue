@@ -168,7 +168,7 @@ export default {
         })
 
         const coordinates = nest.geometry.coordinates
-        this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 10)
+        this.$refs.map.mapObject.flyTo([coordinates[1], coordinates[0]], 16)
       } else {
         this.coordinates = value
         this.addLocationMarker()
@@ -179,7 +179,7 @@ export default {
       this.showInputLocation = false
       this.showInputLocation = true
 
-      this.$refs.map.mapObject.flyTo(this.inputLocation, 10)
+      this.$refs.map.mapObject.flyTo(this.inputLocation, 13)
     },
 
     addMarkerAtCenter () {
@@ -225,7 +225,7 @@ export default {
       this.$refs.map.mapObject.flyTo({
         lat: position.lat,
         lng: position.lng
-      }, 10)
+      }, 13)
     }
   },
 
