@@ -5,11 +5,23 @@
       <div class="container pt-12 mx-auto px-2 md:px-24 text-gray-900">
         <div id="FormTitleContainer" class="px-4">
           <h1 class="text-3xl">New Raptor Nest Data Entry</h1>
-          <p class="mt-2 text-gray-700 font-light">
-            Use this form to enter new nests and nest visits to the Raptor Nest database.
-            Required fields are marked, all other fields are optional.
-            For more information about how to properly fill out this form please review the documentation (here, link).
-          </p>
+
+          <div class="space-y-2 mt-2 text-gray-700 font-light">
+            <p>
+              Use this form to enter new nests and nest visits to the Raptor Nest database.
+              Required fields are marked, all other fields are optional. Please read the help
+              text below each field name.
+            </p>
+
+            <p>
+              If data is not noted, or not observed during data collection please leave the corresponding field blank.
+            </p>
+
+            <p>
+              If you select "other" in any of the dropdown data fields please describe the meaning of other in the comments.
+            </p>
+          </div>
+
           <p v-show="formErrors" id="FormErrors" class="mt-4 -mx-2 p-2 font-light bg-red-100 text-red-700 rounded">
             Please correct the errors on the form and resubmit.
           </p>

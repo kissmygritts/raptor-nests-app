@@ -16,11 +16,11 @@
   "agency": {
     "name": "agency",
     "label": "Agency",
-    "helptext": "Agency or organizations the observers represent",
+    "helptext": "Agency or organizations the observers represent. If other is selected please describe in the comments.",
     "type": "select",
     "options": [
       "",
-      "state wildlife agency",
+      "nevada dept. of wildlife",
       "nevada natural heritage program",
       "state (and other) parks",
       "bureau of land management",
@@ -28,7 +28,8 @@
       "US army corps of engineers",
       "US fish & wildlife service",
       "US forest service",
-      "US geological survey"
+      "US geological survey",
+      "other"
     ]
   },
   "survey_type": {

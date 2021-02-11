@@ -3,7 +3,7 @@
     "name": "habitat_category",
     "label": "Habitat Category",
     "type": "select",
-    "helptext": "Select a description of the habitat surrounding the nest. Leave blank if not listed.",
+    "helptext": "Select a description of the habitat surrounding the nest. If other is selected describe the habitat in the Habitat Description field. Leave blank if not listed.",
     "options": [
       "",
       "agriculture",
@@ -64,7 +64,7 @@
     "name": "probable_origin",
     "label": "Probable Origin",
     "type": "select",
-    "helptext": "Select the species you believe initially constructed the nest. Probable origin is based on which species the observer believed to have initially constructed the nest. Variables such as size, material, and placement are considered when assessing probable origin",
+    "helptext": "Select the species you believe initially constructed the nest. Probable origin is based on which species the observer believed to have initially constructed the nest. Variables such as size, material, and placement are considered when assessing probable origin. If other is selected describe the species in the comments.",
     "options": [
       "",
       "accipter",
