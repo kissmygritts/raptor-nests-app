@@ -21,8 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - stick nest  = blue
     - other/blank = grey
   - On Nest page:
-    - current  = blue
-    - historic = green
+    - current  = orange
+    - historic = blue
     - nearby   = grey
 
 ### Changed

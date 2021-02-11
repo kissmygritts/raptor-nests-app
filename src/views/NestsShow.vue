@@ -313,8 +313,8 @@ export default {
       return (feature) => {
         switch (feature.properties.loc_type) {
           // case 'nearby': return { fillColor: '#6b7280' }
-          case 'current': return { fillColor: '#0EA5E9' }
-          case 'historic': return { fillColor: '#10B981'}
+          case 'historic': return { fillColor: '#0EA5E9' }
+          case 'current': return { fillColor: '#F59E0B'}
           default: return { fillColor: '#64748B' }
         }
       }
