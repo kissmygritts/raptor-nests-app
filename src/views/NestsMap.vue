@@ -15,6 +15,10 @@
         :options="map.options"
       >
         <l-tile-layer :url="url" />
+        <l-control-scale
+          position="bottomleft"
+          :maxWidth="250"
+        />
 
         <l-geo-json
           :geojson="nestGeoJson"
@@ -70,6 +74,7 @@
 <script>
 import L from 'leaflet'
 import {
+  LControlScale,
   LMarker,
   LGeoJson,
   LMap,
@@ -88,6 +93,7 @@ export default {
   name: 'Home',
 
   components: {
+    LControlScale,
     LMarker,
     LGeoJson,
     LMap,
@@ -138,7 +144,8 @@ export default {
     options () {
       return {
         onEachFeature: this.onEachFeature(),
-        pointToLayer: this.pointToLayer()
+        pointToLayer: this.pointToLayer(),
+        style: this.geoJsonStyle()
       }
     }
   },
@@ -216,6 +223,18 @@ export default {
           fillColor: '#589fd6',
           fillOpacity: 0.9
         })
+      }
+    },
+
+    geoJsonStyle () {
+      return (feature) => {
+        switch (feature.properties.nest_type) {
+          case 'burrow': return { fillColor: '#0EA5E9' } // tw: light-blue-500
+          case 'cavity': return { fillColor: '#A855F7' } // tw: purple-500
+          case 'scrape': return { fillColor: '#10B981' } // tw: emerald-500
+          case 'stick nest': return { fillColor: '#F59E0B' } // tw: amber-500
+          default: return { fillColor: '#64748B' } // tw: blue-gray-500
+        }
       }
     },
 

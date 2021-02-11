@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.7.4] - 2021-02-10
+
+### Added
+
 - Added more descriptive help text to data entry.
+- Nests are colored by feature properties
+  - On the Map page:
+    - burrow      = blue
+    - cavity      = purple
+    - scrape      = green
+    - stick nest  = orange
+    - other/blank = grey
+  - On Nest page:
+    - current  = blue
+    - historic = green
+    - nearby   = grey
 
 ## [0.7.3] - 2021-02-09
 

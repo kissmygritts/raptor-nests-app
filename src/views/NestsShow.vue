@@ -88,6 +88,7 @@
                 @ready="setMapBounds()"
               >
                 <l-tile-layer :url="map.url" />
+                <l-control-scale position="bottomleft" />
                 <l-geo-json ref="geojson" :geojson="locationsGeoJson" :options="options" />
               </l-map>
             </div>
@@ -139,7 +140,7 @@
 <script>
 /* eslint-disable */
 import L from 'leaflet'
-import { LMap, LTileLayer, LGeoJson } from 'vue2-leaflet'
+import { LMap, LTileLayer, LGeoJson, LControlScale } from 'vue2-leaflet'
 import PageHeader from '@/components/PageHeader.vue'
 import DetailList from '@/components/DetailList.vue'
 import NearbyNestsList from '@/components/NearbyNestsList.vue'
@@ -156,6 +157,7 @@ export default {
     LMap,
     LTileLayer,
     LGeoJson,
+    LControlScale,
     PageHeader,
     DetailList,
     NearbyNestsList,
@@ -249,6 +251,8 @@ export default {
     locationsGeoJson () {
       if (this.hasNest) {
         const nestFeatures = this.nest.locations.map(feature => {
+          const currentLocation = feature.current_location ? 'current': 'historic'
+
           return {
             type: 'Feature',
             geometry: {
@@ -257,7 +261,7 @@ export default {
             },
             properties: {
               nest_id: feature.nest_id,
-              loc_type: 'nest location'
+              loc_type: currentLocation
             }
           }
         })
@@ -271,7 +275,7 @@ export default {
             },
             properties: {
               nest_id: feature.nest_id,
-              loc_type: 'nearby nest'
+              loc_type: 'nearby'
             }
           }
         })
@@ -308,8 +312,10 @@ export default {
     geoJsonStyle () {
       return (feature) => {
         switch (feature.properties.loc_type) {
-          case 'nearby nest': return { fillColor: '#6b7280' }
-          case 'nest location': return { fillColor: '#589fd6' }
+          // case 'nearby': return { fillColor: '#6b7280' }
+          case 'current': return { fillColor: '#0EA5E9' }
+          case 'historic': return { fillColor: '#10B981'}
+          default: return { fillColor: '#64748B' }
         }
       }
     },
