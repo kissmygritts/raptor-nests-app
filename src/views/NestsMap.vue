@@ -229,10 +229,10 @@ export default {
     geoJsonStyle () {
       return (feature) => {
         switch (feature.properties.nest_type) {
-          case 'burrow': return { fillColor: '#0EA5E9' } // tw: light-blue-500
+          case 'burrow': return { fillColor: '#F59E0B' } // tw: light-amber-500
           case 'cavity': return { fillColor: '#A855F7' } // tw: purple-500
           case 'scrape': return { fillColor: '#10B981' } // tw: emerald-500
-          case 'stick nest': return { fillColor: '#F59E0B' } // tw: amber-500
+          case 'stick nest': return { fillColor: '#0EA5E9' } // tw: light-blue-500
           default: return { fillColor: '#64748B' } // tw: blue-gray-500
         }
       }
