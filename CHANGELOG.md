@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - historic = green
     - nearby   = grey
 
+### Changed
+
+- Zoom levels on all map `flyTo`, `zoomTo` interactions are increased.
+
 ## [0.7.3] - 2021-02-09
 
 ### Changed
