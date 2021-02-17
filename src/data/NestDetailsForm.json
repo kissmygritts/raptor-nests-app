@@ -67,8 +67,8 @@
     "helptext": "Select the species you believe initially constructed the nest. Probable origin is based on which species the observer believed to have initially constructed the nest. Variables such as size, material, and placement are considered when assessing probable origin. If other is selected describe the species in the comments.",
     "options": [
       "",
-      "accipter",
-      "accipter/buteo",
+      "accipiter",
+      "accipiter/buteo",
       "burrowing owl",
       "buteo",
       "buteo/corvid",
