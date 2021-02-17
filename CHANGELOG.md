@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `accipiter/buteo` was spelled incorrectly for dropdowns. Fixed.
-- `accipiter` spelled correctly
+- `accipiter` spelled correct
 
 
 ## [0.7.4] - 2021-02-10
