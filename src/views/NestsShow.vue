@@ -336,8 +336,24 @@ export default {
       this.slider.visible = !this.slider.visible
     },
 
-    pushVisit (visit) {
+    pushVisit (newVisit) {
+      const { visit, location } = newVisit
+
+      console.log({ visit, location })
+
       this.nest.nest_visits.push(visit)
+
+      if (location) {
+        if (location.current_location) {
+          this.nest.locations.forEach(el => {
+            el.current_location = false
+          })
+        }
+
+        this.nest.locations.push(location)
+      }
+      
+      // this.nest.nest_visits.push(visit)
     },
 
     setMapBounds () {

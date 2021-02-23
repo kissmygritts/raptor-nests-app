@@ -42,9 +42,9 @@
               </div>
 
               <!-- form errors -->
-              <p v-show="formErrors" id="FormErrors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
+              <error-text-container v-if="formErrors" class="my-4 mx-4">
                 Please correct the errors on the form and resubmit.
-              </p>
+              </error-text-container>
 
               <!-- form content container -->
               <div class="space-y-6 sm:space-y-0 sm:divide-y sm:divide-gray-200">
@@ -77,9 +77,9 @@
             </div>
 
             <!-- Form submit error messages, response 400 or 500 -->
-            <p v-show="errorMessage" id="submission-errors" class="my-4 mx-4 p-2 font-light bg-red-100 text-red-700 rounded">
-              {{ errorMessage }}
-            </p>
+            <error-text-container v-if="submit.error" class="m-4">
+              {{ submit.message }}
+            </error-text-container>
 
             <!-- Action buttons -->
             <div
@@ -107,15 +107,18 @@
 <script>
 import NestVisitForm from '@/components/forms/NestVisitForm.vue'
 import LocationDetails from '@/components/forms/LocationDetails.vue'
+import ErrorTextContainer from '@/components/notifications/ErrorTextContainer.vue'
 import generateId from '@/services/IdService.js'
-import api from '@/services/api.js'
+import { submitNestVisit } from '@/services/axios.js'
+import { token } from '@/store/auth.js'
 
 export default {
   name: 'SlideOver',
 
   components: {
     NestVisitForm,
-    LocationDetails
+    LocationDetails,
+    ErrorTextContainer
   },
 
   props: {
@@ -144,11 +147,18 @@ export default {
       ids: {
         new_visit_id: undefined,
         new_location_id: undefined
+      },
+      submit: {
+        status: '',
+        message: '',
+        error: false
       }
     }
   },
 
   computed: {
+    ...token,
+
     isFormValid () {
       return !this.$refs.nestVisit.$v.$invalid
     },
@@ -198,21 +208,43 @@ export default {
     },
 
     async submitVisit () {
+      this.submit.status = 'PENDING'
       this.$refs.nestVisit.$v.$touch()
 
-      if (this.isFormValid) {
-        const response = await api.submitNestVisit(this.requestBody)
-
-        if (response.statusCode >= 400) {
-          this.errorMessage = 'There was a problem submitting your form, Please try again.'
-        } else {
-          this.emitToggle()
-          this.$emit('submit-visit', response.data)
-        }
-      } else {
+      if (!this.isFormValid) {
         this.formErrors = true
         document.getElementById('slide-over-heading').scrollIntoView({ behavior: 'smooth' })
+        return new Error('The form is invalid')
       }
+
+      try {
+        const response = await submitNestVisit(this.requestBody, this.token)
+
+        this.$emit('submit-visit', this.requestBody)
+        this.emitToggle()
+
+        return response
+      } catch (e) {
+        this.submit.status = 'ERROR'
+        this.submit.message = 'The server threw an error. Please check the error logs and submit them to Mitchell Gritts.'
+        this.submit.error = true
+
+        console.error(e.response.data.message, { ...e.response })
+      }
+
+      // if (this.isFormValid) {
+      //   const response = await api.submitNestVisit(this.requestBody)
+
+      //   if (response.statusCode >= 400) {
+      //     this.errorMessage = 'There was a problem submitting your form, Please try again.'
+      //   } else {
+      //     this.emitToggle()
+      //     this.$emit('submit-visit', response.data)
+      //   }
+      // } else {
+      //   this.formErrors = true
+      //   document.getElementById('slide-over-heading').scrollIntoView({ behavior: 'smooth' })
+      // }
     }
   },
 

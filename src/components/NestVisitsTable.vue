@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <template v-for="(visit, i) in nestVisits">
+              <template v-for="(visit, i) in visits">
                 <nest-visits-table-row
                   :key="i"
                   :nest-visit="visit"
@@ -67,6 +67,14 @@ export default {
   data () {
     return {
       visibleId: null
+    }
+  },
+
+  computed: {
+    visits () {
+      const compare = (a, b) => Date(b.visit_date) - Date(a.visit_date)
+
+      return this.nestVisits.slice().sort(compare)
     }
   },
 
