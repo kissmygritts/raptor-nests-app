@@ -4,6 +4,32 @@ const POST_HEADERS = {
   'Content-type': 'application/json; charset=UTF-8'
 }
 
+async function login ({ username, password }) {
+  try {
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: POST_HEADERS
+    })
+
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+
+    const data = await response.json()
+    return {
+      statusCode: response.status,
+      data
+    }
+  } catch (err) {
+    return {
+      statusCode: 401,
+      data: null,
+      error: 'username or password not found'
+    }
+  }
+}
+
 async function getNestById ({ id }) {
   const response = await fetch(uriPath(`nests/${id}`))
   const data = await response.json()
@@ -94,6 +120,7 @@ async function getNestsGeobuf () {
 }
 
 export default {
+  login,
   getNestById,
   submitNest,
   submitNestLocation,

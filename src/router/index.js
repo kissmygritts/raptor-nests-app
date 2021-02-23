@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { decodeToken } from '@/utils/decodeToken.js'
+import { getSavedState } from '@/utils/localStorage.js'
 
 Vue.use(VueRouter)
 
@@ -7,36 +9,31 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "nests-map" */ '../views/NestsMap')
+    component: () => import(/* webpackChunkName: "nests-map" */ '../views/NestsMap.vue'),
+    meta: { requiresAuth: true }
   },
-  // {
-  //   path: '/nests/create',
-  //   name: 'nests-create',
-  //   component: NestsCreate
-  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "nests-map" */ '../views/Login.vue')
+  },
   {
     path: '/nests/new',
     name: 'nests-new',
-    component: () => import(/* webpackChunkName: "nests-new" */ '../views/NestsNew.vue')
+    component: () => import(/* webpackChunkName: "nests-new" */ '../views/NestsNew.vue'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/nests/:id',
     name: 'nests-show',
-    component: () => import(/* webpackChunkName: "nests-show" */ '../views/NestsShow.vue')
-  },
-  {
-    path: '/table',
-    name: 'nests-table',
-    component: () => import(/* webpackChunkName: "nests-table" */ '../views/NestsTable')
+    component: () => import(/* webpackChunkName: "nests-show" */ '../views/NestsShow.vue'),
+    meta: { requiresAuth: true }
   }
-// {
-  // path: '/about',
-  // name: 'About',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-// }
+  // , {
+  //   path: '/table',
+  //   name: 'nests-table',
+  //   component: () => import(/* webpackChunkName: "nests-table" */ '../views/NestsTable')
+  // }
 ]
 
 const router = new VueRouter({
@@ -55,5 +52,19 @@ if (process.env.NODE_ENV === 'development') {
     }
   ])
 }
+
+// router guards
+router.beforeEach(async (to, from, next) => {
+  const token = getSavedState('token')
+  const { isVerified } = await decodeToken(token)
+  console.log({ msg: 'router/index.js', token, isVerified })
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !isVerified) {
+    console.log('IS NOT VERIFIED')
+    next('/login')
+  }
+
+  next()
+})
 
 export default router

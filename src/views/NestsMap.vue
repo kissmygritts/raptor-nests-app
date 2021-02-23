@@ -21,7 +21,8 @@
         />
 
         <l-geo-json
-          :geojson="nestGeoJson"
+          :v-if="nestGeojson"
+          :geojson="nestGeojson"
           :options="options"
         />
 
@@ -72,6 +73,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import L from 'leaflet'
 import {
   LControlScale,
@@ -85,9 +87,7 @@ import MapLayersModal from '@/components/MapLayersModal.vue'
 import MapMenuButton from '@/components/MapMenuButton.vue'
 import MapHeader from '@/components/MapHeader.vue'
 import SlideOver from '@/components/SlideOver.vue'
-import api from '@/services/api.js'
 import geolocate from '@/services/geolocate.js'
-import { toGeojson } from '@/utils/parse-geobuf.js'
 
 export default {
   name: 'Home',
@@ -127,8 +127,7 @@ export default {
       layers: {
         visible: false
       },
-      geolocation: null,
-      nestGeoJson: null
+      geolocation: null
     }
   },
 
@@ -147,7 +146,9 @@ export default {
         pointToLayer: this.pointToLayer(),
         style: this.geoJsonStyle()
       }
-    }
+    },
+
+    ...mapState('nests', ['nestGeojson'])
   },
 
   methods: {
@@ -250,10 +251,7 @@ export default {
 
   async created () {
     this.locateMe()
-
-    // fetch nest geobuf, convert to geojson
-    const buffer = await api.getNestsGeobuf()
-    this.nestGeoJson = toGeojson(buffer)
+    this.$store.dispatch('nests/getNestsGeometry')
   }
 }
 </script>
