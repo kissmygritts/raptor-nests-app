@@ -105,7 +105,9 @@ import NestDetails from '@/components/forms/NestDetails.vue'
 import LocationDetails from '@/components/forms/LocationDetails.vue'
 import NestVisitForm from '@/components/forms/NestVisitForm.vue'
 import generateId from '@/services/IdService.js'
-import api from '@/services/api.js'
+// import api from '@/services/api.js'
+import { submitNest } from '@/services/axios.js'
+import { token } from '@/store/auth.js'
 
 export default {
   name: 'NestsNew',
@@ -135,6 +137,8 @@ export default {
   },
 
   computed: {
+    ...token,
+
     nestInput () {
       return {
         id: this.ids.nest_id,
@@ -178,19 +182,17 @@ export default {
       this.$refs.nestDetails.$v.$touch()
       this.$refs.locationDetails.$v.$touch()
       this.$refs.nestVisit.$v.$touch()
-
-      const response = await api.submitNest(this.nestInput)
       
-      // if no errors, submit
-      if (this.isFormValid) {
-
-        if (response.statusCode >= 400) {
-          this.errors.errorMessage = true
-        } else {
-          // route to nest page
+      if (this.isFormValid) { // if no errors attempt to submit form
+        let response
+        try {
+          response = await submitNest(this.nestInput, this.token)
           this.$router.push({ name: 'nests-show', params: { id: this.ids.nest_id }})
+        } catch (e) {
+          this.errors.errorMessage = true
+          console.log(e)
         }
-      } else {
+      } else { // form is invalid
         this.formErrors = true
         document.getElementById('FormTitleContainer').scrollIntoView({ behavior: 'smooth' })
       }
