@@ -81,6 +81,10 @@
         v-model="model.nest_comments"
       />
 
+      <error-text-container v-if="hasError">
+        {{ submit.message }}
+      </error-text-container>
+
       <div class="space-x-3 flex justify-end">
         <button
           type="submit"
@@ -98,13 +102,16 @@
 import { required } from 'vuelidate/lib/validators'
 import TwTextarea from '@/components/form-elements/TwTextarea.vue'
 import nestDetailsConfig from '@/data/NestDetailsForm.json'
-import api from '@/services/api.js'
+import ErrorTextContainer from '@/components/notifications/ErrorTextContainer.vue'
+import { updateNestDetails } from '@/services/axios.js'
+import { token } from '@/store/auth.js'
 
 export default {
   name: 'NestDetailsEdit',
 
   components: {
-    TwTextarea
+    TwTextarea,
+    ErrorTextContainer
   },
 
   props: {
@@ -126,7 +133,12 @@ export default {
         probable_origin: null,
         nest_comments: null
       },
-      formErrors: false
+      formErrors: false,
+      submit: {
+        status: '',
+        message: '',
+        error: false
+      }
     }
   },
 
@@ -138,10 +150,16 @@ export default {
   },
 
   computed: {
+    ...token,
+
     output () {
       return {
         ...this.model
       }
+    },
+
+    hasError () {
+      return this.submit.error
     },
 
     isFormValid () {
@@ -151,14 +169,23 @@ export default {
 
   methods: {
     async saveEdits () {
+      this.submit.status = 'PENDING'
       this.$v.$touch()
 
       if (this.isFormValid) {
-        const response = await api.updateNestDetails(this.model)
+        let response
 
-        if (response.statusCode === 200) {
+        try {
+          response = await updateNestDetails(this.model, this.token)
+          this.submit.status = 'SUCCESS'
           this.$emit('submit:nest-edit', response.data)
-          this.$router.go()
+          // this.$router.go()
+        } catch (e) {
+          this.submit.status = 'ERROR'
+          this.submit.message = 'The server threw an error. Please check the error logs and submit them to Mitchell Gritts.'
+          this.submit.error = true
+
+          console.error(e.response.data.message, { ...e.response })
         }
       } else {
         this.formErrors = true

@@ -17,13 +17,25 @@ export const getNestById = (id, token) => {
   })
 }
 
-// nest POST requests
+// nest POST/PUT requests
 export const submitNest = (nest, token) => {
   return axios({
     baseURL,
     url: '/nests',
     method: 'POST',
     data: nest,
+    headers: { ...setAuth(token) }
+  })
+}
+
+export const updateNestDetails = (nest, token) => {
+  const { id, ...props } = nest
+
+  return axios({
+    baseURL,
+    url: `/nests/${id}`,
+    method: 'PUT',
+    data: props,
     headers: { ...setAuth(token) }
   })
 }

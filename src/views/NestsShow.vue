@@ -70,7 +70,7 @@
         >
           <nest-details-edit
             :nest-edit-details="nestEditDetails"
-            @submit:nest-edit="toggleEditNestVisible()"
+            @submit:nest-edit="pushNestEdits"
           />
         </div>
 
@@ -325,6 +325,11 @@ export default {
 
     toggleEditNestVisible () {
       this.editNest.visible = !this.editNest.visible
+    },
+
+    pushNestEdits (nest) {
+      this.nest = Object.assign({}, this.nest, nest)
+      this.toggleEditNestVisible()
     },
 
     toggleSlider () {
