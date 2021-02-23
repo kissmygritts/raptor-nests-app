@@ -148,7 +148,8 @@ import NestPageTitleCard from '@/components/NestPageTitleCard.vue'
 import AddVisitSlideOver from '@/components/AddVisitSlideOver.vue'
 import NestDetailsEdit from '@/components/forms/NestDetailsEdit.vue'
 import NestVisitsTable from '@/components/NestVisitsTable.vue'
-import api from '@/services/api'
+import { getNestById } from '@/services/axios.js'
+import { token } from '@/store/auth.js'
 
 export default {
   name: 'NestsShow',
@@ -187,6 +188,8 @@ export default {
   },
 
   computed: {
+    ...token,
+
     nestDetails () {
       const {
         locations,
@@ -341,7 +344,7 @@ export default {
 
   async created () {
     this.loading = true
-    const response = await api.getNestById({ id: this.$route.params.id })
+    const response = await getNestById(this.$route.params.id, this.token)
     this.nest = response.data
     this.httpStatus = response.statusCode
     this.loading = false
