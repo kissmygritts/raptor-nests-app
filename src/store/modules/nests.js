@@ -8,7 +8,11 @@ const state = {
   lastRequested: null
 }
 
-const getters = {}
+const getters = {
+  findNest: (state) => (id) => {
+    return state.nestGeojson.features.find(nest => nest.properties.id === id)
+  }
+}
 
 const actions = {
   async getNestsGeometry ({ commit, rootState }) {

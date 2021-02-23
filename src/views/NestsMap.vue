@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import L from 'leaflet'
 import {
   LControlScale,
@@ -132,8 +132,11 @@ export default {
   },
 
   computed: {
+    ...mapGetters('nests', ['findNest']),
+
     activeNest () {
-      return this.nestGeoJson?.features.find(nest => nest.properties.id === this.activeNestId)
+      return this.findNest(this.activeNestId)
+      // return this.nestGeoJson?.features.find(nest => nest.properties.id === this.activeNestId)
     },
 
     inputLocation () {
