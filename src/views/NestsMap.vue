@@ -135,8 +135,7 @@ export default {
     ...mapGetters('nests', ['findNest']),
 
     activeNest () {
-      return this.findNest(this.activeNestId)
-      // return this.nestGeoJson?.features.find(nest => nest.properties.id === this.activeNestId)
+      return this.activeNestId ? this.findNest(this.activeNestId) : null
     },
 
     inputLocation () {

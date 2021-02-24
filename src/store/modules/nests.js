@@ -10,7 +10,7 @@ const state = {
 
 const getters = {
   findNest: (state) => (id) => {
-    return state.nestGeojson.features.find(nest => nest.properties.id === id)
+    return state.nestGeojson.features?.find(nest => nest.properties.id === id)
   }
 }
 
