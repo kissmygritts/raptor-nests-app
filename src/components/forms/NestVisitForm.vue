@@ -78,6 +78,7 @@
       <tw-radio
         :name="schema.occupied.name"
         :label="schema.occupied.label"
+        :helptext="schema.occupied.helptext"
         :options="schema.occupied.options"
         :required="schema.occupied.required"
         v-model="model.occupied"
@@ -254,11 +255,11 @@ export default {
     },
 
     hasAdultCount () {
-      return this.model.adult_count > 0
+      return this.model.adult_count > 0 || this.model.adult_count < 0
     },
 
     hasProductionCount () {
-      return this.model.production_count > 0
+      return this.model.production_count > 0 || this.model.production_count < 0
     }
   },
 

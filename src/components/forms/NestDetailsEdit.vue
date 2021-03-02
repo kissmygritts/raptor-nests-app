@@ -104,7 +104,7 @@ import TwTextarea from '@/components/form-elements/TwTextarea.vue'
 import nestDetailsConfig from '@/data/NestDetailsForm.json'
 import ErrorTextContainer from '@/components/notifications/ErrorTextContainer.vue'
 import { updateNestDetails } from '@/services/axios.js'
-import { token } from '@/store/auth.js'
+import { token, user } from '@/store/auth.js'
 
 export default {
   name: 'NestDetailsEdit',
@@ -151,6 +151,14 @@ export default {
 
   computed: {
     ...token,
+    ...user,
+
+    reqBody () {
+      return {
+        ...this.model,
+        updated_by: this.currentUser.sub
+      }
+    },
 
     output () {
       return {
@@ -176,7 +184,7 @@ export default {
         let response
 
         try {
-          response = await updateNestDetails(this.model, this.token)
+          response = await updateNestDetails(this.reqBody, this.token)
           this.submit.status = 'SUCCESS'
           this.$emit('submit:nest-edit', response.data)
           // this.$router.go()

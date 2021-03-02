@@ -50,7 +50,7 @@
               <div class="space-y-6 sm:space-y-0 sm:divide-y sm:divide-gray-200">
                 <div class="bg-white rounded shadow-sm m-4 p-4">
                   <tw-checkbox
-                    label="Update Nest Location?"
+                    label="New Nest Location?"
                     name="update-nest-location"
                     helptext="Does this nest visit have new coordinates for the nest?"
                     :options="['yes']"
@@ -110,7 +110,7 @@ import LocationDetails from '@/components/forms/LocationDetails.vue'
 import ErrorTextContainer from '@/components/notifications/ErrorTextContainer.vue'
 import generateId from '@/services/IdService.js'
 import { submitNestVisit } from '@/services/axios.js'
-import { token } from '@/store/auth.js'
+import { token, user } from '@/store/auth.js'
 
 export default {
   name: 'SlideOver',
@@ -158,6 +158,7 @@ export default {
 
   computed: {
     ...token,
+    ...user,
 
     isFormValid () {
       return !this.$refs.nestVisit.$v.$invalid
@@ -177,7 +178,8 @@ export default {
           id: this.ids.new_visit_id,
           nest_id: this.nestId,
           location_id: this.locationId,
-          ...this.nestVisit
+          ...this.nestVisit,
+          created_by: this.currentUser.sub
         }
       }
 
@@ -186,7 +188,8 @@ export default {
         data.location = {
           id: this.ids.new_location_id,
           nest_id: this.nestId,
-          ...this.nestLocation
+          ...this.nestLocation,
+          created_by: this.currentUser.sub
         }
       }
 

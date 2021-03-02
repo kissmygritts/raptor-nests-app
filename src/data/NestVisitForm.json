@@ -71,7 +71,8 @@
   },
   "occupied": {
     "name": "occupied",
-    "label": "Is the nest occupied? Select true if the nest is occupied/in use. Select false if no evidence of current occupancy is observed.",
+    "label": "Is the nest occupied?",
+    "helptext": "Select true if the nest is occupied/in use. Select false if no evidence of current occupancy is observed.",
     "type": "radio",
     "options": ["true", "false"],
     "required": true

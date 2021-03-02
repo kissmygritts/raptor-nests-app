@@ -107,7 +107,7 @@ import NestVisitForm from '@/components/forms/NestVisitForm.vue'
 import generateId from '@/services/IdService.js'
 // import api from '@/services/api.js'
 import { submitNest } from '@/services/axios.js'
-import { token } from '@/store/auth.js'
+import { token, user } from '@/store/auth.js'
 
 export default {
   name: 'NestsNew',
@@ -138,13 +138,15 @@ export default {
 
   computed: {
     ...token,
+    ...user,
 
     nestInput () {
       return {
         id: this.ids.nest_id,
         ...this.nestDetails,
         location: this.locationInput,
-        visit: this.visitInput
+        visit: this.visitInput,
+        created_by: this.currentUser.sub
       }
     },
 
@@ -152,7 +154,8 @@ export default {
       return {
         id: this.ids.location_id,
         nest_id: this.ids.nest_id,
-        ...this.locationDetails
+        ...this.locationDetails,
+        created_by: this.currentUser.sub
       }
     },
 
@@ -161,7 +164,8 @@ export default {
         id: this.ids.visit_id,
         nest_id: this.ids.nest_id,
         location_id: this.ids.location_id,
-        ...this.nestVisit
+        ...this.nestVisit,
+        created_by: this.currentUser.sub
       }
     },
 
