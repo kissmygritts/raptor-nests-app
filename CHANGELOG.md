@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2021-03-02
+
+## Added
+
+- `created_by`, `updated_by` are updated included in the PUT/POST request body
+  - These fields are updated in the database relate ownership of a row in the database
+
 ## [0.8.0] - 2021-02-23
 
 ### Added
