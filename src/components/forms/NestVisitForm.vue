@@ -19,7 +19,6 @@
         :label="schema.observers.label"
         :type="schema.observers.type"
         :required="schema.observers.required"
-        :placeholder="schema.observers.placeholder"
         :helptext="schema.observers.helptext"
         :has-error="$v.model.observers.$error"
         :is-invalid="$v.model.observers.$invalid"
@@ -77,13 +76,6 @@
       />
 
       <tw-radio
-        :name="schema.decorations.name"
-        :label="schema.decorations.label"
-        :options="schema.decorations.options"
-        v-model="model.decorations"
-      />
-
-      <tw-radio
         :name="schema.occupied.name"
         :label="schema.occupied.label"
         :options="schema.occupied.options"
@@ -120,7 +112,7 @@
           :helptext="schema.adult_count.helptext"
           :has-error="$v.model.adult_count.$error"
           :is-invalid="$v.model.adult_count.$invalid"
-          min="0"
+          min="-1"
           v-model="model.adult_count"
           @blur="$v.model.adult_count.$touch()"
         >
@@ -152,7 +144,7 @@
           :helptext="schema.production_count.helptext"
           :has-error="$v.model.production_count.$error"
           :is-invalid="$v.model.production_count.$invalid"
-          min="0"
+          min="-1"
           v-model="model.production_count"
           @blur="$v.model.production_count.$touch()"
         >
@@ -220,15 +212,14 @@ export default {
         source: null,
         nest_condition: null,
         nest_size: null,
-        decorations: null,
         occupied: null,
         species: null,
         breeding_stage: null,
         adult_count_clarify: null,
-        adult_count: 0,
+        adult_count: null,
         adult_behavior: null,
         production_count_clarify: null,
-        production_count: 0,
+        production_count: null,
         young_stage: null,
         production_notes: null,
         comments: null
@@ -243,10 +234,10 @@ export default {
       survey_type: { required },
       occupied: { required },
       adult_count: {
-        minValue: minValue(0)
+        minValue: minValue(-1)
       },
       production_count: {
-        minValue: minValue(0)
+        minValue: minValue(-1)
       }
     }
   },

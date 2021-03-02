@@ -52,7 +52,7 @@
                   <tw-checkbox
                     label="Update Nest Location?"
                     name="update-nest-location"
-                    helptext="Do you need to change the location of this nest? A new Location for this nest will be added to the database."
+                    helptext="Does this nest visit have new coordinates for the nest?"
                     :options="['yes']"
                     v-model="updateNestLocation"
                   />

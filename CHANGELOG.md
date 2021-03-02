@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2021-02-23
+
+### Added
+
+- Authentication, authorization and redirect for unauthorized routes.
+  - A user must be verified before they can do anything in the app. If the user is unverified they will recieve a message saying there app is unverified.
+  - automatic login when revisiting the app.
+  - Vuex is used to handle authentication
+- Logout button to nav.
+
+### Changed
+
+- axios instead of fetch is used for API calls.
+- `@click` on nest marker uses Vuex to filter nest details.
+- Page isn't refreshed on successful `PUT` and `POST` requests instead of refreshing the page.
+- Nest Visits are sorted by visit date in the nest visit table on the Nest by ID page (newest first).
+
 ## [0.7.5] - 2021-02-16
 
 ### Fixed

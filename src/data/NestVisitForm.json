@@ -9,7 +9,6 @@
     "name": "observers",
     "label": "Observers",
     "helptext": "Name of observer(s). If there are multiple observers separate by a semi-colon (;).",
-    "placeholder": "Mackenzie Jeffress; Christy Klinger",
     "type": "text",
     "required": true
   },
@@ -21,6 +20,7 @@
     "options": [
       "",
       "nevada dept. of wildlife",
+      "consultant",
       "nevada natural heritage program",
       "state (and other) parks",
       "bureau of land management",
@@ -69,15 +69,9 @@
     "type": "select",
     "options": ["", "small", "medium", "large", "extra large"]
   },
-  "decorations": {
-    "name": "decorations",
-    "label": "Are there nest decorations?",
-    "type": "radio",
-    "options": ["true", "false"]
-  },
   "occupied": {
     "name": "occupied",
-    "label": "Is the nest occupied?",
+    "label": "Is the nest occupied? Select true if the nest is occupied/in use. Select false if no evidence of current occupancy is observed.",
     "type": "radio",
     "options": ["true", "false"],
     "required": true
@@ -85,7 +79,7 @@
   "species": {
     "name": "species",
     "label": "Species",
-    "helptext": "Common name for the species observed (choose from dropdown)",
+    "helptext": "Common name for the species observed (choose from dropdown). If other, please note the species in the comments.",
     "type": "select",
     "options": [
       "",
@@ -111,7 +105,8 @@
       "sharp-shinned hawk",
       "short-eared owl",
       "swainson's hawk",
-      "western screech owl"
+      "western screech owl",
+      "other"
     ]
   },
   "breeding_stage": {
