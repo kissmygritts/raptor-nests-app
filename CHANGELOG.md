@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.2] - 2021-03-04
+
+### Fixed
+
+- Search by nest ID on the homepage is fixed. Spelling error of all things!
+
 ## [0.8.1] - 2021-03-02
 
 ## Added

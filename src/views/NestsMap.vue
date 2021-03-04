@@ -173,7 +173,7 @@ export default {
     zoomToLocation ({ type, value }) {
       if (type === 'id') {
         // TODO: what happens if nest id doesn't exist? Would be nice to flash a message
-        const nest = this.nestGeoJson.features.find(feature => {
+        const nest = this.nestGeojson.features.find(feature => {
           return feature.properties.id === value
         })
 
